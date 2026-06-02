@@ -16,9 +16,18 @@ final class TestimonialsPublicController extends BaseController
         $this->testimonials = new TestimonialRepository();
     }
 
-    /** GET /public/testimonials أو /api/testimonials */
     public function index(): void
     {
+        $token = $this->request->bearerToken();
+        if ($token) {
+            $jwt = new \App\Services\JwtService($this->config['jwt']);
+            if ($jwt->verify($token)) {
+                $adminController = new \App\Controllers\Admin\TestimonialsController($this->request, $this->config);
+                $adminController->index();
+                return;
+            }
+        }
+
         $limit = $this->request->integer('limit', 6, 'query');
         $testimonials = $this->testimonials->getActive($limit);
         Response::success($testimonials, 'تم جلب آراء العملاء بنجاح');

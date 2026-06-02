@@ -138,10 +138,12 @@ $router->post('/requests',                   'Public\RequestsPublicController@st
 $router->post('/auth/login',                 'Auth\AuthController@login');
 $router->get('/dashboard/stats',             'Admin\DashboardController@index',          [AuthMiddleware::class]);
 $router->post('/services',                   'Admin\ServicesController@store',            [AuthMiddleware::class]);
+$router->get('/services/{id}',                'Admin\ServicesController@show',             [AuthMiddleware::class]);
 $router->post('/services/bulk-delete',       'Admin\ServicesController@bulkDestroy',      [AuthMiddleware::class]);
 $router->post('/services/{id}',              'Admin\ServicesController@update',           [AuthMiddleware::class]);
 $router->delete('/services/{id}',            'Admin\ServicesController@destroy',          [AuthMiddleware::class]);
 $router->post('/articles',                   'Admin\ArticlesController@store',            [AuthMiddleware::class]);
+$router->get('/articles/{id}',                'Admin\ArticlesController@show',             [AuthMiddleware::class]);
 $router->post('/articles/bulk-delete',       'Admin\ArticlesController@bulkDestroy',      [AuthMiddleware::class]);
 $router->post('/articles/{id}',              'Admin\ArticlesController@update',           [AuthMiddleware::class]);
 $router->delete('/articles/{id}',            'Admin\ArticlesController@destroy',          [AuthMiddleware::class]);
@@ -149,9 +151,12 @@ $router->post('/gallery',                    'Admin\GalleryController@store',   
 $router->post('/gallery/bulk-delete',        'Admin\GalleryController@bulkDestroy',       [AuthMiddleware::class]);
 $router->delete('/gallery/{id}',             'Admin\GalleryController@destroy',           [AuthMiddleware::class]);
 $router->post('/testimonials',               'Admin\TestimonialsController@store',        [AuthMiddleware::class]);
+$router->get('/testimonials/{id}',            'Admin\TestimonialsController@show',         [AuthMiddleware::class]);
 $router->post('/testimonials/bulk-delete',   'Admin\TestimonialsController@bulkDestroy',  [AuthMiddleware::class]);
 $router->post('/testimonials/{id}',          'Admin\TestimonialsController@update',       [AuthMiddleware::class]);
 $router->delete('/testimonials/{id}',        'Admin\TestimonialsController@destroy',      [AuthMiddleware::class]);
+$router->get('/requests',                    'Admin\RequestsController@index',            [AuthMiddleware::class]);
+$router->get('/requests/{id}',               'Admin\RequestsController@show',             [AuthMiddleware::class]);
 $router->patch('/requests/{id}/status',      'Admin\RequestsController@updateStatus',     [AuthMiddleware::class]);
 $router->delete('/requests/{id}',            'Admin\RequestsController@destroy',          [AuthMiddleware::class]);
 $router->post('/settings',                   'Admin\SettingsController@update',           [AuthMiddleware::class]);

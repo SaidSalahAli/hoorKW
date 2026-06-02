@@ -16,9 +16,18 @@ final class ArticlesPublicController extends BaseController
         $this->articles = new ArticleRepository();
     }
 
-    /** GET /public/articles أو /api/articles */
     public function index(): void
     {
+        $token = $this->request->bearerToken();
+        if ($token) {
+            $jwt = new \App\Services\JwtService($this->config['jwt']);
+            if ($jwt->verify($token)) {
+                $adminController = new \App\Controllers\Admin\ArticlesController($this->request, $this->config);
+                $adminController->index();
+                return;
+            }
+        }
+
         $limit = $this->request->integer('limit', 6, 'query');
         $latest = $this->articles->getLatest($limit);
         Response::success($latest, 'تم جلب المقالات بنجاح');

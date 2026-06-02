@@ -16,9 +16,18 @@ final class GalleryPublicController extends BaseController
         $this->gallery = new GalleryRepository();
     }
 
-    /** GET /public/gallery أو /api/gallery */
     public function index(): void
     {
+        $token = $this->request->bearerToken();
+        if ($token) {
+            $jwt = new \App\Services\JwtService($this->config['jwt']);
+            if ($jwt->verify($token)) {
+                $adminController = new \App\Controllers\Admin\GalleryController($this->request, $this->config);
+                $adminController->index();
+                return;
+            }
+        }
+
         $limit = $this->request->integer('limit', 24, 'query');
         $images = $this->gallery->getAll($limit);
         Response::success($images, 'تم جلب معرض الصور بنجاح');

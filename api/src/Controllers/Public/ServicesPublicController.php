@@ -16,9 +16,18 @@ final class ServicesPublicController extends BaseController
         $this->services = new ServiceRepository();
     }
 
-    /** GET /public/services أو /api/services */
     public function index(): void
     {
+        $token = $this->request->bearerToken();
+        if ($token) {
+            $jwt = new \App\Services\JwtService($this->config['jwt']);
+            if ($jwt->verify($token)) {
+                $adminController = new \App\Controllers\Admin\ServicesController($this->request, $this->config);
+                $adminController->index();
+                return;
+            }
+        }
+
         $limit = $this->request->integer('limit', 12, 'query');
         $services = $this->services->getActive($limit);
         Response::success($services, 'تم جلب الخدمات بنجاح');

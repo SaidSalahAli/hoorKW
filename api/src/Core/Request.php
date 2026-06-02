@@ -83,11 +83,19 @@ final class Request
         foreach ($_SERVER as $key => $value) {
             if (str_starts_with($key, 'HTTP_')) {
                 $name           = str_replace('_', '-', substr($key, 5));
-                $headers[$name] = $value;
-            }
+                $headers[strtoupper($name)] = $value;
+            }   
         }
         if (isset($_SERVER['CONTENT_TYPE']))   $headers['CONTENT-TYPE']   = $_SERVER['CONTENT_TYPE'];
         if (isset($_SERVER['CONTENT_LENGTH'])) $headers['CONTENT-LENGTH'] = $_SERVER['CONTENT_LENGTH'];
+
+        // Fallback for Apache/FastCGI stripping Authorization header
+        if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $headers['AUTHORIZATION'] = $_SERVER['HTTP_AUTHORIZATION'];
+        } elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+            $headers['AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        }
+
         return $headers;
     }
 
