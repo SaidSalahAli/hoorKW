@@ -5,15 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 // project imports
 import axios from 'utils/axios';
 
-const users = [
-  {
-    id: 1,
-    name: 'Jone Doe',
-    email: 'info@codedthemes.com',
-    password: '123456'
-  }
-];
-
 declare module 'next-auth' {
   interface User {
     accessToken?: string;
@@ -21,7 +12,7 @@ declare module 'next-auth' {
 }
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET_KEY,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       id: 'login',
@@ -32,47 +23,22 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const user = await axios.post('/api/account/login', {
-            password: credentials?.password,
-            email: credentials?.email
+          // Send request directly to PHP REST API auth/login endpoint using the axios instance
+          const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/auth/login`, {
+            email: credentials?.email,
+            password: credentials?.password
           });
 
-          if (user) {
-            user.data.user['accessToken'] = user.data.serviceToken;
-            return user.data.user;
+          if (res.data && res.data.success) {
+            const user = res.data.data.user;
+            const token = res.data.data.token;
+            // Inject accessToken for subsequent authorized api calls
+            user.accessToken = token;
+            return user;
           }
+          return null;
         } catch (e: any) {
-          const errorMessage = e?.message || e?.response?.data?.message || 'Something went wrong!';
-          throw new Error(errorMessage);
-        }
-      }
-    }),
-    CredentialsProvider({
-      id: 'register',
-      name: 'Register',
-      credentials: {
-        firstname: { name: 'firstname', label: 'Firstname', type: 'text', placeholder: 'Enter Firstname' },
-        lastname: { name: 'lastname', label: 'Lastname', type: 'text', placeholder: 'Enter Lastname' },
-        email: { name: 'email', label: 'Email', type: 'email', placeholder: 'Enter Email' },
-        company: { name: 'company', label: 'Company', type: 'text', placeholder: 'Enter Company' },
-        password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
-      },
-      async authorize(credentials) {
-        try {
-          const user = await axios.post('/api/account/register', {
-            firstName: credentials?.firstname,
-            lastName: credentials?.lastname,
-            company: credentials?.company,
-            password: credentials?.password,
-            email: credentials?.email
-          });
-
-          if (user) {
-            users.push(user.data);
-            return user.data;
-          }
-        } catch (e: any) {
-          const errorMessage = e?.message || e?.response?.data?.message || 'Something went wrong!';
+          const errorMessage = e?.response?.data?.message || e?.message || 'اسم المستخدم أو كلمة المرور غير صحيحة';
           throw new Error(errorMessage);
         }
       }
@@ -94,24 +60,16 @@ export const authOptions: NextAuthOptions = {
         session.token = token;
       }
       return session;
-    },
-    async signIn(params) {
-      // Prevent JWT token issuance on registration
-      if (params.account?.provider === 'register') {
-        return `${process.env.NEXTAUTH_URL}login`;
-      }
-      return true;
     }
   },
   session: {
     strategy: 'jwt',
-    maxAge: Number(process.env.NEXT_APP_JWT_TIMEOUT!)
+    maxAge: Number(process.env.JWT_TIMEOUT || 86400)
   },
   jwt: {
-    secret: process.env.NEXT_APP_JWT_SECRET
+    secret: process.env.JWT_SECRET
   },
   pages: {
-    signIn: '/login',
-    newUser: '/register'
+    signIn: '/login'
   }
 };

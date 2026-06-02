@@ -1,7 +1,5 @@
 // project-imports
-import samplePage from './sample-page';
-import support from './support';
-import pages from './pages';
+import cms from './cms';
 
 // types
 import { NavItemType } from 'types/menu';
@@ -9,7 +7,7 @@ import { NavItemType } from 'types/menu';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems: { items: NavItemType[] } = {
-  items: [samplePage, pages, support]
+  items: [cms]
 };
 
 export default menuItems;
