@@ -1,0 +1,1 @@
+[2026-06-02 19:10:25] TypeError: Cannot assign PDO to property App\Core\Database::$pdo of type ?App\Core\PDO in C:\xampp\htdocs\HoorKW\api\src\Core\Database.php:26

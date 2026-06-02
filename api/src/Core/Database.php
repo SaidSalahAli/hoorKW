@@ -7,7 +7,7 @@ namespace App\Core;
  */
 final class Database
 {
-    private static ?PDO $pdo   = null;
+    private static ?\PDO $pdo   = null;
     private static int  $queries = 0;
 
     public static function boot(array $config): void

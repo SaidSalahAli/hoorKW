@@ -22,7 +22,7 @@ export default function GuestGuard({ children }: GuardProps) {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
       if (json?.protected) {
-        router.push('/sample-page');
+        router.push('/dashboard');
       }
     };
     fetchData();

@@ -12,7 +12,7 @@ define('APP_START', microtime(true));
 
 // ── تحميل البيئة ─────────────────────────────────────────────
 require_once SRC_PATH . '/Core/EnvLoader.php';
-EnvLoader::load(BASE_PATH . '/.env');
+\App\Core\EnvLoader::load(BASE_PATH . '/.env');
 
 // ── تحميل الإعدادات ──────────────────────────────────────────
 $config = require BASE_PATH . '/config/app.php';

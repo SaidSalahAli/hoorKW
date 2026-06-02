@@ -36,7 +36,16 @@ final class Request
     private function resolveUri(): string
     {
         $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
-        // إزالة /api prefix
+        
+        // إزالة مسار المجلد الفرعي الذي يعمل فيه السكريبت (مثل /HoorKW/api/public)
+        $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+        if ($scriptDir !== '/' && $scriptDir !== '') {
+            if (str_starts_with($uri, $scriptDir)) {
+                $uri = substr($uri, strlen($scriptDir));
+            }
+        }
+
+        // إزالة /api prefix إن وجد
         $uri = preg_replace('#^/api#', '', $uri) ?? $uri;
         return rtrim($uri, '/') ?: '/';
     }

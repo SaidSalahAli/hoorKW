@@ -33,7 +33,7 @@ const cms: NavItemType = {
       id: 'dashboard',
       title: 'الرئيسية',
       type: 'item',
-      url: '/',
+      url: '/dashboard',
       icon: icons.dashboard,
       breadcrumbs: false
     },
@@ -41,42 +41,42 @@ const cms: NavItemType = {
       id: 'services',
       title: 'الخدمات',
       type: 'item',
-      url: '/services',
+      url: '/dashboard/services',
       icon: icons.services
     },
     {
       id: 'articles',
       title: 'المقالات',
       type: 'item',
-      url: '/articles',
+      url: '/dashboard/articles',
       icon: icons.articles
     },
     {
       id: 'gallery',
       title: 'معرض الصور',
       type: 'item',
-      url: '/gallery',
+      url: '/dashboard/gallery',
       icon: icons.gallery
     },
     {
       id: 'testimonials',
       title: 'آراء العملاء',
       type: 'item',
-      url: '/testimonials',
+      url: '/dashboard/testimonials',
       icon: icons.testimonials
     },
     {
       id: 'requests',
       title: 'طلبات الخدمة',
       type: 'item',
-      url: '/requests',
+      url: '/dashboard/requests',
       icon: icons.requests
     },
     {
       id: 'settings',
       title: 'الإعدادات',
       type: 'item',
-      url: '/settings',
+      url: '/dashboard/settings',
       icon: icons.settings
     }
   ]

@@ -24,9 +24,11 @@ axiosServices.interceptors.request.use(
 axiosServices.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response.status === 401 && !window.location.href.includes('/login')) {
-      await signOut();
-      window.location.pathname = '/login';
+    if (typeof window !== 'undefined') {
+      if (error.response?.status === 401 && !window.location.href.includes('/login')) {
+        await signOut();
+        window.location.pathname = '/login';
+      }
     }
     return Promise.reject((error.response && error.response.data) || 'Wrong Services');
   }
