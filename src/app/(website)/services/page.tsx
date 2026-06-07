@@ -14,7 +14,7 @@ import Alert from '@mui/material/Alert';
 import Link from 'next/link';
 
 import { ArrowRight, Gallery } from '@wandersonalwes/iconsax-react';
-import apiClient from 'lib/apiClient';
+import { publicApiClient } from 'lib/apiClient';
 
 // ==============================|| SERVICES ARCHIVE PAGE ||============================== //
 
@@ -26,7 +26,7 @@ export default function PublicServicesPage() {
   useEffect(() => {
     async function loadServices() {
       try {
-        const res = await apiClient.get('/api/services?status=active');
+        const res = await publicApiClient.get('/api/services?status=active');
         setServices(res.data.data || []);
       } catch (err: any) {
         setError(err.message || 'خطأ في تحميل الخدمات. يرجى المحاولة لاحقاً.');

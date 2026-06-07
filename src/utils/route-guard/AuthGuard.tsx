@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-
 // next
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
@@ -19,19 +18,12 @@ export default function AuthGuard({ children }: GuardProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res: any = await fetch('/api/auth/protected');
-      const json = await res?.json();
-      if (!json?.protected) {
-        router.push('/login');
-      }
-    };
-    fetchData();
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    }
+  }, [status, router]);
 
-    // eslint-disable-next-line
-  }, [session]);
-
-  if (status == 'loading' || !session?.user) return <Loader />;
+  if (status === 'loading' || !session?.user) return <Loader />;
 
   return <>{children}</>;
 }

@@ -15,7 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
 import { Eye } from '@wandersonalwes/iconsax-react';
-import apiClient from 'lib/apiClient';
+import { publicApiClient as apiClient } from 'lib/apiClient';
 
 // ==============================|| PUBLIC GALLERY PAGE ||============================== //
 

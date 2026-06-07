@@ -18,7 +18,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import { Call, Whatsapp, Location } from '@wandersonalwes/iconsax-react';
-import apiClient from 'lib/apiClient';
+import { publicApiClient as apiClient } from 'lib/apiClient';
 import { requestsApi } from 'lib/api/requests';
 
 // ==============================|| CONTACT US PAGE ||============================== //

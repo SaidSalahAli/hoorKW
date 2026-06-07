@@ -17,7 +17,7 @@ import Link from 'next/link';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-import apiClient from 'lib/apiClient';
+import { publicApiClient as apiClient } from 'lib/apiClient';
 import { requestsApi } from 'lib/api/requests';
 
 // ==============================|| SERVICE DETAILS PAGE ||============================== //

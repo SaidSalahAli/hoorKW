@@ -3,8 +3,21 @@ import { getSession, signOut } from 'next-auth/react';
 
 // ==============================|| API CLIENT — PHP CMS ||============================== //
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+// ── Public API client — NO auth interceptor (fast, for public pages) ──────
+export const publicApiClient = axios.create({
+  baseURL: BASE_URL,
+  timeout: 15000,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  }
+});
+
+// ── Authenticated API client — with Bearer token (for dashboard) ──────────
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  baseURL: BASE_URL,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -12,15 +25,26 @@ const apiClient = axios.create({
   }
 });
 
+// ── Cached token — avoids calling getSession() on every request ───────────
+let cachedToken: string | null = null;
+
+export function setAuthToken(token: string | null) {
+  cachedToken = token;
+}
+
 // ── Request interceptor: inject Bearer token ──────────────────────────────
 apiClient.interceptors.request.use(
   async (config) => {
-    // Only attach token in browser context
     if (typeof window !== 'undefined') {
-      const session = await getSession();
-      const token = (session as any)?.token?.accessToken;
-      if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`;
+      if (cachedToken) {
+        config.headers['Authorization'] = `Bearer ${cachedToken}`;
+      } else {
+        const session = await getSession();
+        const token = (session as any)?.token?.accessToken;
+        if (token) {
+          cachedToken = token;
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
       }
     }
     return config;
@@ -34,6 +58,7 @@ apiClient.interceptors.response.use(
   async (error) => {
     if (typeof window !== 'undefined') {
       if (error?.response?.status === 401 && !window.location.href.includes('/login')) {
+        cachedToken = null;
         await signOut({ redirect: false });
         window.location.pathname = '/login';
       }
@@ -49,10 +74,17 @@ apiClient.interceptors.response.use(
 
 export default apiClient;
 
-// ── SWR fetcher (JSON responses) ─────────────────────────────────────────
+// ── SWR fetcher (authenticated) ───────────────────────────────────────────
 export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
   const [url, config] = Array.isArray(args) ? args : [args];
   const res = await apiClient.get(url, { ...config });
+  return res.data;
+};
+
+// ── SWR fetcher (public — no auth) ────────────────────────────────────────
+export const publicFetcher = async (args: string | [string, AxiosRequestConfig]) => {
+  const [url, config] = Array.isArray(args) ? args : [args];
+  const res = await publicApiClient.get(url, { ...config });
   return res.data;
 };
 

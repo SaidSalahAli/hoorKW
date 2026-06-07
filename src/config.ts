@@ -1,5 +1,5 @@
 // next
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
 // types
 import { DefaultConfigProps } from 'types/config';
@@ -12,10 +12,10 @@ export const DRAWER_WIDTH = 280;
 export const MINI_DRAWER_WIDTH = 90;
 export const HEADER_HEIGHT = 74;
 
-const inter = Inter({
-  subsets: ['latin'],
+const cairo = localFont({
+  src: './fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf',
+  variable: '--font-cairo',
   fallback: ['sans-serif'],
-  weight: ['300', '400', '500', '700'],
   adjustFontFallback: false
 });
 
@@ -43,15 +43,15 @@ export enum NavActionType {
 // ==============================|| THEME CONFIG ||============================== //
 
 const config: DefaultConfigProps = {
-  fontFamily: inter.style.fontFamily,
-  i18n: 'en',
+  fontFamily: cairo.style.fontFamily,
+  i18n: 'ar',
   menuOrientation: MenuOrientation.VERTICAL,
   menuCaption: true,
   miniDrawer: false,
   container: true,
   mode: ThemeMode.LIGHT,
   presetColor: 'default',
-  themeDirection: ThemeDirection.LTR,
+  themeDirection: ThemeDirection.RTL,
   themeContrast: false
 };
 

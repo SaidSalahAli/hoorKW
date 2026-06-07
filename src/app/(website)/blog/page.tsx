@@ -16,7 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Link from 'next/link';
 
 import { SearchNormal1, Gallery } from '@wandersonalwes/iconsax-react';
-import apiClient from 'lib/apiClient';
+import { publicApiClient as apiClient } from 'lib/apiClient';
 
 // ==============================|| PUBLIC BLOG PAGE ||============================== //
 

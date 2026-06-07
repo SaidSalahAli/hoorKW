@@ -12,7 +12,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Link from 'next/link';
 
-import apiClient from 'lib/apiClient';
+import { publicApiClient as apiClient } from 'lib/apiClient';
 
 // ==============================|| ARTICLE DETAILS PAGE ||============================== //
 
