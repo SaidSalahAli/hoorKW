@@ -29,10 +29,7 @@ import ImageUploader from 'components/cms/ImageUploader';
 import ConfirmDialog from 'components/cms/ConfirmDialog';
 import SearchBox from 'components/cms/SearchBox';
 
-import {
-  useGallery,
-  useMutateGallery
-} from 'hooks/cms/useGallery';
+import { useGallery, useMutateGallery } from 'hooks/cms/useGallery';
 import type { GalleryFormValues } from 'types/cms';
 
 // Validation Schema
@@ -42,16 +39,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function GalleryView() {
-  const {
-    images,
-    meta,
-    isLoading,
-    error,
-    filters,
-    updateFilters,
-    setPage,
-    mutate
-  } = useGallery();
+  const { images, meta, isLoading, error, filters, updateFilters, setPage, mutate } = useGallery();
 
   const mutation = useMutateGallery();
 
@@ -131,12 +119,7 @@ export default function GalleryView() {
         title="معرض الصور"
         subtitle="إدارة صور أعمال نقل الأثاث والتعبئة والتغليف التي تبرز جودة الخدمة للعملاء."
         actions={
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Add />}
-            onClick={handleOpenDialog}
-          >
+          <Button variant="contained" color="primary" startIcon={<Add />} onClick={handleOpenDialog}>
             رفع صورة جديدة
           </Button>
         }
@@ -208,11 +191,7 @@ export default function GalleryView() {
                   }}
                 >
                   <Box sx={{ position: 'absolute', top: 8, right: 8, zIndex: 2, bgcolor: 'background.paper', borderRadius: '50%' }}>
-                    <Checkbox
-                      checked={isSelected}
-                      onChange={() => handleSelectImage(img.id)}
-                      size="small"
-                    />
+                    <Checkbox checked={isSelected} onChange={() => handleSelectImage(img.id)} size="small" />
                   </Box>
                   <Box sx={{ position: 'relative', paddingTop: '75%', overflow: 'hidden' }}>
                     <CardMedia
@@ -281,19 +260,13 @@ export default function GalleryView() {
       {/* Pagination */}
       {meta && meta.total > 0 && (
         <Stack direction="row" justifyContent="center" mt={4}>
-          <Button
-            disabled={filters.page === 1}
-            onClick={() => setPage((filters.page || 1) - 1)}
-          >
+          <Button disabled={filters.page === 1} onClick={() => setPage((filters.page || 1) - 1)}>
             السابق
           </Button>
           <Typography alignSelf="center" mx={2}>
             صفحة {filters.page} من {meta.last_page}
           </Typography>
-          <Button
-            disabled={filters.page === meta.last_page}
-            onClick={() => setPage((filters.page || 1) + 1)}
-          >
+          <Button disabled={filters.page === meta.last_page} onClick={() => setPage((filters.page || 1) + 1)}>
             التالي
           </Button>
         </Stack>
@@ -327,12 +300,7 @@ export default function GalleryView() {
           <Button onClick={handleCloseDialog} color="secondary" variant="outlined">
             إلغاء
           </Button>
-          <Button
-            onClick={() => formik.handleSubmit()}
-            variant="contained"
-            color="primary"
-            disabled={mutation.isLoading}
-          >
+          <Button onClick={() => formik.handleSubmit()} variant="contained" color="primary" disabled={mutation.isLoading}>
             {mutation.isLoading ? <CircularProgress size={24} /> : 'رفع الآن'}
           </Button>
         </DialogActions>
@@ -340,18 +308,17 @@ export default function GalleryView() {
 
       {/* Lightbox Preview */}
       <Dialog open={lightboxImage !== null} onClose={() => setLightboxImage(null)} maxWidth="lg">
-        <DialogContent sx={{ p: 0, position: 'relative', bgcolor: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <DialogContent
+          sx={{ p: 0, position: 'relative', bgcolor: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
           {lightboxImage && (
-            <Box
-              component="img"
-              src={lightboxImage}
-              alt="Lightbox"
-              sx={{ maxWidth: '100%', maxHeight: '85vh', objectFit: 'contain' }}
-            />
+            <Box component="img" src={lightboxImage} alt="Lightbox" sx={{ maxWidth: '100%', maxHeight: '85vh', objectFit: 'contain' }} />
           )}
         </DialogContent>
         <DialogActions sx={{ bgcolor: 'black', justifyContent: 'center', borderTop: 'none', py: 1 }}>
-          <Button onClick={() => setLightboxImage(null)} variant="contained" color="secondary">إغلاق المعاينة</Button>
+          <Button onClick={() => setLightboxImage(null)} variant="contained" color="secondary">
+            إغلاق المعاينة
+          </Button>
         </DialogActions>
       </Dialog>
 

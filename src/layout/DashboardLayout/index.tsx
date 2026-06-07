@@ -4,16 +4,13 @@ import { useEffect, ReactNode } from 'react';
 
 // material-ui
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Links from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 
 // project-imports
 import Drawer from './Drawer';
 import Header from './Header';
-import Footer from './Footer';
 import HorizontalBar from './Drawer/HorizontalBar';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
 import Loader from 'components/Loader';
@@ -21,9 +18,6 @@ import Loader from 'components/Loader';
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import { DRAWER_WIDTH, MenuOrientation } from 'config';
 import useConfig from 'hooks/useConfig';
-
-// assets
-import { ShoppingCart } from '@wandersonalwes/iconsax-react';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -65,18 +59,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         >
           <Breadcrumbs />
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </Container>
-        <Links style={{ textDecoration: 'none' }} href="https://1.envato.market/zNkqj6" target="_blank">
-          <Button
-            variant="contained"
-            color="error"
-            startIcon={<ShoppingCart />}
-            sx={{ zIndex: 1199, position: 'fixed', bottom: 50, right: 30 }}
-          >
-            Buy Now
-          </Button>
-        </Links>
       </Box>
     </Box>
   );

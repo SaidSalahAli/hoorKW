@@ -137,7 +137,9 @@ export default function PublicHomePage() {
             <Grid item xs={12} md={7}>
               <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, lineHeight: 1.2, mb: 2 }}>
                 نقل عفش وأثاث في الكويت <br />
-                <Box component="span" sx={{ color: 'primary.light' }}>بأمان واحترافية تامة</Box>
+                <Box component="span" sx={{ color: 'primary.light' }}>
+                  بأمان واحترافية تامة
+                </Box>
               </Typography>
               <Typography variant="h5" sx={{ color: 'grey.300', mb: 4, fontWeight: 400, lineHeight: 1.6 }}>
                 نضمن لك تجربة نقل أثاث خالية من المتاعب. عمالة فنية مدربة، سيارات نقل حديثة مقفلة، وفك وتركيب جميع أنواع غرف النوم بدقة.
@@ -163,7 +165,17 @@ export default function PublicHomePage() {
             <Grid item xs={12} md={5} sx={{ display: { xs: 'none', md: 'block' } }}>
               <Box sx={{ position: 'relative', height: 400, width: '100%' }}>
                 {/* SVG/CSS truck graphics for wow effect */}
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'rgba(255,255,255,0.05)', p: 4, borderRadius: '50%' }}>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    bgcolor: 'rgba(255,255,255,0.05)',
+                    p: 4,
+                    borderRadius: '50%'
+                  }}
+                >
                   <TruckFast size={180} color="#38bdf8" variant="Bulk" />
                 </Box>
               </Box>
@@ -177,15 +189,19 @@ export default function PublicHomePage() {
         <Container maxWidth="lg">
           <Grid container spacing={6} alignItems="center">
             <Grid item xs={12} md={6}>
-              <Typography variant="overline" color="primary.main" fontWeight={700} sx={{ letterSpacing: 2 }}>من نحن</Typography>
+              <Typography variant="overline" color="primary.main" fontWeight={700} sx={{ letterSpacing: 2 }}>
+                من نحن
+              </Typography>
               <Typography variant="h2" fontWeight={700} sx={{ mt: 1, mb: 3 }}>
                 شركة حور لنقل العفش والأثاث المنزلي والمكتبي
               </Typography>
               <Typography variant="body1" paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
-                نحن في شركة حور نفتخر بتقديم أفضل خدمات النقل المتكاملة في جميع محافظات دولة الكويت. نلبي تطلعات عملائنا من خلال الاعتماد على أحدث الأدوات التكنولوجية والخبرات الطويلة في هذا المجال.
+                نحن في شركة حور نفتخر بتقديم أفضل خدمات النقل المتكاملة في جميع محافظات دولة الكويت. نلبي تطلعات عملائنا من خلال الاعتماد
+                على أحدث الأدوات التكنولوجية والخبرات الطويلة في هذا المجال.
               </Typography>
               <Typography variant="body1" paragraph color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
-                مهمتنا هي الحفاظ على سلامة ممتلكاتك الثمينة ونقلها بدون أي خدوش أو تلفيات. نوفر لك خدمات التغليف الكامل لجميع محتويات المنزل من زجاج وأواني وأجهزة حساسة قبل النقل.
+                مهمتنا هي الحفاظ على سلامة ممتلكاتك الثمينة ونقلها بدون أي خدوش أو تلفيات. نوفر لك خدمات التغليف الكامل لجميع محتويات المنزل
+                من زجاج وأواني وأجهزة حساسة قبل النقل.
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -193,18 +209,30 @@ export default function PublicHomePage() {
                 <Grid item xs={6}>
                   <Card sx={{ bgcolor: 'primary.lighter', height: '100%', p: 1 }}>
                     <CardContent>
-                      <Typography variant="h3" color="primary.main" fontWeight={800}>100%</Typography>
-                      <Typography variant="subtitle1" fontWeight={700} mt={1}>أمان وضمان</Typography>
-                      <Typography variant="body2" color="text.secondary">ضمان كامل لجميع قطع الأثاث من الخدوش</Typography>
+                      <Typography variant="h3" color="primary.main" fontWeight={800}>
+                        100%
+                      </Typography>
+                      <Typography variant="subtitle1" fontWeight={700} mt={1}>
+                        أمان وضمان
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        ضمان كامل لجميع قطع الأثاث من الخدوش
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
                 <Grid item xs={6}>
                   <Card sx={{ bgcolor: 'secondary.lighter', height: '100%', p: 1 }}>
                     <CardContent>
-                      <Typography variant="h3" color="secondary.main" fontWeight={800}>24/7</Typography>
-                      <Typography variant="subtitle1" fontWeight={700} mt={1}>خدمة متواصلة</Typography>
-                      <Typography variant="body2" color="text.secondary">جاهزون لنقل عفشك في أي وقت طوال اليوم</Typography>
+                      <Typography variant="h3" color="secondary.main" fontWeight={800}>
+                        24/7
+                      </Typography>
+                      <Typography variant="subtitle1" fontWeight={700} mt={1}>
+                        خدمة متواصلة
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        جاهزون لنقل عفشك في أي وقت طوال اليوم
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -218,18 +246,31 @@ export default function PublicHomePage() {
       <Box sx={{ py: 10, bgcolor: '#f1f5f9' }}>
         <Container maxWidth="lg">
           <Box textAlign="center" mb={6}>
-            <Typography variant="overline" color="primary.main" fontWeight={700}>خدماتنا المتميزة</Typography>
-            <Typography variant="h2" fontWeight={800} mt={1}>ما نقدمه لعملائنا في الكويت</Typography>
+            <Typography variant="overline" color="primary.main" fontWeight={700}>
+              خدماتنا المتميزة
+            </Typography>
+            <Typography variant="h2" fontWeight={800} mt={1}>
+              ما نقدمه لعملائنا في الكويت
+            </Typography>
           </Box>
           <Grid container spacing={3}>
             {services.map((service) => (
               <Grid item xs={12} sm={6} md={4} key={service.id}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 3, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                  {service.image && (
-                    <CardMedia component="img" height="200" image={service.image} alt={service.title} />
-                  )}
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+                  }}
+                >
+                  {service.image && <CardMedia component="img" height="200" image={service.image} alt={service.title} />}
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h4" fontWeight={700} gutterBottom>{service.title}</Typography>
+                    <Typography variant="h4" fontWeight={700} gutterBottom>
+                      {service.title}
+                    </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6, mb: 3 }}>
                       {service.short_description}
                     </Typography>
@@ -252,23 +293,60 @@ export default function PublicHomePage() {
       <Box sx={{ py: 10, bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
           <Box textAlign="center" mb={8}>
-            <Typography variant="overline" color="primary.main" fontWeight={700}>مميزاتنا</Typography>
-            <Typography variant="h2" fontWeight={800} mt={1}>لماذا تختار شركة حور لنقل العفش؟</Typography>
+            <Typography variant="overline" color="primary.main" fontWeight={700}>
+              مميزاتنا
+            </Typography>
+            <Typography variant="h2" fontWeight={800} mt={1}>
+              لماذا تختار شركة حور لنقل العفش؟
+            </Typography>
           </Box>
           <Grid container spacing={4}>
             {[
-              { icon: <TruckFast size={32} />, title: 'سيارات نقل مخصصة ومقفلة', desc: 'لحماية الأثاث من الغبار، الأتربة، والأمطار في شوارع الكويت.' },
-              { icon: <ShieldSecurity size={32} />, title: 'نجار فك وتركيب غرف نوم', desc: 'نجارون محترفون لفك غرف ايكيا، ميداس، وغرف النوم الصينية والوطنية بدقة.' },
-              { icon: <Clock size={32} />, title: 'التزام تام بالمواعيد', desc: 'نصلك في الوقت المتفق عليه لنوفر وقتك ونضمن سرعة إنجاز المعاملة.' },
-              { icon: <Like1 size={32} />, title: 'أسعار مناسبة ومنافسة', desc: 'نقدم لك أفضل خدمات نقل العفش في الكويت بأرخص الأسعار المناسبة لجميع الفئات.' }
+              {
+                icon: <TruckFast size={32} />,
+                title: 'سيارات نقل مخصصة ومقفلة',
+                desc: 'لحماية الأثاث من الغبار، الأتربة، والأمطار في شوارع الكويت.'
+              },
+              {
+                icon: <ShieldSecurity size={32} />,
+                title: 'نجار فك وتركيب غرف نوم',
+                desc: 'نجارون محترفون لفك غرف ايكيا، ميداس، وغرف النوم الصينية والوطنية بدقة.'
+              },
+              {
+                icon: <Clock size={32} />,
+                title: 'التزام تام بالمواعيد',
+                desc: 'نصلك في الوقت المتفق عليه لنوفر وقتك ونضمن سرعة إنجاز المعاملة.'
+              },
+              {
+                icon: <Like1 size={32} />,
+                title: 'أسعار مناسبة ومنافسة',
+                desc: 'نقدم لك أفضل خدمات نقل العفش في الكويت بأرخص الأسعار المناسبة لجميع الفئات.'
+              }
             ].map((item, idx) => (
               <Grid item xs={12} sm={6} md={3} key={idx}>
                 <Box textAlign="center">
-                  <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: 'primary.lighter', color: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 2 }}>
+                  <Box
+                    sx={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: '50%',
+                      bgcolor: 'primary.lighter',
+                      color: 'primary.main',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mx: 'auto',
+                      mb: 2
+                    }}
+                  >
                     {item.icon}
                   </Box>
-                  <Typography variant="h5" fontWeight={700} mb={1}>{item.title}</Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>{item.desc}</Typography>
+                  <Typography variant="h5" fontWeight={700} mb={1}>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>
+                    {item.desc}
+                  </Typography>
                 </Box>
               </Grid>
             ))}
@@ -281,11 +359,17 @@ export default function PublicHomePage() {
         <Container maxWidth="lg">
           <Box display="flex" justifyContent="space-between" alignItems="flex-end" mb={6}>
             <Box>
-              <Typography variant="overline" color="primary.main" fontWeight={700}>معرض أعمالنا</Typography>
-              <Typography variant="h2" fontWeight={800} mt={1}>شاهد خدماتنا على أرض الواقع</Typography>
+              <Typography variant="overline" color="primary.main" fontWeight={700}>
+                معرض أعمالنا
+              </Typography>
+              <Typography variant="h2" fontWeight={800} mt={1}>
+                شاهد خدماتنا على أرض الواقع
+              </Typography>
             </Box>
             <Link href="/gallery" passHref legacyBehavior>
-              <Button variant="outlined" color="primary" sx={{ display: { xs: 'none', sm: 'inline-flex' } }}>عرض المعرض بالكامل</Button>
+              <Button variant="outlined" color="primary" sx={{ display: { xs: 'none', sm: 'inline-flex' } }}>
+                عرض المعرض بالكامل
+              </Button>
             </Link>
           </Box>
           <Grid container spacing={3}>
@@ -294,7 +378,9 @@ export default function PublicHomePage() {
                 <Card sx={{ borderRadius: 3, overflow: 'hidden' }}>
                   <CardMedia component="img" height="240" image={img.image} alt={img.title} />
                   <Box p={2} textAlign="center" bgcolor="background.paper">
-                    <Typography variant="subtitle2" fontWeight={600}>{img.title}</Typography>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {img.title}
+                    </Typography>
                   </Box>
                 </Card>
               </Grid>
@@ -307,8 +393,12 @@ export default function PublicHomePage() {
       <Box sx={{ py: 10, bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
           <Box textAlign="center" mb={6}>
-            <Typography variant="overline" color="primary.main" fontWeight={700}>آراء العملاء</Typography>
-            <Typography variant="h2" fontWeight={800} mt={1}>ماذا يقول عملائنا في الكويت عن خدمتنا؟</Typography>
+            <Typography variant="overline" color="primary.main" fontWeight={700}>
+              آراء العملاء
+            </Typography>
+            <Typography variant="h2" fontWeight={800} mt={1}>
+              ماذا يقول عملائنا في الكويت عن خدمتنا؟
+            </Typography>
           </Box>
           <Grid container spacing={3}>
             {testimonials.map((test) => (
@@ -324,8 +414,12 @@ export default function PublicHomePage() {
                         <Box component="img" src={test.image} sx={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover' }} />
                       )}
                       <Box>
-                        <Typography variant="subtitle2" fontWeight={700}>{test.name}</Typography>
-                        <Typography variant="caption" color="text.secondary">{test.job_title}</Typography>
+                        <Typography variant="subtitle2" fontWeight={700}>
+                          {test.name}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {test.job_title}
+                        </Typography>
                       </Box>
                     </Stack>
                   </CardContent>
@@ -341,29 +435,41 @@ export default function PublicHomePage() {
         <Container maxWidth="lg">
           <Box display="flex" justifyContent="space-between" alignItems="flex-end" mb={6}>
             <Box>
-              <Typography variant="overline" color="primary.main" fontWeight={700}>المدونة والحديث</Typography>
-              <Typography variant="h2" fontWeight={800} mt={1}>نصائح وأخبار نقل العفش</Typography>
+              <Typography variant="overline" color="primary.main" fontWeight={700}>
+                المدونة والحديث
+              </Typography>
+              <Typography variant="h2" fontWeight={800} mt={1}>
+                نصائح وأخبار نقل العفش
+              </Typography>
             </Box>
             <Link href="/blog" passHref legacyBehavior>
-              <Button variant="outlined" color="primary">زيارة المدونة</Button>
+              <Button variant="outlined" color="primary">
+                زيارة المدونة
+              </Button>
             </Link>
           </Box>
           <Grid container spacing={3}>
             {articles.map((art) => (
               <Grid item xs={12} md={4} key={art.id}>
                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 3, overflow: 'hidden' }}>
-                  {art.image && (
-                    <CardMedia component="img" height="200" image={art.image} alt={art.title} />
-                  )}
+                  {art.image && <CardMedia component="img" height="200" image={art.image} alt={art.title} />}
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h4" fontWeight={700} gutterBottom>{art.title}</Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    <Typography variant="h4" fontWeight={700} gutterBottom>
+                      {art.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                    >
                       {art.excerpt}
                     </Typography>
                   </CardContent>
                   <Box p={2}>
                     <Link href={`/blog/${art.slug}`} passHref legacyBehavior>
-                      <Button variant="text" color="primary" sx={{ fontWeight: 700 }}>اقرأ المقال كاملاً</Button>
+                      <Button variant="text" color="primary" sx={{ fontWeight: 700 }}>
+                        اقرأ المقال كاملاً
+                      </Button>
                     </Link>
                   </Box>
                 </Card>
@@ -382,15 +488,24 @@ export default function PublicHomePage() {
                 هل تبحث عن خدمات نقل أثاث سريعة ومضمونة بالكويت؟
               </Typography>
               <Typography variant="body1" sx={{ color: 'grey.300', mb: 4, lineHeight: 1.8 }}>
-                قم بملء النموذج وسيقوم فريقنا بالتواصل معك هاتفياً أو عبر واتساب خلال دقائق معدودة لتزويدك بالتكلفة الإجمالية المناسبة وحجز موعد النقل.
+                قم بملء النموذج وسيقوم فريقنا بالتواصل معك هاتفياً أو عبر واتساب خلال دقائق معدودة لتزويدك بالتكلفة الإجمالية المناسبة وحجز
+                موعد النقل.
               </Typography>
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Box sx={{ p: 2, bgcolor: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', color: 'primary.light' }}>
                   <CallCalling size={32} />
                 </Box>
                 <Box>
-                  <Typography variant="body2" color="grey.400">رقم الهاتف الساخن</Typography>
-                  <Typography variant="h4" fontWeight={700} component="a" href={`tel:${settings.phone}`} sx={{ color: 'white', textDecoration: 'none' }}>
+                  <Typography variant="body2" color="grey.400">
+                    رقم الهاتف الساخن
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    fontWeight={700}
+                    component="a"
+                    href={`tel:${settings.phone}`}
+                    sx={{ color: 'white', textDecoration: 'none' }}
+                  >
                     {settings.phone}
                   </Typography>
                 </Box>

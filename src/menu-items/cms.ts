@@ -1,13 +1,5 @@
 // assets
-import {
-  Category,
-  Document,
-  Gallery,
-  MessageText1,
-  CallCalling,
-  Setting2,
-  Home2
-} from '@wandersonalwes/iconsax-react';
+import { Category, Document, Gallery, MessageText1, CallCalling, Setting2, Home2 } from '@wandersonalwes/iconsax-react';
 
 // types
 import { NavItemType } from 'types/menu';

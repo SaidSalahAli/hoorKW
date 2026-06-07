@@ -30,18 +30,16 @@ import StatusBadge from 'components/cms/StatusBadge';
 import ImageUploader from 'components/cms/ImageUploader';
 import ConfirmDialog from 'components/cms/ConfirmDialog';
 
-import {
-  useServices,
-  useCreateService,
-  useUpdateService,
-  useDeleteService
-} from 'hooks/cms/useServices';
+import { useServices, useCreateService, useUpdateService, useDeleteService } from 'hooks/cms/useServices';
 import type { Service, ServiceFormValues } from 'types/cms';
 
 // Validation Schema
 const validationSchema = yup.object().shape({
   title: yup.string().required('عنوان الخدمة مطلوب').min(3, 'يجب أن يكون العنوان 3 أحرف على الأكثر'),
-  slug: yup.string().required('رابط slug مطلوب').matches(/^[a-z0-9-]+$/, 'الرابط يجب أن يحتوي على أحرف صغيرة وأرقام وشرطات فقط'),
+  slug: yup
+    .string()
+    .required('رابط slug مطلوب')
+    .matches(/^[a-z0-9-]+$/, 'الرابط يجب أن يحتوي على أحرف صغيرة وأرقام وشرطات فقط'),
   short_description: yup.string().required('الوصف القصير مطلوب').max(200, 'الحد الأقصى للوصف القصير 200 حرف'),
   description: yup.string().required('الوصف التفصيلي مطلوب'),
   meta_title: yup.string().max(60, 'العنوان الميتا يجب ألا يتجاوز 60 حرفاً'),
@@ -50,16 +48,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function ServicesView() {
-  const {
-    services,
-    meta,
-    isLoading,
-    error,
-    filters,
-    updateFilters,
-    setPage,
-    mutate
-  } = useServices();
+  const { services, meta, isLoading, error, filters, updateFilters, setPage, mutate } = useServices();
 
   const createMutation = useCreateService();
   const updateMutation = useUpdateService();
@@ -164,12 +153,7 @@ export default function ServicesView() {
       key: 'image',
       label: 'الصورة',
       render: (row) => (
-        <Avatar
-          src={row.image || undefined}
-          alt={row.title}
-          variant="rounded"
-          sx={{ width: 44, height: 44, bgcolor: 'primary.lighter' }}
-        >
+        <Avatar src={row.image || undefined} alt={row.title} variant="rounded" sx={{ width: 44, height: 44, bgcolor: 'primary.lighter' }}>
           <Gallery size={20} />
         </Avatar>
       )
@@ -179,15 +163,23 @@ export default function ServicesView() {
       label: 'عنوان الخدمة',
       render: (row) => (
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{row.title}</Typography>
-          <Typography variant="caption" color="text.secondary" display="block">{row.short_description}</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>
+            {row.title}
+          </Typography>
+          <Typography variant="caption" color="text.secondary" display="block">
+            {row.short_description}
+          </Typography>
         </Box>
       )
     },
     {
       key: 'slug',
       label: 'رابط Slug',
-      render: (row) => <Typography variant="body2" color="primary">{row.slug}</Typography>
+      render: (row) => (
+        <Typography variant="body2" color="primary">
+          {row.slug}
+        </Typography>
+      )
     },
     {
       key: 'status',
@@ -226,12 +218,7 @@ export default function ServicesView() {
         title="الخدمات"
         subtitle="إدارة خدمات نقل الأثاث والتغليف والتخزين المعروضة على الموقع."
         actions={
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Add />}
-            onClick={handleOpenAddDialog}
-          >
+          <Button variant="contained" color="primary" startIcon={<Add />} onClick={handleOpenAddDialog}>
             إضافة خدمة جديدة
           </Button>
         }
@@ -240,19 +227,8 @@ export default function ServicesView() {
       <Card>
         <CardContent sx={{ p: 0 }}>
           {/* Filters Bar */}
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            gap={2}
-            p={2}
-          >
-            <SearchBox
-              value={filters.search || ''}
-              onChange={(search) => updateFilters({ search })}
-              placeholder="بحث باسم الخدمة..."
-            />
+          <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" gap={2} p={2}>
+            <SearchBox value={filters.search || ''} onChange={(search) => updateFilters({ search })} placeholder="بحث باسم الخدمة..." />
             <TextField
               select
               size="small"

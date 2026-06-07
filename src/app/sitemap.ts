@@ -52,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Dynamic pages: fetch services and blog articles
-  let dynamicPages: MetadataRoute.Sitemap = [];
+  const dynamicPages: MetadataRoute.Sitemap = [];
 
   try {
     const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';

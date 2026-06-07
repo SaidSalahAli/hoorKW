@@ -133,16 +133,13 @@ export default function PublicGalleryPage() {
       <Dialog open={lightboxImage !== null} onClose={() => setLightboxImage(null)} maxWidth="lg">
         <DialogContent sx={{ p: 0, bgcolor: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {lightboxImage && (
-            <Box
-              component="img"
-              src={lightboxImage}
-              alt="Lightbox"
-              sx={{ maxWidth: '100%', maxHeight: '85vh', objectFit: 'contain' }}
-            />
+            <Box component="img" src={lightboxImage} alt="Lightbox" sx={{ maxWidth: '100%', maxHeight: '85vh', objectFit: 'contain' }} />
           )}
         </DialogContent>
         <DialogActions sx={{ bgcolor: 'black', borderTop: 'none', justifyContent: 'center', py: 1 }}>
-          <Button onClick={() => setLightboxImage(null)} color="secondary" variant="contained">إغلاق</Button>
+          <Button onClick={() => setLightboxImage(null)} color="secondary" variant="contained">
+            إغلاق
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

@@ -15,12 +15,7 @@ interface SearchBoxProps {
   debounceMs?: number;
 }
 
-export default function SearchBox({
-  value,
-  onChange,
-  placeholder = 'بحث...',
-  debounceMs = 400
-}: SearchBoxProps) {
+export default function SearchBox({ value, onChange, placeholder = 'بحث...', debounceMs = 400 }: SearchBoxProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

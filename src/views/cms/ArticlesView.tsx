@@ -32,16 +32,16 @@ import StatusBadge from 'components/cms/StatusBadge';
 import ImageUploader from 'components/cms/ImageUploader';
 import ConfirmDialog from 'components/cms/ConfirmDialog';
 
-import {
-  useArticles,
-  useMutateArticle
-} from 'hooks/cms/useArticles';
+import { useArticles, useMutateArticle } from 'hooks/cms/useArticles';
 import type { Article, ArticleFormValues } from 'types/cms';
 
 // Validation Schema
 const validationSchema = yup.object().shape({
   title: yup.string().required('عنوان المقال مطلوب').min(3, 'يجب أن يكون العنوان 3 أحرف على الأقل'),
-  slug: yup.string().required('رابط slug مطلوب').matches(/^[a-z0-9-]+$/, 'الرابط يجب أن يحتوي على أحرف صغيرة وأرقام وشرطات فقط'),
+  slug: yup
+    .string()
+    .required('رابط slug مطلوب')
+    .matches(/^[a-z0-9-]+$/, 'الرابط يجب أن يحتوي على أحرف صغيرة وأرقام وشرطات فقط'),
   excerpt: yup.string().required('مقتطف المقال مطلوب').max(300, 'الحد الأقصى للمقتطف 300 حرف'),
   content: yup.string().required('محتوى المقال مطلوب'),
   meta_title: yup.string().max(60, 'العنوان الميتا يجب ألا يتجاوز 60 حرفاً'),
@@ -50,16 +50,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function ArticlesView() {
-  const {
-    articles,
-    meta,
-    isLoading,
-    error,
-    filters,
-    updateFilters,
-    setPage,
-    mutate
-  } = useArticles();
+  const { articles, meta, isLoading, error, filters, updateFilters, setPage, mutate } = useArticles();
 
   const mutation = useMutateArticle();
 
@@ -171,12 +162,7 @@ export default function ArticlesView() {
       key: 'image',
       label: 'الصورة',
       render: (row) => (
-        <Avatar
-          src={row.image || undefined}
-          alt={row.title}
-          variant="rounded"
-          sx={{ width: 44, height: 44, bgcolor: 'primary.lighter' }}
-        >
+        <Avatar src={row.image || undefined} alt={row.title} variant="rounded" sx={{ width: 44, height: 44, bgcolor: 'primary.lighter' }}>
           <Gallery size={20} />
         </Avatar>
       )
@@ -186,15 +172,23 @@ export default function ArticlesView() {
       label: 'عنوان المقال',
       render: (row) => (
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{row.title}</Typography>
-          <Typography variant="caption" color="text.secondary" display="block">المشاهدات: {row.views}</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>
+            {row.title}
+          </Typography>
+          <Typography variant="caption" color="text.secondary" display="block">
+            المشاهدات: {row.views}
+          </Typography>
         </Box>
       )
     },
     {
       key: 'slug',
       label: 'رابط Slug',
-      render: (row) => <Typography variant="body2" color="primary">{row.slug}</Typography>
+      render: (row) => (
+        <Typography variant="body2" color="primary">
+          {row.slug}
+        </Typography>
+      )
     },
     {
       key: 'status',
@@ -236,12 +230,7 @@ export default function ArticlesView() {
         title="المقالات والأخبار"
         subtitle="إدارة المقالات، أخبار النقل، ونصائح نقل الأثاث لتحسين محركات البحث وجذب العملاء."
         actions={
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Add />}
-            onClick={handleOpenAddDialog}
-          >
+          <Button variant="contained" color="primary" startIcon={<Add />} onClick={handleOpenAddDialog}>
             كتابة مقال جديد
           </Button>
         }
@@ -250,19 +239,8 @@ export default function ArticlesView() {
       <Card>
         <CardContent sx={{ p: 0 }}>
           {/* Filters */}
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            gap={2}
-            p={2}
-          >
-            <SearchBox
-              value={filters.search || ''}
-              onChange={(search) => updateFilters({ search })}
-              placeholder="بحث في المقالات..."
-            />
+          <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" gap={2} p={2}>
+            <SearchBox value={filters.search || ''} onChange={(search) => updateFilters({ search })} placeholder="بحث في المقالات..." />
             <TextField
               select
               size="small"
@@ -400,7 +378,7 @@ export default function ArticlesView() {
                     value={formik.values.meta_title}
                     onChange={formik.handleChange}
                     error={formik.touched.meta_title && Boolean(formik.errors.meta_title)}
-                    helperText={formik.touched.meta_title && formik.errors.meta_title || 'يفضل ألا يزيد عن 60 حرفاً'}
+                    helperText={(formik.touched.meta_title && formik.errors.meta_title) || 'يفضل ألا يزيد عن 60 حرفاً'}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -413,7 +391,7 @@ export default function ArticlesView() {
                     value={formik.values.meta_description}
                     onChange={formik.handleChange}
                     error={formik.touched.meta_description && Boolean(formik.errors.meta_description)}
-                    helperText={formik.touched.meta_description && formik.errors.meta_description || 'يفضل ألا يزيد عن 160 حرفاً'}
+                    helperText={(formik.touched.meta_description && formik.errors.meta_description) || 'يفضل ألا يزيد عن 160 حرفاً'}
                   />
                 </Grid>
               </Grid>
@@ -444,7 +422,10 @@ export default function ArticlesView() {
                   sx={{ width: '100%', maxHeight: 400, objectFit: 'cover', borderRadius: 2, mb: 3 }}
                 />
               )}
-              <Typography variant="subtitle1" sx={{ fontStyle: 'italic', color: 'text.secondary', borderLeft: '3px solid #ccc', pl: 2, mb: 3 }}>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontStyle: 'italic', color: 'text.secondary', borderLeft: '3px solid #ccc', pl: 2, mb: 3 }}
+              >
                 {formik.values.excerpt || 'مقتطف المقال يظهر هنا...'}
               </Typography>
               <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
@@ -457,12 +438,7 @@ export default function ArticlesView() {
           <Button onClick={handleCloseDialog} color="secondary" variant="outlined">
             إلغاء
           </Button>
-          <Button
-            onClick={() => formik.handleSubmit()}
-            variant="contained"
-            color="primary"
-            disabled={mutation.isLoading}
-          >
+          <Button onClick={() => formik.handleSubmit()} variant="contained" color="primary" disabled={mutation.isLoading}>
             {mutation.isLoading ? <CircularProgress size={24} /> : 'حفظ المقال'}
           </Button>
         </DialogActions>
@@ -471,13 +447,19 @@ export default function ArticlesView() {
       {/* Preview Dialog */}
       <Dialog open={previewOpen} onClose={() => setPreviewOpen(false)} maxWidth="md" fullWidth>
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h5" fontWeight={600}>معاينة المقال</Typography>
-          <Button onClick={() => setPreviewOpen(false)} color="secondary">إغلاق</Button>
+          <Typography variant="h5" fontWeight={600}>
+            معاينة المقال
+          </Typography>
+          <Button onClick={() => setPreviewOpen(false)} color="secondary">
+            إغلاق
+          </Button>
         </DialogTitle>
         <DialogContent dividers>
           {previewArticle && (
             <Box>
-              <Typography variant="h3" fontWeight={700} mb={1}>{previewArticle.title}</Typography>
+              <Typography variant="h3" fontWeight={700} mb={1}>
+                {previewArticle.title}
+              </Typography>
               <Box display="flex" gap={2} mb={3} color="text.secondary" fontSize="0.875rem">
                 <span>الزيارات: {previewArticle.views}</span>
                 <span>•</span>
@@ -493,7 +475,10 @@ export default function ArticlesView() {
                   sx={{ width: '100%', maxHeight: 380, objectFit: 'cover', borderRadius: 2, mb: 3 }}
                 />
               )}
-              <Typography variant="subtitle1" sx={{ fontStyle: 'italic', borderRight: '4px solid', borderColor: 'primary.main', pr: 2, mb: 3, color: 'text.secondary' }}>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontStyle: 'italic', borderRight: '4px solid', borderColor: 'primary.main', pr: 2, mb: 3, color: 'text.secondary' }}
+              >
                 {previewArticle.excerpt}
               </Typography>
               <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>

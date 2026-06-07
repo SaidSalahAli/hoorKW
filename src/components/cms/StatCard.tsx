@@ -31,12 +31,7 @@ export default function StatCard({ title, value, icon, color = '#1890ff', bgColo
               {typeof value === 'number' ? value.toLocaleString('ar-KW') : value}
             </Typography>
             {trend && (
-              <Typography
-                variant="caption"
-                color={trend.value >= 0 ? 'success.main' : 'error.main'}
-                mt={0.5}
-                display="block"
-              >
+              <Typography variant="caption" color={trend.value >= 0 ? 'success.main' : 'error.main'} mt={0.5} display="block">
                 {trend.value >= 0 ? '↑' : '↓'} {Math.abs(trend.value)}% {trend.label}
               </Typography>
             )}

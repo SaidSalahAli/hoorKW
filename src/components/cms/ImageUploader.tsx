@@ -47,7 +47,10 @@ export default function ImageUploader({
   const handleFile = useCallback(
     (file: File | null) => {
       setSizeError(null);
-      if (!file) { onChange(null); return; }
+      if (!file) {
+        onChange(null);
+        return;
+      }
       if (file.size > maxSizeMB * 1024 * 1024) {
         setSizeError(`حجم الصورة يجب ألا يتجاوز ${maxSizeMB} ميغابايت`);
         return;
@@ -76,7 +79,10 @@ export default function ImageUploader({
       <Box
         onClick={() => inputRef.current?.click()}
         onDrop={handleDrop}
-        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragOver(true);
+        }}
         onDragLeave={() => setDragOver(false)}
         sx={{
           border: '2px dashed',
@@ -108,7 +114,10 @@ export default function ImageUploader({
             <IconButton
               size="small"
               color="error"
-              onClick={(e) => { e.stopPropagation(); handleFile(null); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFile(null);
+              }}
               sx={{ position: 'absolute', top: 4, right: 4 }}
             >
               <CloseCircle size={20} />

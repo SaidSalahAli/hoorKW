@@ -105,7 +105,9 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
           {error || 'الخدمة المطلوبة غير متوفرة حالياً.'}
         </Alert>
         <Link href="/services" passHref legacyBehavior>
-          <Button variant="contained" color="primary">العودة لكل الخدمات</Button>
+          <Button variant="contained" color="primary">
+            العودة لكل الخدمات
+          </Button>
         </Link>
       </Container>
     );
@@ -117,11 +119,21 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
       <Box sx={{ bgcolor: '#0f172a', color: 'white', py: 6 }}>
         <Container maxWidth="lg">
           <Stack direction="row" spacing={1} alignItems="center" mb={1} color="grey.400" fontSize="0.875rem">
-            <Link href="/" passHref legacyBehavior><Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>الرئيسية</Box></Link>
+            <Link href="/" passHref legacyBehavior>
+              <Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                الرئيسية
+              </Box>
+            </Link>
             <span>/</span>
-            <Link href="/services" passHref legacyBehavior><Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>الخدمات</Box></Link>
+            <Link href="/services" passHref legacyBehavior>
+              <Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                الخدمات
+              </Box>
+            </Link>
             <span>/</span>
-            <Typography variant="caption" color="white">{service.title}</Typography>
+            <Typography variant="caption" color="white">
+              {service.title}
+            </Typography>
           </Stack>
           <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2rem', md: '3rem' } }}>
             {service.title}
@@ -145,7 +157,10 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
             <Typography variant="h3" fontWeight={700} gutterBottom>
               تفاصيل ومميزات الخدمة
             </Typography>
-            <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.9, fontSize: '1.05rem', color: 'text.secondary', mb: 4 }}>
+            <Typography
+              variant="body1"
+              sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.9, fontSize: '1.05rem', color: 'text.secondary', mb: 4 }}
+            >
               {service.description}
             </Typography>
 
@@ -167,7 +182,16 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
 
           {/* Request Quote Widget Sidebar */}
           <Grid item xs={12} md={4}>
-            <Card sx={{ position: 'sticky', top: 100, border: '1px solid', borderColor: 'divider', borderRadius: 3, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+            <Card
+              sx={{
+                position: 'sticky',
+                top: 100,
+                border: '1px solid',
+                borderColor: 'divider',
+                borderRadius: 3,
+                boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+              }}
+            >
               <CardContent sx={{ p: 4 }}>
                 <Typography variant="h4" fontWeight={700} mb={1}>
                   اطلب الخدمة الآن

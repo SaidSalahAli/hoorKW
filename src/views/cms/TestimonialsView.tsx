@@ -31,10 +31,7 @@ import StatusBadge from 'components/cms/StatusBadge';
 import ImageUploader from 'components/cms/ImageUploader';
 import ConfirmDialog from 'components/cms/ConfirmDialog';
 
-import {
-  useTestimonials,
-  useMutateTestimonial
-} from 'hooks/cms/useTestimonials';
+import { useTestimonials, useMutateTestimonial } from 'hooks/cms/useTestimonials';
 import type { Testimonial, TestimonialFormValues } from 'types/cms';
 
 // Validation Schema
@@ -47,16 +44,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function TestimonialsView() {
-  const {
-    testimonials,
-    meta,
-    isLoading,
-    error,
-    filters,
-    updateFilters,
-    setPage,
-    mutate
-  } = useTestimonials();
+  const { testimonials, meta, isLoading, error, filters, updateFilters, setPage, mutate } = useTestimonials();
 
   const mutation = useMutateTestimonial();
 
@@ -130,11 +118,7 @@ export default function TestimonialsView() {
       key: 'image',
       label: 'الصورة',
       render: (row) => (
-        <Avatar
-          src={row.image || undefined}
-          alt={row.name}
-          sx={{ width: 40, height: 40, bgcolor: 'primary.lighter' }}
-        >
+        <Avatar src={row.image || undefined} alt={row.name} sx={{ width: 40, height: 40, bgcolor: 'primary.lighter' }}>
           {row.name.charAt(0)}
         </Avatar>
       )
@@ -144,8 +128,12 @@ export default function TestimonialsView() {
       label: 'العميل',
       render: (row) => (
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{row.name}</Typography>
-          <Typography variant="caption" color="text.secondary">{row.job_title}</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>
+            {row.name}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            {row.job_title}
+          </Typography>
         </Box>
       )
     },
@@ -191,12 +179,7 @@ export default function TestimonialsView() {
         title="آراء العملاء"
         subtitle="إدارة التقييمات والآراء التي يعرضها العملاء على الموقع لزيادة مصداقية الشركة."
         actions={
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Add />}
-            onClick={handleOpenAddDialog}
-          >
+          <Button variant="contained" color="primary" startIcon={<Add />} onClick={handleOpenAddDialog}>
             إضافة رأي عميل
           </Button>
         }
@@ -205,19 +188,8 @@ export default function TestimonialsView() {
       <Card>
         <CardContent sx={{ p: 0 }}>
           {/* Filters */}
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            gap={2}
-            p={2}
-          >
-            <SearchBox
-              value={filters.search || ''}
-              onChange={(search) => updateFilters({ search })}
-              placeholder="بحث في آراء العملاء..."
-            />
+          <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" gap={2} p={2}>
+            <SearchBox value={filters.search || ''} onChange={(search) => updateFilters({ search })} placeholder="بحث في آراء العملاء..." />
             <TextField
               select
               size="small"
@@ -277,7 +249,9 @@ export default function TestimonialsView() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body2" mb={1} color="text.secondary">التقييم</Typography>
+                <Typography variant="body2" mb={1} color="text.secondary">
+                  التقييم
+                </Typography>
                 <Rating
                   name="rating"
                   value={formik.values.rating}
@@ -285,7 +259,9 @@ export default function TestimonialsView() {
                   size="large"
                 />
                 {formik.touched.rating && formik.errors.rating && (
-                  <Typography variant="caption" color="error" display="block">{formik.errors.rating}</Typography>
+                  <Typography variant="caption" color="error" display="block">
+                    {formik.errors.rating}
+                  </Typography>
                 )}
               </Grid>
               <Grid item xs={12}>
@@ -333,12 +309,7 @@ export default function TestimonialsView() {
           <Button onClick={handleCloseDialog} color="secondary" variant="outlined">
             إلغاء
           </Button>
-          <Button
-            onClick={() => formik.handleSubmit()}
-            variant="contained"
-            color="primary"
-            disabled={mutation.isLoading}
-          >
+          <Button onClick={() => formik.handleSubmit()} variant="contained" color="primary" disabled={mutation.isLoading}>
             {mutation.isLoading ? <CircularProgress size={24} /> : 'حفظ'}
           </Button>
         </DialogActions>

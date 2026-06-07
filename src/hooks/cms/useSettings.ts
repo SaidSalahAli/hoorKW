@@ -19,10 +19,16 @@ export function useUpdateSettings() {
   const [error, setError] = useState<string | null>(null);
 
   const update = async (values: SettingsFormValues) => {
-    setIsLoading(true); setError(null);
-    try { return await settingsApi.update(values); }
-    catch (e: any) { setError(e.message); throw e; }
-    finally { setIsLoading(false); }
+    setIsLoading(true);
+    setError(null);
+    try {
+      return await settingsApi.update(values);
+    } catch (e: any) {
+      setError(e.message);
+      throw e;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return { update, isLoading, error };

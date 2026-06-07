@@ -10,11 +10,7 @@ import type { TableFilters, RequestStatus } from 'types/cms';
 export function useRequests(initialFilters: TableFilters & { status?: RequestStatus } = {}) {
   const [filters, setFilters] = useState({ page: 1, per_page: 10, ...initialFilters });
 
-  const { data, error, isLoading, mutate } = useSWR(
-    ['requests', filters],
-    () => requestsApi.getAll(filters),
-    { revalidateOnFocus: false }
-  );
+  const { data, error, isLoading, mutate } = useSWR(['requests', filters], () => requestsApi.getAll(filters), { revalidateOnFocus: false });
 
   const updateFilters = useCallback((next: Partial<typeof filters>) => {
     setFilters((prev) => ({ ...prev, page: 1, ...next }));
@@ -28,11 +24,7 @@ export function useRequests(initialFilters: TableFilters & { status?: RequestSta
 }
 
 export function useRequest(id: number | null) {
-  const { data, error, isLoading } = useSWR(
-    id ? `requests/${id}` : null,
-    () => requestsApi.getById(id!),
-    { revalidateOnFocus: false }
-  );
+  const { data, error, isLoading } = useSWR(id ? `requests/${id}` : null, () => requestsApi.getById(id!), { revalidateOnFocus: false });
   return { request: data, isLoading, error };
 }
 
@@ -41,8 +33,11 @@ export function useUpdateRequestStatus() {
 
   const updateStatus = async (id: number, status: RequestStatus) => {
     setIsLoading(true);
-    try { return await requestsApi.updateStatus(id, status); }
-    finally { setIsLoading(false); }
+    try {
+      return await requestsApi.updateStatus(id, status);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return { updateStatus, isLoading };

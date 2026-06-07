@@ -63,11 +63,7 @@ apiClient.interceptors.response.use(
         window.location.pathname = '/login';
       }
     }
-    const message =
-      error?.response?.data?.message ||
-      error?.response?.data?.error ||
-      error?.message ||
-      'حدث خطأ غير متوقع';
+    const message = error?.response?.data?.message || error?.response?.data?.error || error?.message || 'حدث خطأ غير متوقع';
     return Promise.reject(new Error(message));
   }
 );
@@ -89,11 +85,7 @@ export const publicFetcher = async (args: string | [string, AxiosRequestConfig])
 };
 
 // ── Multipart fetcher (FormData — image uploads) ──────────────────────────
-export const formDataRequest = async (
-  method: 'post' | 'put' | 'patch',
-  url: string,
-  data: FormData
-) => {
+export const formDataRequest = async (method: 'post' | 'put' | 'patch', url: string, data: FormData) => {
   const res = await apiClient.request({
     method,
     url,

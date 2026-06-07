@@ -51,12 +51,36 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
 
             {/* Navigation links */}
             <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Link href="/" passHref legacyBehavior><Button color="inherit" sx={{ fontWeight: 600 }}>الرئيسية</Button></Link>
-              <Link href="/about" passHref legacyBehavior><Button color="inherit" sx={{ fontWeight: 600 }}>من نحن</Button></Link>
-              <Link href="/services" passHref legacyBehavior><Button color="inherit" sx={{ fontWeight: 600 }}>خدماتنا</Button></Link>
-              <Link href="/blog" passHref legacyBehavior><Button color="inherit" sx={{ fontWeight: 600 }}>المدونة</Button></Link>
-              <Link href="/gallery" passHref legacyBehavior><Button color="inherit" sx={{ fontWeight: 600 }}>معرض الأعمال</Button></Link>
-              <Link href="/contact" passHref legacyBehavior><Button color="inherit" sx={{ fontWeight: 600 }}>اتصل بنا</Button></Link>
+              <Link href="/" passHref legacyBehavior>
+                <Button color="inherit" sx={{ fontWeight: 600 }}>
+                  الرئيسية
+                </Button>
+              </Link>
+              <Link href="/about" passHref legacyBehavior>
+                <Button color="inherit" sx={{ fontWeight: 600 }}>
+                  من نحن
+                </Button>
+              </Link>
+              <Link href="/services" passHref legacyBehavior>
+                <Button color="inherit" sx={{ fontWeight: 600 }}>
+                  خدماتنا
+                </Button>
+              </Link>
+              <Link href="/blog" passHref legacyBehavior>
+                <Button color="inherit" sx={{ fontWeight: 600 }}>
+                  المدونة
+                </Button>
+              </Link>
+              <Link href="/gallery" passHref legacyBehavior>
+                <Button color="inherit" sx={{ fontWeight: 600 }}>
+                  معرض الأعمال
+                </Button>
+              </Link>
+              <Link href="/contact" passHref legacyBehavior>
+                <Button color="inherit" sx={{ fontWeight: 600 }}>
+                  اتصل بنا
+                </Button>
+              </Link>
             </Stack>
 
             {/* Quick Action Button */}
@@ -96,7 +120,8 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
                 {siteName}
               </Typography>
               <Typography variant="body2" sx={{ color: 'grey.400', lineHeight: 1.8, mb: 3 }}>
-                شركة رائدة ومتخصصة في تقديم خدمات نقل وتغليف وتخزين الأثاث في جميع مناطق ومحافظات الكويت بأحدث المعدات وسيارات النقل المقفلة وبأيدي عمالة فنية مدربة.
+                شركة رائدة ومتخصصة في تقديم خدمات نقل وتغليف وتخزين الأثاث في جميع مناطق ومحافظات الكويت بأحدث المعدات وسيارات النقل المقفلة
+                وبأيدي عمالة فنية مدربة.
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
@@ -104,11 +129,31 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
                 روابط سريعة
               </Typography>
               <Stack spacing={1}>
-                <Link href="/about" passHref legacyBehavior><Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>من نحن</Box></Link>
-                <Link href="/services" passHref legacyBehavior><Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>خدمات نقل الأثاث</Box></Link>
-                <Link href="/blog" passHref legacyBehavior><Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>المدونة والنصائح</Box></Link>
-                <Link href="/privacy" passHref legacyBehavior><Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>سياسة الخصوصية</Box></Link>
-                <Link href="/terms" passHref legacyBehavior><Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>الشروط والأحكام</Box></Link>
+                <Link href="/about" passHref legacyBehavior>
+                  <Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                    من نحن
+                  </Box>
+                </Link>
+                <Link href="/services" passHref legacyBehavior>
+                  <Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                    خدمات نقل الأثاث
+                  </Box>
+                </Link>
+                <Link href="/blog" passHref legacyBehavior>
+                  <Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                    المدونة والنصائح
+                  </Box>
+                </Link>
+                <Link href="/privacy" passHref legacyBehavior>
+                  <Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                    سياسة الخصوصية
+                  </Box>
+                </Link>
+                <Link href="/terms" passHref legacyBehavior>
+                  <Box component="a" sx={{ color: 'grey.400', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                    الشروط والأحكام
+                  </Box>
+                </Link>
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
@@ -117,7 +162,12 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
               </Typography>
               <Stack spacing={2} sx={{ color: 'grey.400' }}>
                 <Typography variant="body2">العنوان: {settings?.address || 'دولة الكويت'}</Typography>
-                <Typography variant="body2" component="a" href={`tel:${phone}`} sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                <Typography
+                  variant="body2"
+                  component="a"
+                  href={`tel:${phone}`}
+                  sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}
+                >
                   الهاتف: {phone}
                 </Typography>
                 <Typography variant="body2">البريد: {settings?.email}</Typography>
@@ -125,9 +175,27 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
 
               {/* Social links */}
               <Stack direction="row" spacing={1.5} mt={3}>
-                {settings?.facebook && <Link href={settings.facebook} target="_blank"><Button size="small" variant="outlined" color="inherit">فيسبوك</Button></Link>}
-                {settings?.instagram && <Link href={settings.instagram} target="_blank"><Button size="small" variant="outlined" color="inherit">إنستغرام</Button></Link>}
-                {settings?.twitter && <Link href={settings.twitter} target="_blank"><Button size="small" variant="outlined" color="inherit">إكس</Button></Link>}
+                {settings?.facebook && (
+                  <Link href={settings.facebook} target="_blank">
+                    <Button size="small" variant="outlined" color="inherit">
+                      فيسبوك
+                    </Button>
+                  </Link>
+                )}
+                {settings?.instagram && (
+                  <Link href={settings.instagram} target="_blank">
+                    <Button size="small" variant="outlined" color="inherit">
+                      إنستغرام
+                    </Button>
+                  </Link>
+                )}
+                {settings?.twitter && (
+                  <Link href={settings.twitter} target="_blank">
+                    <Button size="small" variant="outlined" color="inherit">
+                      إكس
+                    </Button>
+                  </Link>
+                )}
               </Stack>
             </Grid>
           </Grid>

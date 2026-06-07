@@ -66,7 +66,9 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
           {error || 'المقال المطلوب غير متوفر حالياً.'}
         </Alert>
         <Link href="/blog" passHref legacyBehavior>
-          <Button variant="contained" color="primary">العودة للمقالات</Button>
+          <Button variant="contained" color="primary">
+            العودة للمقالات
+          </Button>
         </Link>
       </Container>
     );
@@ -76,33 +78,40 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    'headline': article.title,
-    'description': article.excerpt,
-    'image': article.image,
-    'datePublished': article.created_at,
-    'author': {
+    headline: article.title,
+    description: article.excerpt,
+    image: article.image,
+    datePublished: article.created_at,
+    author: {
       '@type': 'Organization',
-      'name': 'حور لنقل العفش'
+      name: 'حور لنقل العفش'
     }
   };
 
   return (
     <Box>
       {/* Schema Injection */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* Header Banner */}
       <Box sx={{ bgcolor: '#0f172a', color: 'white', py: 6 }}>
         <Container maxWidth="lg">
           <Stack direction="row" spacing={1} alignItems="center" mb={1} color="grey.400" fontSize="0.875rem">
-            <Link href="/" passHref legacyBehavior><Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>الرئيسية</Box></Link>
+            <Link href="/" passHref legacyBehavior>
+              <Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                الرئيسية
+              </Box>
+            </Link>
             <span>/</span>
-            <Link href="/blog" passHref legacyBehavior><Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>المدونة</Box></Link>
+            <Link href="/blog" passHref legacyBehavior>
+              <Box component="a" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                المدونة
+              </Box>
+            </Link>
             <span>/</span>
-            <Typography variant="caption" color="white">{article.title}</Typography>
+            <Typography variant="caption" color="white">
+              {article.title}
+            </Typography>
           </Stack>
           <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2rem', md: '2.8rem' } }}>
             {article.title}
@@ -128,7 +137,19 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
                 sx={{ width: '100%', maxHeight: 420, objectFit: 'cover', borderRadius: 4, mb: 4 }}
               />
             )}
-            <Typography variant="subtitle1" sx={{ fontStyle: 'italic', borderRight: '4px solid', borderColor: 'primary.main', pr: 2, mb: 4, color: 'text.secondary', fontSize: '1.1rem', lineHeight: 1.8 }}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontStyle: 'italic',
+                borderRight: '4px solid',
+                borderColor: 'primary.main',
+                pr: 2,
+                mb: 4,
+                color: 'text.secondary',
+                fontSize: '1.1rem',
+                lineHeight: 1.8
+              }}
+            >
               {article.excerpt}
             </Typography>
             <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.9, fontSize: '1.05rem', color: 'text.primary' }}>
@@ -146,7 +167,16 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
                 {related.map((rel) => (
                   <Box key={rel.id}>
                     <Link href={`/blog/${rel.slug}`} passHref legacyBehavior>
-                      <Box component="a" sx={{ color: 'text.primary', textDecoration: 'none', '&:hover': { color: 'primary.main' }, display: 'block', fontWeight: 600 }}>
+                      <Box
+                        component="a"
+                        sx={{
+                          color: 'text.primary',
+                          textDecoration: 'none',
+                          '&:hover': { color: 'primary.main' },
+                          display: 'block',
+                          fontWeight: 600
+                        }}
+                      >
                         {rel.title}
                       </Box>
                     </Link>
@@ -155,9 +185,7 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
                     </Typography>
                   </Box>
                 ))}
-                {related.length === 0 && (
-                  <Typography color="text.secondary">لا توجد مقالات مقترحة حالياً.</Typography>
-                )}
+                {related.length === 0 && <Typography color="text.secondary">لا توجد مقالات مقترحة حالياً.</Typography>}
               </Stack>
             </Card>
 

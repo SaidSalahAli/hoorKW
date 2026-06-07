@@ -95,6 +95,7 @@ export default function SettingsView() {
         favicon: null
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings]);
 
   if (isLoading) {
@@ -125,11 +126,7 @@ export default function SettingsView() {
       )}
 
       <Card>
-        <Tabs
-          value={tabValue}
-          onChange={(_, val) => setTabValue(val)}
-          sx={{ borderBottom: 1, borderColor: 'divider', px: 2, pt: 1 }}
-        >
+        <Tabs value={tabValue} onChange={(_, val) => setTabValue(val)} sx={{ borderBottom: 1, borderColor: 'divider', px: 2, pt: 1 }}>
           <Tab label="بيانات الشركة والتواصل" />
           <Tab label="إعدادات SEO والأرشفة" />
           <Tab label="الشعار والهوية البصرية" />
@@ -256,7 +253,7 @@ export default function SettingsView() {
                     value={formik.values.seo_title}
                     onChange={formik.handleChange}
                     error={formik.touched.seo_title && Boolean(formik.errors.seo_title)}
-                    helperText={formik.touched.seo_title && formik.errors.seo_title || 'يظهر في صفحة البداية الرئيسية'}
+                    helperText={(formik.touched.seo_title && formik.errors.seo_title) || 'يظهر في صفحة البداية الرئيسية'}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -269,7 +266,7 @@ export default function SettingsView() {
                     value={formik.values.seo_description}
                     onChange={formik.handleChange}
                     error={formik.touched.seo_description && Boolean(formik.errors.seo_description)}
-                    helperText={formik.touched.seo_description && formik.errors.seo_description || 'الوصف التعريفي للشركة للظهور في جوجل'}
+                    helperText={(formik.touched.seo_description && formik.errors.seo_description) || 'الوصف التعريفي للشركة للظهور في جوجل'}
                   />
                 </Grid>
               </Grid>

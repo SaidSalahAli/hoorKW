@@ -30,7 +30,11 @@ export default function PageHeader({ title, subtitle, actions, breadcrumb }: Pag
             </Typography>
           )}
         </Box>
-        {actions && <Stack direction="row" gap={1}>{actions}</Stack>}
+        {actions && (
+          <Stack direction="row" gap={1}>
+            {actions}
+          </Stack>
+        )}
       </Stack>
       <Divider sx={{ mt: 2 }} />
     </Box>

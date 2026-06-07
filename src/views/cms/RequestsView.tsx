@@ -26,23 +26,11 @@ import DataTable, { ColumnDef } from 'components/cms/DataTable';
 import SearchBox from 'components/cms/SearchBox';
 import StatusBadge from 'components/cms/StatusBadge';
 
-import {
-  useRequests,
-  useUpdateRequestStatus
-} from 'hooks/cms/useRequests';
+import { useRequests, useUpdateRequestStatus } from 'hooks/cms/useRequests';
 import type { ServiceRequest, RequestStatus } from 'types/cms';
 
 export default function RequestsView() {
-  const {
-    requests,
-    meta,
-    isLoading,
-    error,
-    filters,
-    updateFilters,
-    setPage,
-    mutate
-  } = useRequests();
+  const { requests, meta, isLoading, error, filters, updateFilters, setPage, mutate } = useRequests();
 
   const statusMutation = useUpdateRequestStatus();
 
@@ -92,7 +80,11 @@ export default function RequestsView() {
     {
       key: 'name',
       label: 'العميل',
-      render: (row) => <Typography variant="subtitle2" fontWeight={600}>{row.name}</Typography>
+      render: (row) => (
+        <Typography variant="subtitle2" fontWeight={600}>
+          {row.name}
+        </Typography>
+      )
     },
     {
       key: 'phone',
@@ -118,7 +110,8 @@ export default function RequestsView() {
       label: 'تاريخ الطلب',
       render: (row) => (
         <Typography variant="body2" color="text.secondary">
-          {new Date(row.created_at).toLocaleDateString('ar-KW')} {new Date(row.created_at).toLocaleTimeString('ar-KW', { hour: '2-digit', minute: '2-digit' })}
+          {new Date(row.created_at).toLocaleDateString('ar-KW')}{' '}
+          {new Date(row.created_at).toLocaleTimeString('ar-KW', { hour: '2-digit', minute: '2-digit' })}
         </Typography>
       )
     },
@@ -149,22 +142,12 @@ export default function RequestsView() {
 
   return (
     <Box>
-      <PageHeader
-        title="طلبات الخدمة"
-        subtitle="متابعة طلبات نقل العفش والأثاث الواردة من نموذج الاتصال بالموقع والتواصل مع العملاء."
-      />
+      <PageHeader title="طلبات الخدمة" subtitle="متابعة طلبات نقل العفش والأثاث الواردة من نموذج الاتصال بالموقع والتواصل مع العملاء." />
 
       <Card>
         <CardContent sx={{ p: 0 }}>
           {/* Filters */}
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            gap={2}
-            p={2}
-          >
+          <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" gap={2} p={2}>
             <SearchBox
               value={filters.search || ''}
               onChange={(search) => updateFilters({ search })}
@@ -208,30 +191,40 @@ export default function RequestsView() {
           {selectedRequest && (
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <Typography variant="caption" color="text.secondary">اسم العميل</Typography>
-                <Typography variant="body1" fontWeight={600}>{selectedRequest.name}</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  اسم العميل
+                </Typography>
+                <Typography variant="body1" fontWeight={600}>
+                  {selectedRequest.name}
+                </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="caption" color="text.secondary">الهاتف</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  الهاتف
+                </Typography>
                 <Typography variant="body1" fontWeight={600} sx={{ direction: 'ltr', textAlign: 'right' }}>
                   {selectedRequest.phone}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="caption" color="text.secondary">الخدمة المطلوبة</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  الخدمة المطلوبة
+                </Typography>
                 <Typography variant="body1" fontWeight={600}>
                   {selectedRequest.service?.title || 'طلب عام (نقل أثاث)'}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="caption" color="text.secondary">تاريخ وموعد الإرسال</Typography>
-                <Typography variant="body1">
-                  {new Date(selectedRequest.created_at).toLocaleString('ar-KW')}
+                <Typography variant="caption" color="text.secondary">
+                  تاريخ وموعد الإرسال
                 </Typography>
+                <Typography variant="body1">{new Date(selectedRequest.created_at).toLocaleString('ar-KW')}</Typography>
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant="caption" color="text.secondary">حالة الطلب الحالية</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  حالة الطلب الحالية
+                </Typography>
                 <Box mt={1} mb={2}>
                   <FormControl fullWidth size="small">
                     <InputLabel>الحالة</InputLabel>
@@ -251,7 +244,9 @@ export default function RequestsView() {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant="caption" color="text.secondary">الرسالة / متطلبات النقل بالتفصيل</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  الرسالة / متطلبات النقل بالتفصيل
+                </Typography>
                 <Card variant="outlined" sx={{ mt: 1, bgcolor: 'action.hover' }}>
                   <CardContent sx={{ p: 2 }}>
                     <Typography variant="body1" style={{ whiteSpace: 'pre-wrap' }}>
@@ -288,7 +283,9 @@ export default function RequestsView() {
               </Button>
             </>
           )}
-          <Button onClick={handleCloseDetails} color="secondary" sx={{ ml: 'auto' }}>إغلاق</Button>
+          <Button onClick={handleCloseDetails} color="secondary" sx={{ ml: 'auto' }}>
+            إغلاق
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

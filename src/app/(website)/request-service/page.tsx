@@ -80,10 +80,31 @@ export default function RequestServicePage() {
   return (
     <Box sx={{ minHeight: '80vh', bgcolor: '#f8fafc', py: 10 }}>
       <Container maxWidth="md">
-        <Card sx={{ borderRadius: 4, overflow: 'hidden', border: '1px solid', borderColor: 'divider', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+        <Card
+          sx={{
+            borderRadius: 4,
+            overflow: 'hidden',
+            border: '1px solid',
+            borderColor: 'divider',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
+          }}
+        >
           <Grid container>
             {/* Left intro banner */}
-            <Grid item xs={12} md={4} sx={{ bgcolor: '#0f172a', color: 'white', p: 4, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{
+                bgcolor: '#0f172a',
+                color: 'white',
+                p: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                textAlign: 'center'
+              }}
+            >
               <Box mb={2} sx={{ color: 'primary.light', display: 'flex', justifyContent: 'center' }}>
                 <TruckFast size={64} variant="Bulk" />
               </Box>

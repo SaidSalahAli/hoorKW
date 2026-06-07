@@ -13,14 +13,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 
-import {
-  CallCalling,
-  Category,
-  Document,
-  MessageText1,
-  Gallery,
-  Eye
-} from '@wandersonalwes/iconsax-react';
+import { CallCalling, Category, Document, MessageText1, Gallery, Eye } from '@wandersonalwes/iconsax-react';
 
 import PageHeader from 'components/cms/PageHeader';
 import StatCard from 'components/cms/StatCard';
@@ -53,8 +46,8 @@ export default function DashboardView() {
   const servicesPerformance = stats?.services_performance || [];
 
   // Finding the maximum request count for percentage-based bar charts
-  const maxMonthlyCount = Math.max(...monthlyRequests.map(m => m.count), 1);
-  const maxServiceCount = Math.max(...servicesPerformance.map(s => s.requests), 1);
+  const maxMonthlyCount = Math.max(...monthlyRequests.map((m) => m.count), 1);
+  const maxServiceCount = Math.max(...servicesPerformance.map((s) => s.requests), 1);
 
   return (
     <Box>
@@ -66,44 +59,19 @@ export default function DashboardView() {
       {/* Stats Cards */}
       <Grid container spacing={3} mb={4}>
         <Grid item xs={12} sm={6} md={4} lg={2.4}>
-          <StatCard
-            title="إجمالي الطلبات"
-            value={stats?.total_requests || 0}
-            icon={<CallCalling size={28} />}
-            color="#2f54eb"
-          />
+          <StatCard title="إجمالي الطلبات" value={stats?.total_requests || 0} icon={<CallCalling size={28} />} color="#2f54eb" />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={2.4}>
-          <StatCard
-            title="الخدمات النشطة"
-            value={stats?.total_services || 0}
-            icon={<Category size={28} />}
-            color="#52c41a"
-          />
+          <StatCard title="الخدمات النشطة" value={stats?.total_services || 0} icon={<Category size={28} />} color="#52c41a" />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={2.4}>
-          <StatCard
-            title="المقالات والأخبار"
-            value={stats?.total_articles || 0}
-            icon={<Document size={28} />}
-            color="#1890ff"
-          />
+          <StatCard title="المقالات والأخبار" value={stats?.total_articles || 0} icon={<Document size={28} />} color="#1890ff" />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={2.4}>
-          <StatCard
-            title="آراء العملاء"
-            value={stats?.total_testimonials || 0}
-            icon={<MessageText1 size={28} />}
-            color="#faad14"
-          />
+          <StatCard title="آراء العملاء" value={stats?.total_testimonials || 0} icon={<MessageText1 size={28} />} color="#faad14" />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={2.4}>
-          <StatCard
-            title="معرض الصور"
-            value={stats?.total_gallery || 0}
-            icon={<Gallery size={28} />}
-            color="#eb2f96"
-          />
+          <StatCard title="معرض الصور" value={stats?.total_gallery || 0} icon={<Gallery size={28} />} color="#eb2f96" />
         </Grid>
       </Grid>
 
@@ -115,7 +83,9 @@ export default function DashboardView() {
             <CardHeader title="طلبات الخدمة الشهرية" />
             <CardContent>
               {monthlyRequests.length === 0 ? (
-                <Typography color="text.secondary" align="center">لا توجد بيانات شهرية كافية</Typography>
+                <Typography color="text.secondary" align="center">
+                  لا توجد بيانات شهرية كافية
+                </Typography>
               ) : (
                 <Stack spacing={2} sx={{ pt: 2 }}>
                   {monthlyRequests.map((item, idx) => {
@@ -123,11 +93,23 @@ export default function DashboardView() {
                     return (
                       <Box key={idx}>
                         <Stack direction="row" justifyContent="space-between" mb={0.5}>
-                          <Typography variant="body2" fontWeight={500}>{item.month}</Typography>
-                          <Typography variant="body2" fontWeight={600} color="primary">{item.count} طلب</Typography>
+                          <Typography variant="body2" fontWeight={500}>
+                            {item.month}
+                          </Typography>
+                          <Typography variant="body2" fontWeight={600} color="primary">
+                            {item.count} طلب
+                          </Typography>
                         </Stack>
                         <Box sx={{ width: '100%', bgcolor: 'action.hover', borderRadius: 1, height: 12, overflow: 'hidden' }}>
-                          <Box sx={{ width: `${percent}%`, bgcolor: 'primary.main', height: '100%', borderRadius: 1, transition: 'width 0.6s ease' }} />
+                          <Box
+                            sx={{
+                              width: `${percent}%`,
+                              bgcolor: 'primary.main',
+                              height: '100%',
+                              borderRadius: 1,
+                              transition: 'width 0.6s ease'
+                            }}
+                          />
                         </Box>
                       </Box>
                     );
@@ -144,7 +126,9 @@ export default function DashboardView() {
             <CardHeader title="أداء الخدمات (الطلبات الأكثر طلباً)" />
             <CardContent>
               {servicesPerformance.length === 0 ? (
-                <Typography color="text.secondary" align="center">لا توجد بيانات كافية للخدمات</Typography>
+                <Typography color="text.secondary" align="center">
+                  لا توجد بيانات كافية للخدمات
+                </Typography>
               ) : (
                 <Stack spacing={2} sx={{ pt: 2 }}>
                   {servicesPerformance.map((item, idx) => {
@@ -152,11 +136,23 @@ export default function DashboardView() {
                     return (
                       <Box key={idx}>
                         <Stack direction="row" justifyContent="space-between" mb={0.5}>
-                          <Typography variant="body2" fontWeight={500}>{item.service}</Typography>
-                          <Typography variant="body2" fontWeight={600} color="secondary">{item.requests} طلب</Typography>
+                          <Typography variant="body2" fontWeight={500}>
+                            {item.service}
+                          </Typography>
+                          <Typography variant="body2" fontWeight={600} color="secondary">
+                            {item.requests} طلب
+                          </Typography>
                         </Stack>
                         <Box sx={{ width: '100%', bgcolor: 'action.hover', borderRadius: 1, height: 12, overflow: 'hidden' }}>
-                          <Box sx={{ width: `${percent}%`, bgcolor: 'success.main', height: '100%', borderRadius: 1, transition: 'width 0.6s ease' }} />
+                          <Box
+                            sx={{
+                              width: `${percent}%`,
+                              bgcolor: 'success.main',
+                              height: '100%',
+                              borderRadius: 1,
+                              transition: 'width 0.6s ease'
+                            }}
+                          />
                         </Box>
                       </Box>
                     );
@@ -173,7 +169,7 @@ export default function DashboardView() {
         <CardHeader
           title="أحدث طلبات الخدمة الواردة"
           action={
-            <Link href="/requests" passHref legacyBehavior>
+            <Link href="/dashboard/requests" passHref legacyBehavior>
               <Button size="small" variant="outlined" color="primary">
                 عرض جميع الطلبات
               </Button>
@@ -190,21 +186,41 @@ export default function DashboardView() {
               <Box component="table" sx={{ width: '100%', borderCollapse: 'collapse', textAlign: 'right' }}>
                 <Box component="thead" sx={{ bgcolor: 'action.hover' }}>
                   <Box component="tr">
-                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>العميل</Box>
-                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>الهاتف</Box>
-                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>الخدمة المطلوبة</Box>
-                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>الحالة</Box>
-                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>التاريخ</Box>
-                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600, textAlign: 'center' }}>العمليات</Box>
+                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>
+                      العميل
+                    </Box>
+                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>
+                      الهاتف
+                    </Box>
+                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>
+                      الخدمة المطلوبة
+                    </Box>
+                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>
+                      الحالة
+                    </Box>
+                    <Box component="th" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600 }}>
+                      التاريخ
+                    </Box>
+                    <Box
+                      component="th"
+                      sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600, textAlign: 'center' }}
+                    >
+                      العمليات
+                    </Box>
                   </Box>
                 </Box>
                 <Box component="tbody">
                   {latestRequests.map((req) => (
                     <Box component="tr" key={req.id} sx={{ '&:hover': { bgcolor: 'action.hover' } }}>
                       <Box component="td" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
-                        <Typography variant="body2" fontWeight={600}>{req.name}</Typography>
+                        <Typography variant="body2" fontWeight={600}>
+                          {req.name}
+                        </Typography>
                       </Box>
-                      <Box component="td" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', direction: 'ltr', textAlign: 'right' }}>
+                      <Box
+                        component="td"
+                        sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', direction: 'ltr', textAlign: 'right' }}
+                      >
                         {req.phone}
                       </Box>
                       <Box component="td" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
@@ -213,7 +229,10 @@ export default function DashboardView() {
                       <Box component="td" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
                         <StatusBadge status={req.status} />
                       </Box>
-                      <Box component="td" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', color: 'text.secondary', fontSize: '0.825rem' }}>
+                      <Box
+                        component="td"
+                        sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', color: 'text.secondary', fontSize: '0.825rem' }}
+                      >
                         {new Date(req.created_at).toLocaleDateString('ar-KW', {
                           year: 'numeric',
                           month: 'long',
@@ -221,7 +240,7 @@ export default function DashboardView() {
                         })}
                       </Box>
                       <Box component="td" sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', textAlign: 'center' }}>
-                        <Link href={`/requests?id=${req.id}`} passHref legacyBehavior>
+                        <Link href={`/dashboard/requests?id=${req.id}`} passHref legacyBehavior>
                           <Button size="small" variant="text" startIcon={<Eye size={16} />}>
                             تفاصيل
                           </Button>

@@ -29,7 +29,9 @@ export default function PublicBlogPage() {
   useEffect(() => {
     async function loadArticles() {
       try {
-        const url = searchQuery ? `/api/articles?status=published&search=${encodeURIComponent(searchQuery)}` : '/api/articles?status=published';
+        const url = searchQuery
+          ? `/api/articles?status=published&search=${encodeURIComponent(searchQuery)}`
+          : '/api/articles?status=published';
         const res = await apiClient.get(url);
         setArticles(res.data.data || []);
       } catch (err: any) {
@@ -113,7 +115,11 @@ export default function PublicBlogPage() {
                     <Typography variant="h4" fontWeight={700} gutterBottom sx={{ fontSize: '1.25rem', lineHeight: 1.4 }}>
                       {art.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.7, mb: 3 }}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.7, mb: 3 }}
+                    >
                       {art.excerpt}
                     </Typography>
                   </CardContent>

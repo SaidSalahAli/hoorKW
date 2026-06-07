@@ -91,15 +91,7 @@ export default function DataTable<T extends { id: number }>({
     <Box>
       {/* Bulk Actions Bar */}
       {selectable && selectedIds.length > 0 && (
-        <Stack
-          direction="row"
-          alignItems="center"
-          gap={2}
-          px={2}
-          py={1}
-          mb={1}
-          sx={{ bgcolor: 'primary.lighter', borderRadius: 1 }}
-        >
+        <Stack direction="row" alignItems="center" gap={2} px={2} py={1} mb={1} sx={{ bgcolor: 'primary.lighter', borderRadius: 1 }}>
           <Typography variant="body2" fontWeight={600}>
             تم اختيار {selectedIds.length} عنصر
           </Typography>
@@ -132,19 +124,11 @@ export default function DataTable<T extends { id: number }>({
             <TableRow>
               {selectable && (
                 <TableCell padding="checkbox">
-                  <Checkbox
-                    indeterminate={someSelected && !allSelected}
-                    checked={allSelected}
-                    onChange={handleSelectAll}
-                  />
+                  <Checkbox indeterminate={someSelected && !allSelected} checked={allSelected} onChange={handleSelectAll} />
                 </TableCell>
               )}
               {columns.map((col) => (
-                <TableCell
-                  key={col.key}
-                  align={col.align ?? 'left'}
-                  sx={{ fontWeight: 700, whiteSpace: 'nowrap', width: col.width }}
-                >
+                <TableCell key={col.key} align={col.align ?? 'left'} sx={{ fontWeight: 700, whiteSpace: 'nowrap', width: col.width }}>
                   {col.label}
                 </TableCell>
               ))}
@@ -166,18 +150,10 @@ export default function DataTable<T extends { id: number }>({
               </TableRow>
             ) : (
               rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  hover
-                  selected={selectedIds.includes(row.id)}
-                  sx={{ '&:last-child td': { border: 0 } }}
-                >
+                <TableRow key={row.id} hover selected={selectedIds.includes(row.id)} sx={{ '&:last-child td': { border: 0 } }}>
                   {selectable && (
                     <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={selectedIds.includes(row.id)}
-                        onChange={() => handleSelectRow(row.id)}
-                      />
+                      <Checkbox checked={selectedIds.includes(row.id)} onChange={() => handleSelectRow(row.id)} />
                     </TableCell>
                   )}
                   {columns.map((col) => (

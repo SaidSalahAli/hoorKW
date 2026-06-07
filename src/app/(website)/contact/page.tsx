@@ -128,8 +128,16 @@ export default function ContactPage() {
                     <Call size={28} />
                   </Box>
                   <Box>
-                    <Typography variant="caption" color="text.secondary">رقم الهاتف للاتصال المباشر</Typography>
-                    <Typography variant="h4" fontWeight={700} component="a" href={`tel:${phone}`} sx={{ color: 'text.primary', textDecoration: 'none' }}>
+                    <Typography variant="caption" color="text.secondary">
+                      رقم الهاتف للاتصال المباشر
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      fontWeight={700}
+                      component="a"
+                      href={`tel:${phone}`}
+                      sx={{ color: 'text.primary', textDecoration: 'none' }}
+                    >
                       {phone}
                     </Typography>
                   </Box>
@@ -143,8 +151,17 @@ export default function ContactPage() {
                     <Whatsapp size={28} variant="Bold" />
                   </Box>
                   <Box>
-                    <Typography variant="caption" color="text.secondary">المراسلة الفورية عبر واتساب</Typography>
-                    <Typography variant="h4" fontWeight={700} component="a" href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" sx={{ color: 'success.main', textDecoration: 'none' }}>
+                    <Typography variant="caption" color="text.secondary">
+                      المراسلة الفورية عبر واتساب
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      fontWeight={700}
+                      component="a"
+                      href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
+                      target="_blank"
+                      sx={{ color: 'success.main', textDecoration: 'none' }}
+                    >
                       تواصل واتساب الآن
                     </Typography>
                   </Box>
@@ -158,8 +175,12 @@ export default function ContactPage() {
                     <Location size={28} />
                   </Box>
                   <Box>
-                    <Typography variant="caption" color="text.secondary">مكتب الإدارة والمستودع الرئيسي</Typography>
-                    <Typography variant="h5" fontWeight={700}>{settings.address || 'الكويت'}</Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      مكتب الإدارة والمستودع الرئيسي
+                    </Typography>
+                    <Typography variant="h5" fontWeight={700}>
+                      {settings.address || 'الكويت'}
+                    </Typography>
                   </Box>
                 </CardContent>
               </Card>

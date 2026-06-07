@@ -10,11 +10,7 @@ import type { TableFilters, GalleryFormValues } from 'types/cms';
 export function useGallery(initialFilters: TableFilters = {}) {
   const [filters, setFilters] = useState<TableFilters>({ page: 1, per_page: 20, ...initialFilters });
 
-  const { data, error, isLoading, mutate } = useSWR(
-    ['gallery', filters],
-    () => galleryApi.getAll(filters),
-    { revalidateOnFocus: false }
-  );
+  const { data, error, isLoading, mutate } = useSWR(['gallery', filters], () => galleryApi.getAll(filters), { revalidateOnFocus: false });
 
   const updateFilters = useCallback((next: Partial<TableFilters>) => {
     setFilters((prev) => ({ ...prev, page: 1, ...next }));
@@ -32,22 +28,34 @@ export function useMutateGallery() {
   const [error, setError] = useState<string | null>(null);
 
   const upload = async (values: GalleryFormValues) => {
-    setIsLoading(true); setError(null);
-    try { return await galleryApi.upload(values); }
-    catch (e: any) { setError(e.message); throw e; }
-    finally { setIsLoading(false); }
+    setIsLoading(true);
+    setError(null);
+    try {
+      return await galleryApi.upload(values);
+    } catch (e: any) {
+      setError(e.message);
+      throw e;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const remove = async (id: number) => {
     setIsLoading(true);
-    try { await galleryApi.delete(id); }
-    finally { setIsLoading(false); }
+    try {
+      await galleryApi.delete(id);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const bulkRemove = async (ids: number[]) => {
     setIsLoading(true);
-    try { await galleryApi.bulkDelete(ids); }
-    finally { setIsLoading(false); }
+    try {
+      await galleryApi.bulkDelete(ids);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return { upload, remove, bulkRemove, isLoading, error };

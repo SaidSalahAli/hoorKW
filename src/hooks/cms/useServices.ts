@@ -10,11 +10,7 @@ import type { TableFilters, ServiceFormValues } from 'types/cms';
 export function useServices(initialFilters: TableFilters = {}) {
   const [filters, setFilters] = useState<TableFilters>({ page: 1, per_page: 10, ...initialFilters });
 
-  const { data, error, isLoading, mutate } = useSWR(
-    ['services', filters],
-    () => servicesApi.getAll(filters),
-    { revalidateOnFocus: false }
-  );
+  const { data, error, isLoading, mutate } = useSWR(['services', filters], () => servicesApi.getAll(filters), { revalidateOnFocus: false });
 
   const updateFilters = useCallback((next: Partial<TableFilters>) => {
     setFilters((prev) => ({ ...prev, page: 1, ...next }));
@@ -37,11 +33,7 @@ export function useServices(initialFilters: TableFilters = {}) {
 }
 
 export function useService(id: number | null) {
-  const { data, error, isLoading } = useSWR(
-    id ? `services/${id}` : null,
-    () => servicesApi.getById(id!),
-    { revalidateOnFocus: false }
-  );
+  const { data, error, isLoading } = useSWR(id ? `services/${id}` : null, () => servicesApi.getById(id!), { revalidateOnFocus: false });
   return { service: data, isLoading, error };
 }
 
