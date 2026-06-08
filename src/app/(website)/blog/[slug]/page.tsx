@@ -84,7 +84,7 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
     datePublished: article.created_at,
     author: {
       '@type': 'Organization',
-      name: 'حور لنقل العفش'
+      name: 'الحور لنقل العفش'
     }
   };
 

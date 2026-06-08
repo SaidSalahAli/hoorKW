@@ -24,7 +24,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
 
   const phone = settings?.phone || '96512345678';
   const whatsapp = settings?.whatsapp || '96512345678';
-  const siteName = settings?.site_name || 'حور لنقل العفش';
+  const siteName = settings?.site_name || 'الحور لنقل العفش';
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: '#f8fafc' }}>

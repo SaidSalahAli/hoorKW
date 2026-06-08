@@ -45,7 +45,7 @@ export default function PublicGalleryPage() {
       <Box sx={{ bgcolor: '#0f172a', color: 'white', py: 8, textAlign: 'center' }}>
         <Container maxWidth="lg">
           <Typography variant="h1" fontWeight={800} gutterBottom>
-            معرض أعمال شركة حور
+            معرض أعمال شركة الحور
           </Typography>
           <Typography variant="h5" color="grey.400" fontWeight={400}>
             شاهد صوراً حية لعمليات نقل العفش وتغليف الأثاث التي قمنا بها لعملائنا في مختلف مناطق الكويت

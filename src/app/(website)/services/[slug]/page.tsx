@@ -166,7 +166,7 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
 
                         <Box sx={{ bgcolor: '#f1f5f9', p: 4, borderRadius: 3, mb: 4 }}>
                             <Typography variant="h4" fontWeight={700} mb={2}>
-                                لماذا تختار خدمة {service.title} من شركة حور؟
+                                لماذا تختار خدمة {service.title} من شركة الحور؟
                             </Typography>
                             <Typography variant="body2" color="text.secondary" paragraph>
                                 1. كفاءة وسرعة في إنجاز عملية النقل دون تأخير.

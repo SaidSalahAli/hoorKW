@@ -21,7 +21,7 @@ export default function AboutPage() {
             من نحن
           </Typography>
           <Typography variant="h5" color="grey.400" fontWeight={400}>
-            تعرف على شركة حور - رواد نقل وتغليف الأثاث المنزلي والمكتبي في دولة الكويت
+            تعرف على شركة الحور - رواد نقل وتغليف الأثاث المنزلي والمكتبي في دولة الكويت
           </Typography>
         </Container>
       </Box>
@@ -34,7 +34,7 @@ export default function AboutPage() {
               تاريخنا ورؤيتنا في التميز والريادة
             </Typography>
             <Typography variant="body1" color="text.secondary" paragraph sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
-              انطلقت شركة حور لنقل العفش في دولة الكويت واضعةً نصب عينيها هدفاً أساسياً: تقديم تجربة نقل أثاث سلسة، آمنة ومريحة لجميع
+              انطلقت شركة الحور لنقل العفش في دولة الكويت واضعةً نصب عينيها هدفاً أساسياً: تقديم تجربة نقل أثاث سلسة، آمنة ومريحة لجميع
               عملائنا. بفضل ثقتكم، استطعنا على مر السنوات بناء سمعة متميزة تمثل مرادفاً للأمان والدقة والسرعة في المعاملات.
             </Typography>
             <Typography variant="body1" color="text.secondary" paragraph sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>

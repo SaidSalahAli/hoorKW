@@ -49,7 +49,7 @@ export default function PublicBlogPage() {
       <Box sx={{ bgcolor: '#0f172a', color: 'white', py: 8, textAlign: 'center' }}>
         <Container maxWidth="lg">
           <Typography variant="h1" fontWeight={800} gutterBottom>
-            مدونة حور لنقل العفش
+            مدونة الحور لنقل العفش
           </Typography>
           <Typography variant="h5" color="grey.400" fontWeight={400}>
             نصائح عملية وإرشادات لتسهيل عملية نقل الأثاث وتعبئته وتخزينه بأمان

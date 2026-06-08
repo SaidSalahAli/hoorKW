@@ -15,7 +15,7 @@ final class SettingsRepository
     public function createDefault(): array
     {
         Database::insert('settings', [
-            'site_name' => 'حور لنقل العفش',
+            'site_name' => 'الحور لنقل العفش',
             'phone'     => '96512345678',
             'whatsapp'  => '96512345678',
         ]);
