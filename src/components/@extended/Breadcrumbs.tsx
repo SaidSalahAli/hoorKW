@@ -143,14 +143,14 @@ export default function Breadcrumbs({
   if (!custom && main && main.type === 'collapse' && main.breadcrumbs === true) {
     CollapseIcon = main.icon ? main.icon : Buildings2;
     mainContent = (
-      <NextLink href={(main.url as string) || '/'} passHref legacyBehavior>
+      <NextLink href={(main.url as string) || '/'} style={{ textDecoration: 'none' }}>
         <Typography
           variant="body1"
-          sx={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
+          sx={{ display: 'flex', alignItems: 'center' }}
           color={window.location.pathname === main.url ? 'text.secondary' : 'text.primary'}
         >
           {icons && <CollapseIcon style={iconSX} />}
-          <FormattedMessage id={main.title} />
+          {main.title}
         </Typography>
       </NextLink>
     );
@@ -171,11 +171,11 @@ export default function Breadcrumbs({
         >
           <Grid>
             <MuiBreadcrumbs aria-label="breadcrumb" maxItems={maxItems || 8} separator={separatorIcon}>
-              <NextLink href="/" passHref legacyBehavior>
+              <NextLink href="/" style={{ textDecoration: 'none' }}>
                 <Typography
                   variant="body1"
                   color="text.primary"
-                  sx={{ textDecoration: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                  sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
                 >
                   {icons && <Home3 style={iconSX} />}
                   {icon && !icons && <Home3 variant="Bold" style={{ ...iconSX, marginRight: 0 }} />}
@@ -188,7 +188,7 @@ export default function Breadcrumbs({
           {title && titleBottom && (
             <Grid sx={{ mt: card === false ? 0 : 1 }}>
               <Typography variant="h2" sx={{ fontWeight: 700 }}>
-                <FormattedMessage id={main.title} />
+                {main.title}
               </Typography>
             </Grid>
           )}
@@ -212,11 +212,11 @@ export default function Breadcrumbs({
 
     let tempContent = (
       <MuiBreadcrumbs aria-label="breadcrumb" maxItems={maxItems || 8} separator={separatorIcon}>
-        <NextLink href="/" passHref legacyBehavior>
+        <NextLink href="/" style={{ textDecoration: 'none' }}>
           <Typography
             color="text.secondary"
             variant="h6"
-            sx={{ textDecoration: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+            sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
           >
             {icons && <Home3 style={iconSX} />}
             {icon && !icons && <Home3 variant="Bold" style={{ ...iconSX, marginRight: 0 }} />}
@@ -247,7 +247,7 @@ export default function Breadcrumbs({
             );
             if (link.to) {
               breadcrumbLink = (
-                <NextLink key={key} href={link.to} passHref legacyBehavior>
+                <NextLink key={key} href={link.to} style={{ textDecoration: 'none' }}>
                   {breadcrumbLink}
                 </NextLink>
               );
