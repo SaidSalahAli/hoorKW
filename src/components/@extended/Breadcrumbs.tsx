@@ -172,11 +172,7 @@ export default function Breadcrumbs({
           <Grid>
             <MuiBreadcrumbs aria-label="breadcrumb" maxItems={maxItems || 8} separator={separatorIcon}>
               <NextLink href="/" style={{ textDecoration: 'none' }}>
-                <Typography
-                  variant="body1"
-                  color="text.primary"
-                  sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-                >
+                <Typography variant="body1" color="text.primary" sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                   {icons && <Home3 style={iconSX} />}
                   {icon && !icons && <Home3 variant="Bold" style={{ ...iconSX, marginRight: 0 }} />}
                   {(!icon || icons) && <FormattedMessage id="home" />}
@@ -213,11 +209,7 @@ export default function Breadcrumbs({
     let tempContent = (
       <MuiBreadcrumbs aria-label="breadcrumb" maxItems={maxItems || 8} separator={separatorIcon}>
         <NextLink href="/" style={{ textDecoration: 'none' }}>
-          <Typography
-            color="text.secondary"
-            variant="h6"
-            sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-          >
+          <Typography color="text.secondary" variant="h6" sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
             {icons && <Home3 style={iconSX} />}
             {icon && !icons && <Home3 variant="Bold" style={{ ...iconSX, marginRight: 0 }} />}
             {(!icon || icons) && <FormattedMessage id="home" />}

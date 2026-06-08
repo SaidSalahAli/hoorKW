@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import Link from 'next/link';
+import ScrollReveal from 'components/ScrollReveal';
 
 import { ArrowRight, Gallery } from '@wandersonalwes/iconsax-react';
 import { publicApiClient } from 'lib/apiClient';
@@ -40,70 +41,163 @@ export default function PublicServicesPage() {
   return (
     <Box>
       {/* Banner */}
-      <Box sx={{ bgcolor: '#0f172a', color: 'white', py: 8, textAlign: 'center' }}>
-        <Container maxWidth="lg">
-          <Typography variant="h1" fontWeight={800} gutterBottom>
-            خدماتنا لنقل العفش والأثاث
-          </Typography>
-          <Typography variant="h5" color="grey.400" fontWeight={400}>
-            نوفر خدمات نقل وتعبئة وتغليف وتخزين متكاملة لجميع الاحتياجات السكنية والتجارية في دولة الكويت
-          </Typography>
+      <Box
+        sx={{
+          color: 'white',
+          py: { xs: 10, md: 14 },
+          position: 'relative',
+          overflow: 'hidden',
+          backgroundImage:
+            'linear-gradient(135deg, rgba(6, 13, 31, 0.95) 0%, rgba(15, 23, 42, 0.9) 40%, rgba(26, 39, 68, 0.95) 100%), url(/assets/images/home/hero.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          textAlign: 'center'
+        }}
+      >
+        {/* Decorative blurred circles */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -50,
+            right: -50,
+            width: 250,
+            height: 250,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(250,204,21,0.15) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }}
+        />
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: -50,
+            left: '20%',
+            width: 200,
+            height: 200,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(250,204,21,0.1) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }}
+        />
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <ScrollReveal direction="up">
+            <Typography variant="h1" fontWeight={900} sx={{ fontSize: { xs: '2.4rem', md: '3.4rem' }, mb: 2 }}>
+              خدماتنا لنقل العفش والأثاث
+            </Typography>
+            <Typography variant="h6" sx={{ color: 'grey.400', fontWeight: 400, maxWidth: 720, mx: 'auto', lineHeight: 1.7 }}>
+              نوفر خدمات نقل وتعبئة وتغليف وتخزين متكاملة لجميع الاحتياجات السكنية والتجارية في دولة الكويت
+            </Typography>
+          </ScrollReveal>
         </Container>
       </Box>
 
       {/* Services List Content */}
-      <Container maxWidth="lg" sx={{ py: 10 }}>
+      <Container maxWidth="lg" sx={{ py: 12 }}>
         {loading ? (
           <Box display="flex" justifyContent="center" py={8}>
-            <CircularProgress />
+            <CircularProgress size={44} sx={{ color: '#eab308' }} />
           </Box>
         ) : error ? (
-          <Alert severity="error">{error}</Alert>
+          <Alert severity="error" sx={{ borderRadius: 2 }}>
+            {error}
+          </Alert>
         ) : services.length === 0 ? (
           <Box py={8} textAlign="center">
             <Typography color="text.secondary">لا توجد خدمات متاحة حالياً.</Typography>
           </Box>
         ) : (
           <Grid container spacing={4}>
-            {services.map((service) => (
+            {services.map((service, idx) => (
               <Grid item xs={12} sm={6} md={4} key={service.id}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                    transition: 'all 0.3s ease',
-                    '&:hover': { transform: 'translateY(-5px)', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }
-                  }}
-                >
-                  <Box sx={{ position: 'relative', height: 220, bgcolor: 'action.hover' }}>
-                    {service.image ? (
-                      <CardMedia component="img" height="100%" image={service.image} alt={service.title} sx={{ objectFit: 'cover' }} />
-                    ) : (
-                      <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-                        <Gallery size={44} color="#ccc" />
+                <ScrollReveal direction="up" delay={idx * 0.1}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      border: '1px solid #e2e8f0',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                      transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        borderColor: '#eab308',
+                        boxShadow: '0 20px 25px -5px rgba(234,179,8,0.1), 0 10px 10px -5px rgba(234,179,8,0.04)'
+                      }
+                    }}
+                  >
+                    <Box sx={{ position: 'relative', height: 220, overflow: 'hidden', bgcolor: 'action.hover' }}>
+                      {service.image ? (
+                        <CardMedia
+                          component="img"
+                          height="100%"
+                          image={service.image}
+                          alt={service.title}
+                          sx={{
+                            objectFit: 'cover',
+                            transition: 'transform 0.5s ease',
+                            '&:hover': { transform: 'scale(1.08)' }
+                          }}
+                        />
+                      ) : (
+                        <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+                          <Gallery size={44} color="#ccc" />
+                        </Box>
+                      )}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          bgcolor: '#eab308',
+                          color: '#0f172a',
+                          px: 2,
+                          py: 0.5,
+                          borderRadius: 10,
+                          fontSize: '0.75rem',
+                          fontWeight: 800
+                        }}
+                      >
+                        سريع وآمن
                       </Box>
-                    )}
-                  </Box>
-                  <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                    <Typography variant="h4" fontWeight={700} gutterBottom>
-                      {service.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, mb: 3 }}>
-                      {service.short_description}
-                    </Typography>
-                  </CardContent>
-                  <Box sx={{ p: 3, pt: 0 }}>
-                    <Link href={`/services/${service.slug}`} passHref legacyBehavior>
-                      <Button variant="text" color="primary" endIcon={<ArrowRight size={16} />} sx={{ fontWeight: 700, p: 0 }}>
-                        تفاصيل الخدمة وحجز موعد
-                      </Button>
-                    </Link>
-                  </Box>
-                </Card>
+                    </Box>
+                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                      <Typography variant="h4" fontWeight={800} gutterBottom color="#0f172a" sx={{ fontSize: '1.25rem' }}>
+                        {service.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, mb: 1 }}>
+                        {service.short_description}
+                      </Typography>
+                    </CardContent>
+                    <Box sx={{ p: 3, pt: 0, borderTop: '1px solid #f1f5f9' }}>
+                      <Link href={`/services/${service.slug}`} passHref legacyBehavior>
+                        <Button
+                          variant="text"
+                          endIcon={<ArrowRight size={16} />}
+                          sx={{
+                            fontWeight: 800,
+                            p: 0,
+                            mt: 2,
+                            color: '#eab308',
+                            '&:hover': { gap: 1, color: '#ca8a04', bgcolor: 'transparent' },
+                            '&:focus, &:focus-visible, &:active, &.Mui-focusVisible': {
+                              outline: 'none !important',
+                              boxShadow: 'none !important',
+                              border: 'none !important',
+                              bgcolor: 'transparent'
+                            },
+                            WebkitTapHighlightColor: 'transparent',
+                            transition: 'all 0.2s'
+                          }}
+                        >
+                          تفاصيل الخدمة وحجز موعد
+                        </Button>
+                      </Link>
+                    </Box>
+                  </Card>
+                </ScrollReveal>
               </Grid>
             ))}
           </Grid>
