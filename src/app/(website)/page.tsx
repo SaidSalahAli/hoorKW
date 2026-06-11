@@ -335,10 +335,10 @@ export default function PublicHomePage() {
                           100%
                         </Typography>
                         <Typography variant="subtitle1" fontWeight={700} mt={1} color="#0f172a">
-                          أمان وضمان
+                          أمان
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, lineHeight: 1.6 }}>
-                          ضمان كامل لجميع قطع الأثاث من الخدوش والتلف
+                          كامل لجميع قطع الأثاث من الخدوش والتلف
                         </Typography>
                       </CardContent>
                     </Card>

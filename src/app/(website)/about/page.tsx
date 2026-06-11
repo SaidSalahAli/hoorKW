@@ -112,9 +112,7 @@ export default function AboutPage() {
                   background: 'linear-gradient(135deg, #facc15 0%, #eab308 100%)'
                 }}
               >
-                <Typography variant="h3" fontWeight={900} gutterBottom sx={{ fontSize: '1.6rem' }}>
-                  الضمان الشامل لسلامة عفشك
-                </Typography>
+
                 <Typography variant="body1" paragraph sx={{ opacity: 0.9, lineHeight: 1.8, fontSize: '1.05rem', mt: 2 }}>
                   نحن لا نقوم فقط بنقل قطع الأثاث الخاصة بك، بل نتحمل المسؤولية الكاملة عن سلامتها وحمايتها. في حال حدوث أي تلفيات (لا قدر
                   الله)، فإن الشركة تضمن لعملائها تعويضاً عادلاً.

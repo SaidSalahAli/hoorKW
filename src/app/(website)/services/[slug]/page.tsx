@@ -260,7 +260,7 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
                   {[
                     'كفاءة وسرعة فائقة في إنجاز عملية النقل دون تأخير وبجدول زمني دقيق.',
                     'نستخدم خامات تغليف عالية الجودة مخصصة لكل قطعة أثاث (كرتون مقوى، بابلز، فوم).',
-                    'التزام تام بالمحافظة على المنقولات، مع وجود ضمان حقيقي يحميك من أي خسائر أو خدوش.'
+                    'التزام تام بالمحافظة على المنقولات، مع وجود حقيقي يحميك من أي خسائر أو خدوش.'
                   ].map((text, idx) => (
                     <Box key={idx} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
                       <TickCircle size={22} variant="Bold" color="#eab308" style={{ marginTop: 2, flexShrink: 0 }} />
