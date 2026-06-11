@@ -448,9 +448,12 @@ export default function ArticlesView() {
               >
                 {formik.values.excerpt || 'مقتطف المقال يظهر هنا...'}
               </Typography>
-              <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
-                {formik.values.content || 'اكتب محتوى المقال في التبويب الأول لعرض المعاينة الكاملة هنا...'}
-              </Typography>
+              <Typography
+                variant="body1"
+                component="div"
+                dangerouslySetInnerHTML={{ __html: formik.values.content || 'اكتب محتوى المقال في التبويب الأول لعرض المعاينة الكاملة هنا...' }}
+                sx={{ lineHeight: 1.8 }}
+              />
             </Box>
           )}
         </DialogContent>
@@ -501,9 +504,12 @@ export default function ArticlesView() {
               >
                 {previewArticle.excerpt}
               </Typography>
-              <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
-                {previewArticle.content}
-              </Typography>
+              <Typography
+                variant="body1"
+                component="div"
+                dangerouslySetInnerHTML={{ __html: previewArticle.content }}
+                sx={{ lineHeight: 1.8 }}
+              />
             </Box>
           )}
         </DialogContent>
