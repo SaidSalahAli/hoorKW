@@ -23,7 +23,7 @@ final class ArticleRepository
         }
 
         return Paginator::paginate('articles', [
-            'select'   => 'id, title, slug, image, excerpt, views, status, published_at, created_at',
+            'select'   => 'id, title, slug, image, excerpt, content, views, status, published_at, created_at',
             'where'    => implode(' AND ', $where),
             'params'   => $params,
             'page'     => $page,

@@ -26,7 +26,7 @@ final class ServiceRepository
         }
 
         return Paginator::paginate('services', [
-            'select'   => 'id, title, slug, image, short_description, meta_title, meta_description, status, sort_order, created_at',
+            'select'   => 'id, title, slug, image, short_description, description, meta_title, meta_description, status, sort_order, created_at',
             'where'    => implode(' AND ', $where),
             'params'   => $params,
             'page'     => $page,
