@@ -20,6 +20,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 
 import { useFormik } from 'formik';
+import { openSnackbar } from 'api/snackbar';
+import { SnackbarProps } from 'types/snackbar';
 import * as yup from 'yup';
 
 import { Add, Trash, Eye, Gallery } from '@wandersonalwes/iconsax-react';
@@ -60,10 +62,22 @@ export default function GalleryView() {
     onSubmit: async (values) => {
       try {
         await mutation.upload(values);
+        openSnackbar({
+          open: true,
+          message: 'تم رفع الصورة بنجاح',
+          variant: 'alert',
+          alert: { color: 'success' }
+        } as SnackbarProps);
         mutate();
         handleCloseDialog();
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
+        openSnackbar({
+          open: true,
+          message: err.message || 'حدث خطأ غير متوقع',
+          variant: 'alert',
+          alert: { color: 'error' }
+        } as SnackbarProps);
       }
     }
   });

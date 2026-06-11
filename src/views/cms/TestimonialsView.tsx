@@ -20,6 +20,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Rating from '@mui/material/Rating';
 
 import { useFormik } from 'formik';
+import { openSnackbar } from 'api/snackbar';
+import { SnackbarProps } from 'types/snackbar';
 import * as yup from 'yup';
 
 import { Add, Edit, Trash } from '@wandersonalwes/iconsax-react';
@@ -68,13 +70,31 @@ export default function TestimonialsView() {
       try {
         if (selectedTestimonial) {
           await mutation.update(selectedTestimonial.id, values);
+          openSnackbar({
+            open: true,
+            message: 'تم تحديث التقييم بنجاح',
+            variant: 'alert',
+            alert: { color: 'success' }
+          } as SnackbarProps);
         } else {
           await mutation.create(values);
+          openSnackbar({
+            open: true,
+            message: 'تم إضافة التقييم بنجاح',
+            variant: 'alert',
+            alert: { color: 'success' }
+          } as SnackbarProps);
         }
         mutate();
         handleCloseDialog();
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
+        openSnackbar({
+          open: true,
+          message: err.message || 'حدث خطأ غير متوقع',
+          variant: 'alert',
+          alert: { color: 'error' }
+        } as SnackbarProps);
       }
     }
   });

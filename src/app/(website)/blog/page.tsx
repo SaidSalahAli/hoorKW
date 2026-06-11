@@ -226,7 +226,7 @@ export default function PublicBlogPage() {
                         </Button>
                       </Link>
                       <Typography variant="caption" color="text.secondary" fontWeight={500}>
-                        {new Date(art.created_at).toLocaleDateString('ar-KW')}
+                        {new Date(art.published_at || art.created_at).toLocaleDateString('ar-KW')}
                       </Typography>
                     </Box>
                   </Card>

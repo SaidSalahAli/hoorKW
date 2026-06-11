@@ -19,6 +19,8 @@ import Avatar from '@mui/material/Avatar';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { useFormik } from 'formik';
+import { openSnackbar } from 'api/snackbar';
+import { SnackbarProps } from 'types/snackbar';
 import * as yup from 'yup';
 
 import { Add, Edit, Trash, Gallery } from '@wandersonalwes/iconsax-react';
@@ -78,13 +80,31 @@ export default function ServicesView() {
       try {
         if (selectedService) {
           await updateMutation.update(selectedService.id, values);
+          openSnackbar({
+            open: true,
+            message: 'تم تحديث الخدمة بنجاح',
+            variant: 'alert',
+            alert: { color: 'success' }
+          } as SnackbarProps);
         } else {
           await createMutation.create(values);
+          openSnackbar({
+            open: true,
+            message: 'تم إضافة الخدمة بنجاح',
+            variant: 'alert',
+            alert: { color: 'success' }
+          } as SnackbarProps);
         }
         mutate();
         handleCloseDialog();
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
+        openSnackbar({
+          open: true,
+          message: err.message || 'حدث خطأ غير متوقع',
+          variant: 'alert',
+          alert: { color: 'error' }
+        } as SnackbarProps);
       }
     }
   });

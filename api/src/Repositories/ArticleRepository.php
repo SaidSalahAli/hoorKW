@@ -51,7 +51,7 @@ final class ArticleRepository
     public function getRelated(int $excludeId, int $limit = 3): array
     {
         return Database::all(
-            "SELECT id, title, slug, image, excerpt, views, published_at FROM articles
+            "SELECT id, title, slug, image, excerpt, views, published_at, created_at FROM articles
              WHERE status = 'published' AND id != ? ORDER BY views DESC LIMIT ?",
             [$excludeId, $limit]
         );
@@ -98,7 +98,7 @@ final class ArticleRepository
     public function getLatest(int $limit = 3): array
     {
         return Database::all(
-            "SELECT id, title, slug, image, excerpt, views, published_at
+            "SELECT id, title, slug, image, excerpt, views, published_at, created_at
              FROM articles WHERE status = 'published' ORDER BY published_at DESC LIMIT ?",
             [$limit]
         );

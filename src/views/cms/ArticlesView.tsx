@@ -21,6 +21,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 import { useFormik } from 'formik';
+import { openSnackbar } from 'api/snackbar';
+import { SnackbarProps } from 'types/snackbar';
 import * as yup from 'yup';
 
 import { Add, Edit, Trash, Eye, Gallery } from '@wandersonalwes/iconsax-react';
@@ -81,13 +83,31 @@ export default function ArticlesView() {
       try {
         if (selectedArticle) {
           await mutation.update(selectedArticle.id, values);
+          openSnackbar({
+            open: true,
+            message: 'تم تحديث المقال بنجاح',
+            variant: 'alert',
+            alert: { color: 'success' }
+          } as SnackbarProps);
         } else {
           await mutation.create(values);
+          openSnackbar({
+            open: true,
+            message: 'تم نشر المقال بنجاح',
+            variant: 'alert',
+            alert: { color: 'success' }
+          } as SnackbarProps);
         }
         mutate();
         handleCloseDialog();
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
+        openSnackbar({
+          open: true,
+          message: err.message || 'حدث خطأ غير متوقع',
+          variant: 'alert',
+          alert: { color: 'error' }
+        } as SnackbarProps);
       }
     }
   });

@@ -96,7 +96,7 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
     headline: article.title,
     description: article.excerpt,
     image: article.image,
-    datePublished: article.created_at,
+    datePublished: article.published_at || article.created_at,
     author: {
       '@type': 'Organization',
       name: 'الحور لنقل العفش'
@@ -176,7 +176,7 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
               {article.title}
             </Typography>
             <Stack direction="row" spacing={2} mt={2} color="grey.400" fontSize="0.875rem">
-              <span>تاريخ النشر: {new Date(article.created_at).toLocaleDateString('ar-KW')}</span>
+              <span>تاريخ النشر: {new Date(article.published_at || article.created_at).toLocaleDateString('ar-KW')}</span>
               <span>•</span>
               <span>الزيارات: {article.views} مشاهدة</span>
             </Stack>
@@ -257,7 +257,7 @@ export default function ArticleDetailsPage({ params }: ArticleDetailsProps) {
                         </Box>
                       </Link>
                       <Typography variant="caption" color="text.secondary" fontWeight={500}>
-                        {new Date(rel.created_at).toLocaleDateString('ar-KW')}
+                        {new Date(rel.published_at || rel.created_at).toLocaleDateString('ar-KW')}
                       </Typography>
                     </Box>
                   ))}

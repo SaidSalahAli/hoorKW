@@ -15,6 +15,8 @@ import Tab from '@mui/material/Tab';
 import Alert from '@mui/material/Alert';
 
 import { useFormik } from 'formik';
+import { openSnackbar } from 'api/snackbar';
+import { SnackbarProps } from 'types/snackbar';
 import * as yup from 'yup';
 
 import { Save2 } from '@wandersonalwes/iconsax-react';
@@ -68,10 +70,22 @@ export default function SettingsView() {
         await updateMutation.update(values);
         mutate();
         setSuccessMsg('تم حفظ الإعدادات بنجاح!');
+        openSnackbar({
+          open: true,
+          message: 'تم حفظ الإعدادات بنجاح!',
+          variant: 'alert',
+          alert: { color: 'success' }
+        } as SnackbarProps);
         // scroll to top to see success message
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
+        openSnackbar({
+          open: true,
+          message: err.message || 'حدث خطأ غير متوقع',
+          variant: 'alert',
+          alert: { color: 'error' }
+        } as SnackbarProps);
       }
     }
   });

@@ -14,9 +14,36 @@ import useSWR from 'swr';
 import { usePathname } from 'next/navigation';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import { Whatsapp, Setting, HambergerMenu } from '@wandersonalwes/iconsax-react';
+import { Whatsapp, Setting, HambergerMenu, Call } from '@wandersonalwes/iconsax-react';
+import { keyframes } from '@mui/system';
 
 import { settingsApi } from 'lib/api/settings';
+
+// ==============================|| KEYFRAMES FOR FLOATING BUTTONS ||============================== //
+
+const whatsappPulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+`;
+
+const callPulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(26, 115, 232, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+  }
+`;
 
 // ==============================|| PUBLIC WEBSITE LAYOUT ||============================== //
 
@@ -405,7 +432,33 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
         </Container>
       </Box>
 
-      {/* Floating WhatsApp Button */}
+      {/* Floating Call Button (Right Side) */}
+      <Box
+        component="a"
+        href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
+        sx={{
+          position: 'fixed',
+          bottom: { xs: 20, sm: 30 },
+          right: { xs: 20, sm: 30 },
+          bgcolor: '#1a73e8',
+          color: 'white',
+          width: { xs: 54, sm: 60 },
+          height: { xs: 54, sm: 60 },
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+          transition: 'all 0.3s ease',
+          zIndex: 9999,
+          animation: `${callPulse} 2s infinite`,
+          '&:hover': { transform: 'scale(1.1)', bgcolor: '#1557b0' }
+        }}
+      >
+        <Call size={28} variant="Bold" />
+      </Box>
+
+      {/* Floating WhatsApp Button (Left Side) */}
       <Box
         component="a"
         href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
@@ -413,23 +466,24 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
         rel="noopener noreferrer"
         sx={{
           position: 'fixed',
-          bottom: 30,
-          left: 30,
+          bottom: { xs: 20, sm: 30 },
+          left: { xs: 20, sm: 30 },
           bgcolor: '#25d366',
           color: 'white',
-          width: 60,
-          height: 60,
+          width: { xs: 54, sm: 60 },
+          height: { xs: 54, sm: 60 },
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
           transition: 'all 0.3s ease',
           zIndex: 9999,
+          animation: `${whatsappPulse} 2s infinite`,
           '&:hover': { transform: 'scale(1.1)', bgcolor: '#128c7e' }
         }}
       >
-        <Whatsapp size={32} variant="Bold" />
+        <Whatsapp size={28} variant="Bold" />
       </Box>
     </Box>
   );
