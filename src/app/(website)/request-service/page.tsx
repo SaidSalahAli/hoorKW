@@ -55,7 +55,7 @@ export default function RequestServicePage() {
       name: yup.string().required('الرجاء إدخال اسمك الكريم'),
       phone: yup.string().required('رقم الهاتف مطلوب').min(8, 'رقم الهاتف غير صحيح'),
       service_id: yup.string().required('الرجاء اختيار نوع الخدمة'),
-      message: yup.string().required('الرجاء كتابة تفاصيل الأغراض المراد نقلها والمكان')
+      message: yup.string().required('الرجاء كتابة تفاصيل الأغراض المراد نقلها والمكان').min(10, 'تفاصيل الطلب يجب أن لا تقل عن 10 أحرف')
     }),
     onSubmit: async (values, { resetForm }) => {
       setFormSubmitting(true);

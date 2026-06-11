@@ -52,20 +52,39 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ── Response interceptor: global 401 handling ─────────────────────────────
+// ── Shared Error Handler ──────────────────────────────────────────────────
+const handleResponseError = async (error: any) => {
+  if (typeof window !== 'undefined') {
+    if (error?.response?.status === 401 && !window.location.href.includes('/login')) {
+      cachedToken = null;
+      await signOut({ redirect: false });
+      window.location.pathname = '/login';
+    }
+  }
+
+  const data = error?.response?.data;
+  let message = data?.message || data?.error || error?.message || 'حدث خطأ غير متوقع';
+
+  // If there are validation errors, extract the first one to make the error message clearer
+  if (data?.errors && typeof data.errors === 'object') {
+    const firstFieldErrors = Object.values(data.errors)[0];
+    if (Array.isArray(firstFieldErrors) && firstFieldErrors.length > 0) {
+      message = firstFieldErrors[0];
+    }
+  }
+
+  return Promise.reject(new Error(message));
+};
+
+// ── Response interceptors ─────────────────────────────────────────────────
+publicApiClient.interceptors.response.use(
+  (response) => response,
+  handleResponseError
+);
+
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
-  async (error) => {
-    if (typeof window !== 'undefined') {
-      if (error?.response?.status === 401 && !window.location.href.includes('/login')) {
-        cachedToken = null;
-        await signOut({ redirect: false });
-        window.location.pathname = '/login';
-      }
-    }
-    const message = error?.response?.data?.message || error?.response?.data?.error || error?.message || 'حدث خطأ غير متوقع';
-    return Promise.reject(new Error(message));
-  }
+  handleResponseError
 );
 
 export default apiClient;

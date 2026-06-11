@@ -67,7 +67,7 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
     validationSchema: yup.object({
       name: yup.string().required('الرجاء إدخال اسمك الكريم'),
       phone: yup.string().required('رقم الهاتف مطلوب للتواصل').min(8, 'رقم الهاتف غير صحيح'),
-      message: yup.string().required('الرجاء إدخال تفاصيل النقل المطلوبة')
+      message: yup.string().required('الرجاء إدخال تفاصيل النقل المطلوبة').min(10, 'تفاصيل الطلب يجب أن لا تقل عن 10 أحرف')
     }),
     enableReinitialize: true,
     onSubmit: async (values, { resetForm }) => {
@@ -260,7 +260,7 @@ export default function ServiceDetailsPage({ params }: ServiceDetailsProps) {
                   {[
                     'كفاءة وسرعة فائقة في إنجاز عملية النقل دون تأخير وبجدول زمني دقيق.',
                     'نستخدم خامات تغليف عالية الجودة مخصصة لكل قطعة أثاث (كرتون مقوى، بابلز، فوم).',
-                    'التزام تام بالمحافظة على المنقولات، مع وجود حقيقي يحميك من أي خسائر أو خدوش.'
+                    'التزام تام بالمحافظة على المنقولات، مع توفير أقصى درجات الحماية ضد أي خسائر أو خدوش.'
                   ].map((text, idx) => (
                     <Box key={idx} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
                       <TickCircle size={22} variant="Bold" color="#eab308" style={{ marginTop: 2, flexShrink: 0 }} />

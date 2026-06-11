@@ -61,7 +61,7 @@ export default function ContactPage() {
       name: yup.string().required('الرجاء إدخال اسمك الكريم'),
       phone: yup.string().required('رقم الهاتف مطلوب').min(8, 'رقم الهاتف غير صحيح'),
       service_id: yup.string().required('الرجاء اختيار الخدمة المطلوبة'),
-      message: yup.string().required('الرجاء كتابة تفاصيل الطلب أو رسالتك')
+      message: yup.string().required('الرجاء كتابة تفاصيل الطلب أو رسالتك').min(10, 'تفاصيل الطلب أو الرسالة يجب أن لا تقل عن 10 أحرف')
     }),
     onSubmit: async (values, { resetForm }) => {
       setFormSubmitting(true);

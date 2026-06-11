@@ -86,7 +86,7 @@ export default function PublicHomePage() {
       name: yup.string().required('الرجاء إدخال اسمك الكريم'),
       phone: yup.string().required('رقم الهاتف مطلوب للتواصل معك').min(8, 'رقم الهاتف غير صحيح'),
       service_id: yup.string().required('الرجاء اختيار الخدمة المطلوبة'),
-      message: yup.string().required('الرجاء إدخال تفاصيل الطلب')
+      message: yup.string().required('الرجاء إدخال تفاصيل الطلب').min(10, 'تفاصيل الطلب يجب أن لا تقل عن 10 أحرف')
     }),
     onSubmit: async (values, { resetForm }) => {
       setFormSubmitting(true);
@@ -206,7 +206,7 @@ export default function PublicHomePage() {
                 </motion.div>
                 <motion.div variants={heroItemVariants}>
                   <Typography variant="h6" sx={{ color: 'grey.400', mb: 5, fontWeight: 400, lineHeight: 1.8, maxWidth: 520 }}>
-                    نضمن لك تجربة نقل أثاث خالية من المتاعب. عمالة فنية مدربة، سيارات نقل حديثة مقفلة، وفك وتركيب جميع أنواع غرف النوم بدقة.
+                    نهتم بتقديم تجربة نقل أثاث خالية من المتاعب. عمالة فنية مدربة، سيارات نقل حديثة مقفلة، وفك وتركيب جميع أنواع غرف النوم بدقة.
                   </Typography>
                 </motion.div>
                 <motion.div variants={heroItemVariants}>
@@ -335,10 +335,10 @@ export default function PublicHomePage() {
                           100%
                         </Typography>
                         <Typography variant="subtitle1" fontWeight={700} mt={1} color="#0f172a">
-                          أمان
+                          حماية وأمان
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, lineHeight: 1.6 }}>
-                          كامل لجميع قطع الأثاث من الخدوش والتلف
+                          توفير أقصى درجات السلامة للأثاث ضد الخدوش والتلف
                         </Typography>
                       </CardContent>
                     </Card>
@@ -805,7 +805,7 @@ export default function PublicHomePage() {
                   sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, lineHeight: 1.2 }}
                   gutterBottom
                 >
-                  هل تبحث عن خدمات نقل أثاث سريعة ومضمونة بالكويت؟
+                  هل تبحث عن خدمات نقل أثاث سريعة واحترافية بالكويت؟
                 </Typography>
                 <Typography variant="body1" sx={{ color: 'grey.400', mb: 5, lineHeight: 1.8, fontSize: '1.05rem' }}>
                   قم بملء النموذج وسيقوم فريقنا بالتواصل معك هاتفياً أو عبر واتساب خلال دقائق معدودة لتزويدك بالتكلفة الإجمالية المناسبة
