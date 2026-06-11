@@ -88,8 +88,8 @@ final class Validator
                 ? "قيمة $label غير مسموح بها. المقبول: $param"
                 : null,
 
-            'slug' => !preg_match('/^[a-z0-9\-]+$/', (string)$value)
-                ? "حقل $label يجب أن يحتوي على أحرف انجليزية صغيرة وأرقام وشرطات فقط"
+            'slug' => !preg_match('/^[a-z0-9\-\x{0600}-\x{06FF}]+$/u', (string)$value)
+                ? "حقل $label يجب أن يحتوي على أحرف وأرقام وشرطات فقط"
                 : null,
 
             'url' => !filter_var($value, FILTER_VALIDATE_URL)

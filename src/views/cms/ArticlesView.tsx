@@ -41,7 +41,7 @@ const validationSchema = yup.object().shape({
   slug: yup
     .string()
     .required('رابط slug مطلوب')
-    .matches(/^[a-z0-9-]+$/, 'الرابط يجب أن يحتوي على أحرف صغيرة وأرقام وشرطات فقط'),
+    .matches(/^[a-z0-9-\u0600-\u06FF]+$/, 'الرابط يجب أن يحتوي على أحرف وأرقام وشرطات فقط'),
   excerpt: yup.string().required('مقتطف المقال مطلوب').max(300, 'الحد الأقصى للمقتطف 300 حرف'),
   content: yup.string().required('محتوى المقال مطلوب'),
   meta_title: yup.string().max(60, 'العنوان الميتا يجب ألا يتجاوز 60 حرفاً'),
