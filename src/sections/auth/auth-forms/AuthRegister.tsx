@@ -89,7 +89,6 @@ export default function AuthRegister({ providers, csrfToken }: any) {
           password: Yup.string()
             .required('Password is required')
             .test('no-leading-trailing-whitespace', 'Password can not start or end with spaces', (value) => value === value.trim())
-            .max(10, 'Password must be less than 10 characters')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           const trimmedEmail = values.email.trim();
