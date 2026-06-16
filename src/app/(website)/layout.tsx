@@ -16,6 +16,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { Whatsapp, Setting, HambergerMenu, Call } from '@wandersonalwes/iconsax-react';
 import { keyframes } from '@mui/system';
+import imgLogoWhite from '../../../public/assets/images/home/elhoor-yellow_white_slogan.png';
 
 import { settingsApi } from 'lib/api/settings';
 
@@ -108,8 +109,13 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
             {/* Logo */}
             <Link href="/" style={{ textDecoration: 'none' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 1.5 }}>
-                {settings?.logo ? (
-                  <Box component="img" src={settings.logo} alt={siteName} sx={{ height: 44, width: 'auto', objectFit: 'contain' }} />
+                {(isHome && !scrolled) || settings?.logo ? (
+                  <Box
+                    component="img"
+                    src={isHome && !scrolled ? imgLogoWhite.src : (settings?.logo || undefined)}
+                    alt={siteName}
+                    sx={{ height: 80, width: 'auto', objectFit: 'contain' }}
+                  />
                 ) : (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Box sx={{ bgcolor: '#facc15', color: '#0f172a', p: 0.8, borderRadius: 1.5, display: 'flex' }}>

@@ -76,6 +76,5 @@ export default async function ServiceDetailsPage({ params }: Props) {
       </Container>
     );
   }
-
   return <ServiceDetailsClient service={service} />;
 }
