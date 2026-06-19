@@ -4,6 +4,7 @@ namespace App\Controllers\Public;
 
 use App\Core\{BaseController, Response, Validator};
 use App\Repositories\{RequestRepository, ServiceRepository};
+use App\Services\MailService;
 
 /** RequestsPublicController — تقديم طلبات خدمة جديدة من زوار الموقع */
 final class RequestsPublicController extends BaseController
@@ -40,10 +41,12 @@ final class RequestsPublicController extends BaseController
         );
 
         $validServiceId = null;
+        $serviceName = 'طلب عام (عفش وأثاث)';
         if ($serviceId > 0) {
             $service = $this->services->findById($serviceId);
             if ($service && $service['status'] === 'active') {
                 $validServiceId = $serviceId;
+                $serviceName = $service['title'];
             }
         }
 
@@ -56,6 +59,9 @@ final class RequestsPublicController extends BaseController
         ];
 
         $request = $this->requests->create($requestData);
+
+        // إرسال تنبيه بالبريد الإلكتروني للإدارة
+        MailService::sendNotification($name, $phone, $serviceName, $message);
 
         Response::created($request, 'تم إرسال طلب الخدمة بنجاح، سنتواصل معك قريباً');
     }
