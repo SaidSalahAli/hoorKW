@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 // ==============================|| SITEMAP.XML ||============================== //
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hoorekw.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://elhoormoving.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages

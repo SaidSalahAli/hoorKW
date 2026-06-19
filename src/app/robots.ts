@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 // ==============================|| ROBOTS.TXT ||============================== //
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hoorekw.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://elhoormoving.com';
 
   return {
     rules: [

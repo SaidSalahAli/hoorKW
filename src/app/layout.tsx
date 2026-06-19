@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     title: 'الحور لنقل العفش | شركة نقل عفش وأثاث بالكويت',
     description:
       'شركة الحور لنقل العفش والأثاث بجميع مناطق الكويت. أفضل خدمات نقل الأثاث، فك وتثبيت غرف النوم، التعبئة والتغليف بأقل الأسعار.'
+  },
+  verification: {
+    google: 'e-6o7oBNo1x_wDGtppGvKaBwwxzfuWSkoBUgx2znQhY'
   }
 };
 
