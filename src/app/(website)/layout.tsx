@@ -385,8 +385,8 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
                   { href: '/about', label: 'من نحن' },
                   { href: '/services', label: 'خدمات نقل الأثاث' },
                   { href: '/blog', label: 'المدونة والنصائح' },
-                  { href: '/privacy', label: 'سياسة الخصوصية' },
-                  { href: '/terms', label: 'الشروط والأحكام' }
+                  // { href: '/privacy', label: 'سياسة الخصوصية' },
+                  // { href: '/terms', label: 'الشروط والأحكام' }
                 ].map(({ href, label }) => (
                   <Link key={href} href={href} style={{ textDecoration: 'none' }}>
                     <Box sx={{ color: 'grey.400', '&:hover': { color: 'white' }, transition: 'color 0.2s' }}>{label}</Box>

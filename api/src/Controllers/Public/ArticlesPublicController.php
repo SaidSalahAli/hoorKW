@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Controllers\Public;
 
-use App\Core\{BaseController, Response};
+use App\Core\{BaseController, Response, Database};
 use App\Repositories\ArticleRepository;
 
 /** ArticlesPublicController — مقالات المدونة العامة للموقع */
@@ -28,9 +28,23 @@ final class ArticlesPublicController extends BaseController
             }
         }
 
-        $limit = $this->request->integer('limit', 6, 'query');
-        $latest = $this->articles->getLatest($limit);
-        Response::success($latest, 'تم جلب المقالات بنجاح');
+        // جلب جميع المقالات المنشورة مع دعم البحث
+        $search = $this->request->string('search', '', 'query');
+
+        $sql    = "SELECT id, title, slug, image, excerpt, views, published_at, created_at
+                   FROM articles WHERE status = 'published'";
+        $params = [];
+
+        if (!empty($search)) {
+            $sql   .= " AND (title LIKE ? OR excerpt LIKE ?)";
+            $params[] = "%{$search}%";
+            $params[] = "%{$search}%";
+        }
+
+        $sql .= " ORDER BY published_at DESC";
+
+        $articles = Database::all($sql, $params);
+        Response::success($articles, 'تم جلب المقالات بنجاح');
     }
 
     /** GET /public/articles/{slug} أو /api/articles/slug/{slug} */
