@@ -23,7 +23,7 @@ export default function ProviderWrapper({ children }: { children: ReactNode }) {
         <RTLLayout>
           <Locales>
             <ScrollTop>
-              <SessionProvider refetchInterval={0}>
+              <SessionProvider refetchInterval={0} refetchOnWindowFocus={false}>
                 <Snackbar />
                 {children}
               </SessionProvider>

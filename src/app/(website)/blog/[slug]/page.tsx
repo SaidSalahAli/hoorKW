@@ -14,11 +14,45 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+async function fetchArticleBySlugOrSearch(slugParam: string) {
+  const decoded = decodeURIComponent(slugParam);
+  let article: any = null;
+
+  // 1. Try slug endpoint (decoded)
+  try {
+    const res = await apiClient.get(`/api/articles/slug/${decoded}`);
+    if (res.data?.data) article = res.data.data;
+  } catch {}
+
+  // 2. Try slug endpoint (raw)
+  if (!article) {
+    try {
+      const res = await apiClient.get(`/api/articles/slug/${slugParam}`);
+      if (res.data?.data) article = res.data.data;
+    } catch {}
+  }
+
+  // 3. Fallback: Search by title / text query if slug is Arabic title
+  if (!article) {
+    try {
+      const cleanSearch = decoded.replace(/-/g, ' ');
+      const searchRes = await apiClient.get(`/api/articles?search=${encodeURIComponent(cleanSearch)}`);
+      const items = searchRes.data?.data || [];
+      if (items.length > 0) {
+        article = items[0];
+      }
+    } catch {}
+  }
+
+  return article;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   try {
-    const res = await apiClient.get(`/api/articles/slug/${slug}`);
-    const article = res.data.data;
+    const article = await fetchArticleBySlugOrSearch(slug);
+    if (!article) throw new Error('Not found');
+
     return {
       title: article.meta_title || article.title,
       description: article.meta_description || article.excerpt,
@@ -38,19 +72,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticleDetailsPage({ params }: Props) {
   const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
   let article: any = null;
   let related: any[] = [];
   let error: string | null = null;
 
   try {
-    const res = await apiClient.get(`/api/articles/slug/${slug}`);
-    article = res.data.data;
+    article = await fetchArticleBySlugOrSearch(slug);
 
-    // Fetch related articles (latest 3 posts)
-    const relRes = await apiClient.get('/api/articles?per_page=3&status=published');
-    related = relRes.data.data.filter((a: any) => a.slug !== slug);
+    if (!article) {
+      error = 'المقال المطلوب غير متوفر أو غير منشور حالياً.';
+    } else {
+      // Fetch related articles (latest 3 posts)
+      const relRes = await apiClient.get('/api/articles?per_page=3&status=published');
+      related = (relRes.data?.data || []).filter(
+        (a: any) => a.slug !== decodedSlug && a.slug !== slug && a.id !== article?.id
+      );
+    }
   } catch (err: any) {
-    error = err.message || 'المقال المطلوب غير موجود.';
+    error = err.message || 'المقال المطلوب غير موجود أو غير منشور حالياً.';
   }
 
   if (error || !article) {

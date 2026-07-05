@@ -51,6 +51,28 @@ const validationSchema = yup.object().shape({
   status: yup.string().oneOf(['active', 'inactive', 'draft', 'published']).required('الحالة مطلوبة')
 });
 
+function generateFrancoSlug(text: string): string {
+  const arabicMap: Record<string, string> = {
+    'أ': 'a', 'إ': 'e', 'آ': 'a', 'ا': 'a', 'ب': 'b', 'ت': 't', 'ث': 'th', 'ج': 'g',
+    'ح': 'h', 'خ': 'kh', 'د': 'd', 'ذ': 'th', 'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sh',
+    'ص': 's', 'ض': 'd', 'ط': 't', 'ظ': 'z', 'ع': 'a', 'غ': 'gh', 'ف': 'f', 'ق': 'q',
+    'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n', 'ه': 'h', 'و': 'w', 'ي': 'y', 'ى': 'a',
+    'ئ': 'e', 'ء': 'a', 'ؤ': 'w', 'ة': 'h'
+  };
+
+  const latinized = text
+    .split('')
+    .map((char) => arabicMap[char] || char)
+    .join('');
+
+  return latinized
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 export default function ArticlesView() {
   const { articles, meta, isLoading, error, filters, updateFilters, setPage, mutate } = useArticles();
 
@@ -162,11 +184,7 @@ export default function ArticlesView() {
     const title = e.target.value;
     formik.setFieldValue('title', title);
     if (!selectedArticle) {
-      const generatedSlug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9\u0621-\u064A -]/g, '')
-        .replace(/\s+/g, '-')
-        .trim();
+      const generatedSlug = generateFrancoSlug(title);
       formik.setFieldValue('slug', generatedSlug);
     }
   };
