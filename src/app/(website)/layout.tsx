@@ -494,6 +494,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       <Box
         component="a"
         href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
+        aria-label={`اتصل بنا الآن على رقم ${phone}`}
         sx={{
           position: 'fixed',
           bottom: { xs: 20, sm: 30 },
@@ -522,6 +523,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
         href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="تواصل معنا عبر واتساب"
         sx={{
           position: 'fixed',
           bottom: { xs: 20, sm: 30 },
