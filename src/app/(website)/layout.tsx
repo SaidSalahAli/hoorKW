@@ -110,12 +110,14 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
             <Link href="/" style={{ textDecoration: 'none' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 1.5 }}>
                 {(isHome && !scrolled) || settings?.logo ? (
-                  <Box
-                    component="img"
-                    src={isHome && !scrolled ? imgLogoWhite.src : settings?.logo || undefined}
-                    alt={siteName}
-                    sx={{ height: 80, width: 'auto', objectFit: 'contain' }}
-                  />
+                    <Box
+                      component="img"
+                      src={isHome && !scrolled ? imgLogoWhite.src : settings?.logo || undefined}
+                      alt={siteName}
+                      width={200}
+                      height={80}
+                      sx={{ height: 80, width: 'auto', objectFit: 'contain' }}
+                    />
                 ) : (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Box sx={{ bgcolor: '#facc15', color: '#0f172a', p: 0.8, borderRadius: 1.5, display: 'flex' }}>
