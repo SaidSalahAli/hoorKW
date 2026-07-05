@@ -1,6 +1,6 @@
 // material-ui
 
-/** 
+/**
  * if you want to use image instead of <svg> uncomment following.
  *
  * import logoDark from 'assets/images/logo-dark.svg';
@@ -12,10 +12,7 @@
 
 export default function LogoMain({ reverse }: { reverse?: boolean }) {
   return (
-
     <img src="/assets/images/logo.png" alt="icon logo" width="100" />
-
-
 
     // <svg width="66" height="28" viewBox="0 0 66 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     //   <path

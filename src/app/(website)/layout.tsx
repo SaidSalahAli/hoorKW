@@ -112,7 +112,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
                 {(isHome && !scrolled) || settings?.logo ? (
                   <Box
                     component="img"
-                    src={isHome && !scrolled ? imgLogoWhite.src : (settings?.logo || undefined)}
+                    src={isHome && !scrolled ? imgLogoWhite.src : settings?.logo || undefined}
                     alt={siteName}
                     sx={{ height: 80, width: 'auto', objectFit: 'contain' }}
                   />
@@ -384,7 +384,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
                 {[
                   { href: '/about', label: 'من نحن' },
                   { href: '/services', label: 'خدمات نقل الأثاث' },
-                  { href: '/blog', label: 'المدونة والنصائح' },
+                  { href: '/blog', label: 'المدونة والنصائح' }
                   // { href: '/privacy', label: 'سياسة الخصوصية' },
                   // { href: '/terms', label: 'الشروط والأحكام' }
                 ].map(({ href, label }) => (
@@ -413,22 +413,72 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
                 <Typography variant="body2">البريد: {settings?.email}</Typography>
               </Stack>
 
-              <Stack direction="row" spacing={1.5} mt={3}>
-                {settings?.facebook && (
-                  <Button component={Link} href={settings.facebook} target="_blank" size="small" variant="outlined" color="inherit">
-                    فيسبوك
-                  </Button>
-                )}
-                {settings?.instagram && (
-                  <Button component={Link} href={settings.instagram} target="_blank" size="small" variant="outlined" color="inherit">
-                    إنستغرام
-                  </Button>
-                )}
-                {settings?.twitter && (
-                  <Button component={Link} href={settings.twitter} target="_blank" size="small" variant="outlined" color="inherit">
-                    إكس
-                  </Button>
-                )}
+              <Stack direction="row" spacing={1} mt={3} flexWrap="wrap" gap={1}>
+                <Button
+                  component="a"
+                  href={settings?.facebook?.trim() || 'https://www.facebook.com/elhoormoving'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small"
+                  variant="outlined"
+                  color="inherit"
+                  aria-label="Facebook"
+                  sx={{ borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300', '&:hover': { borderColor: '#facc15', color: '#facc15' } }}
+                >
+                  فيسبوك
+                </Button>
+                <Button
+                  component="a"
+                  href={settings?.instagram?.trim() || 'https://www.instagram.com/elhoormoving'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small"
+                  variant="outlined"
+                  color="inherit"
+                  aria-label="Instagram"
+                  sx={{ borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300', '&:hover': { borderColor: '#facc15', color: '#facc15' } }}
+                >
+                  إنستغرام
+                </Button>
+                <Button
+                  component="a"
+                  href={settings?.twitter?.trim() || 'https://twitter.com/elhoormoving'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small"
+                  variant="outlined"
+                  color="inherit"
+                  aria-label="X (Twitter)"
+                  sx={{ borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300', '&:hover': { borderColor: '#facc15', color: '#facc15' } }}
+                >
+                  إكس (تويتر)
+                </Button>
+                <Button
+                  component="a"
+                  href={settings?.youtube?.trim() || 'https://www.youtube.com/@elhoormoving'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small"
+                  variant="outlined"
+                  color="inherit"
+                  aria-label="YouTube"
+                  sx={{ borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300', '&:hover': { borderColor: '#facc15', color: '#facc15' } }}
+                >
+                  يوتيوب
+                </Button>
+                <Button
+                  component="a"
+                  href={settings?.linkedin?.trim() || 'https://www.linkedin.com/company/elhoormoving'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small"
+                  variant="outlined"
+                  color="inherit"
+                  aria-label="LinkedIn"
+                  sx={{ borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300', '&:hover': { borderColor: '#facc15', color: '#facc15' } }}
+                >
+                  لينكد إن
+                </Button>
               </Stack>
             </Grid>
           </Grid>

@@ -17,20 +17,70 @@ import ScrollReveal from 'components/ScrollReveal';
 import { ArrowRight, Gallery } from '@wandersonalwes/iconsax-react';
 import { publicApiClient } from 'lib/apiClient';
 
-// ==============================|| SERVICES ARCHIVE PAGE ||============================== //
+const DEFAULT_SERVICES = [
+  {
+    id: 1,
+    title: 'نقل عفش وتغليف منازل وفلل',
+    slug: 'house-moving',
+    short_description:
+      'خدمة نقل أثاث شاملة لجميع الغرف والأجهزة الكهربائية والستائر مع التغليف والفك والتركيب الاحترافي بجميع مناطق الكويت.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 2,
+    title: 'نجار فك وتركيب غرف نوم',
+    slug: 'bedroom-assembly',
+    short_description:
+      'نجارون متخصصون لفك وتركيب جميع أنواع غرف النوم الإيكيا والميداس والغرف الصينية والأوروبية بدقة عالية وبدون أي خدوش.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 3,
+    title: 'تغليف العفش بالأبلز والكرتون المضلع',
+    slug: 'furniture-packing',
+    short_description: 'تغليف آمن ومحكم لجميع قطع الأثاث والزجاج والتحف والأدوات المنزلية للحماية التامة أثناء التحميل والنقل.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 4,
+    title: 'نقل عفش هاف لوري وسيارات مقفلة',
+    slug: 'haf-lorry-moving',
+    short_description: 'أسطول سيارات نقل حديثة ومقفلة مجهزة لنقل العفش بأمان وسرعة فائقة بين كافة مناطق ومحافظات الكويت على مدار 24 ساعة.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 5,
+    title: 'نقل أثاث المكاتب والشركات',
+    slug: 'office-moving',
+    short_description: 'خدمات نقل مكتبية سريعة ومنظمة تضمن استمرارية أعمال شركتك ونقل الأجهزة والمكاتب والملفات بمرونة واحترافية.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 6,
+    title: 'ونش رفع أثاث للأدوار العليا',
+    slug: 'winch-furniture-lifting',
+    short_description: 'ونش رفع الأثاث الهيدروليكي للقطع الثقيلة والكبيرة للأدوار العليا في الأبراج والمباني السكنية بكل سهولة وأمان.',
+    image: '/assets/images/home/hero.png'
+  }
+];
 
 export default function PublicServicesPage() {
-  const [services, setServices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState<any[]>(DEFAULT_SERVICES);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadServices() {
+      setLoading(true);
+      setError(null);
       try {
         const res = await publicApiClient.get('/api/services?status=active');
-        setServices(res.data.data || []);
+        if (res.data.data && res.data.data.length > 0) {
+          setServices(res.data.data);
+        }
       } catch (err: any) {
-        setError(err.message || 'خطأ في تحميل الخدمات. يرجى المحاولة لاحقاً.');
+        console.error('Error loading services:', err);
+        setError('فشل في تحميل الخدمات. يرجى المحاولة لاحقاً.');
       } finally {
         setLoading(false);
       }

@@ -47,9 +47,125 @@ const heroItemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } }
 };
 
+const DEFAULT_SERVICES = [
+  {
+    id: 1,
+    title: 'نقل عفش وتغليف منازل وفلل',
+    slug: 'house-moving',
+    short_description:
+      'خدمة نقل أثاث شاملة لجميع الغرف والأجهزة الكهربائية والستائر مع التغليف والفك والتركيب الاحترافي بجميع مناطق الكويت.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 2,
+    title: 'نجار فك وتركيب غرف نوم',
+    slug: 'bedroom-assembly',
+    short_description:
+      'نجارون متخصصون لفك وتركيب جميع أنواع غرف النوم الإيكيا والميداس والغرف الصينية والأوروبية بدقة عالية وبدون أي خدوش.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 3,
+    title: 'تغليف العفش بالأبلز والكرتون المضلع',
+    slug: 'furniture-packing',
+    short_description: 'تغليف آمن ومحكم لجميع قطع الأثاث والزجاج والتحف والأدوات المنزلية للحماية التامة أثناء التحميل والنقل.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 4,
+    title: 'نقل عفش هاف لوري وسيارات مقفلة',
+    slug: 'haf-lorry-moving',
+    short_description: 'أسطول سيارات نقل حديثة ومقفلة مجهزة لنقل العفش بأمان وسرعة فائقة بين كافة مناطق ومحافظات الكويت على مدار 24 ساعة.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 5,
+    title: 'نقل أثاث المكاتب والشركات',
+    slug: 'office-moving',
+    short_description: 'خدمات نقل مكتبية سريعة ومنظمة تضمن استمرارية أعمال شركتك ونقل الأجهزة والمكاتب والملفات بمرونة واحترافية.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 6,
+    title: 'ونش رفع أثاث للأدوار العليا',
+    slug: 'winch-furniture-lifting',
+    short_description: 'ونش رفع الأثاث الهيدروليكي للقطع الثقيلة والكبيرة للأدوار العليا في الأبراج والمباني السكنية بكل سهولة وأمان.',
+    image: '/assets/images/home/hero.png'
+  }
+];
+
+const DEFAULT_TESTIMONIALS = [
+  {
+    id: 1,
+    name: 'أحمد العنزي',
+    job_title: 'منطقة السالمية',
+    rating: 5,
+    comment: 'خدمة نقل ممتازة جداً، العمالة احترافية والسرعة في الفك والتركيب بدون أي خدش بالأثاث. أنصح بشدة بالتعامل مع شركة الحور.'
+  },
+  {
+    id: 2,
+    name: 'سارة المطيري',
+    job_title: 'منطقة حولي',
+    rating: 5,
+    comment: 'نجار فك غرف النوم شاطر جداً، وتم نقل كل أغراض الشقة في وقت قياسي ومرتب. أسعارهم منافسة وممتازة.'
+  },
+  {
+    id: 3,
+    name: 'محمد الشمري',
+    job_title: 'منطقة الفروانية',
+    rating: 5,
+    comment: 'أفضل شركة نقل عفش في الكويت. الالتزام بالوقت والتعامل الراقي والتغليف المحكم للزجاج والأجهزة الحساسة.'
+  },
+  {
+    id: 4,
+    name: 'فهد العازمي',
+    job_title: 'منطقة الأحمدي',
+    rating: 5,
+    comment: 'سيارات نقل مقفلة ونظيفة جداً، وتمت عملية نقل الأثاث بسلاسة وبدون أي اتساخ أو تلفيات. تجربة رائعة.'
+  }
+];
+
+const DEFAULT_ARTICLES = [
+  {
+    id: 1,
+    title: 'أهم 10 نصائح لترتيب وتغليف الأثاث قبل عملية النقل',
+    slug: 'tips-for-moving-furniture',
+    excerpt: 'تعرف على الخطوات العملية الأساسية لحماية ممتلكاتك وتغليف التحف والأجهزة الكهربائية بسهولة قبل وصول سيارات النقل.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 2,
+    title: 'كيف تختار أفضل شركة نقل عفش في الكويت بأسعار مناسبة؟',
+    slug: 'choosing-best-moving-company',
+    excerpt: 'دليل شامل يوضح أهم معايير اختيار شركات نقل الأثاث الموثوقة والضمانات التي يجب التأكد منها لحماية العفش.',
+    image: '/assets/images/home/hero.png'
+  },
+  {
+    id: 3,
+    title: 'طريقة فك وتركيب غرف النوم الإيكيا والميداس باحترافية',
+    slug: 'ikea-bedroom-assembly-guide',
+    excerpt: 'إرشادات النجارين المتخصصين لفك غرف النوم المركبة وتجميعها مرة أخرى بدون إتلاف الخشب أو القطع الفولاذية.',
+    image: '/assets/images/home/hero.png'
+  }
+];
+
+const DEFAULT_GALLERY = [
+  { id: 1, title: 'فك وتركيب غرف النوم والصلونات', image: '/assets/images/home/hero.png' },
+  { id: 2, title: 'تغليف العفش والأجهزة الكهربائية بالكرتون والفقاقيع', image: '/assets/images/home/hero.png' },
+  { id: 3, title: 'سيارات نقل مقفلة ومجهزة لنقل الأثاث', image: '/assets/images/home/hero.png' },
+  { id: 4, title: 'فريق عمل وفنيون مدربون أثناء نقل العفش', image: '/assets/images/home/hero.png' },
+  { id: 5, title: 'نقل وتغليف المطابخ والأثاث المكتبي', image: '/assets/images/home/hero.png' },
+  { id: 6, title: 'ونش هيدروليكي لرفع وتنزيل الأثاث في المباني العليا', image: '/assets/images/home/hero.png' }
+];
+
 export default function PublicHomePage() {
-  const [data, setData] = useState<HomeData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<HomeData>({
+    services: DEFAULT_SERVICES,
+    articles: DEFAULT_ARTICLES,
+    gallery: DEFAULT_GALLERY,
+    testimonials: DEFAULT_TESTIMONIALS,
+    settings: { phone: '96512345678', site_name: 'الحور لنقل العفش' }
+  });
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formSubmitting, setFormSubmitting] = useState(false);
@@ -65,16 +181,14 @@ export default function PublicHomePage() {
           apiClient.get('/api/settings')
         ]);
         setData({
-          services: servicesRes.data.data || [],
-          articles: articlesRes.data.data || [],
-          gallery: galleryRes.data.data || [],
-          testimonials: testimonialsRes.data.data || [],
-          settings: settingsRes.data.data || {}
+          services: servicesRes.data.data?.length ? servicesRes.data.data : DEFAULT_SERVICES,
+          articles: articlesRes.data.data?.length ? articlesRes.data.data : DEFAULT_ARTICLES,
+          gallery: galleryRes.data.data?.length ? galleryRes.data.data : DEFAULT_GALLERY,
+          testimonials: testimonialsRes.data.data?.length ? testimonialsRes.data.data : DEFAULT_TESTIMONIALS,
+          settings: settingsRes.data.data || { phone: '96512345678', site_name: 'الحور لنقل العفش' }
         });
       } catch (err) {
         console.error('Error loading public home data:', err);
-      } finally {
-        setLoading(false);
       }
     }
     loadHomeData();
@@ -109,19 +223,11 @@ export default function PublicHomePage() {
     }
   });
 
-  if (loading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-        <CircularProgress size={44} />
-      </Box>
-    );
-  }
-
   const settings = data?.settings || {};
-  const services = data?.services || [];
-  const gallery = data?.gallery || [];
-  const testimonials = data?.testimonials || [];
-  const articles = data?.articles || [];
+  const services = data?.services || DEFAULT_SERVICES;
+  const gallery = data?.gallery || DEFAULT_GALLERY;
+  const testimonials = data?.testimonials || DEFAULT_TESTIMONIALS;
+  const articles = data?.articles || DEFAULT_ARTICLES;
 
   return (
     <Box>
@@ -206,7 +312,8 @@ export default function PublicHomePage() {
                 </motion.div>
                 <motion.div variants={heroItemVariants}>
                   <Typography variant="h6" sx={{ color: 'grey.400', mb: 5, fontWeight: 400, lineHeight: 1.8, maxWidth: 520 }}>
-                    نهتم بتقديم تجربة نقل أثاث خالية من المتاعب. عمالة فنية مدربة، سيارات نقل حديثة مقفلة، وفك وتركيب جميع أنواع غرف النوم بدقة.
+                    نهتم بتقديم تجربة نقل أثاث خالية من المتاعب. عمالة فنية مدربة، سيارات نقل حديثة مقفلة، وفك وتركيب جميع أنواع غرف النوم
+                    بدقة.
                   </Typography>
                 </motion.div>
                 <motion.div variants={heroItemVariants}>
@@ -565,6 +672,72 @@ export default function PublicHomePage() {
                 </ScrollReveal>
               </Grid>
             ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* ─── 4.5. SEO CONTENT SECTION ────────────────────────── */}
+      <Box sx={{ py: 10, bgcolor: '#ffffff', borderTop: '1px solid #f1f5f9' }}>
+        <Container maxWidth="lg">
+          <ScrollReveal direction="up">
+            <Box textAlign="center" mb={6}>
+              <Box sx={{ display: 'inline-block', bgcolor: 'rgba(234,179,8,0.08)', px: 2.5, py: 0.6, borderRadius: 10, mb: 2 }}>
+                <Typography variant="caption" color="#eab308" fontWeight={800} sx={{ letterSpacing: 1 }}>
+                  تغطية شاملة ومصداقية
+                </Typography>
+              </Box>
+              <Typography variant="h2" fontWeight={800} color="#0f172a" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, mb: 2 }}>
+                دليل خدمات شركة الحور لنقل العفش والأثاث بجميع مناطق الكويت
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 840, mx: 'auto', lineHeight: 1.9, fontSize: '1.05rem' }}>
+                تعتبر شركة الحور الخيار الأول والخيار الأكثر أماناً لنقل العفش المنزلي والمكتبي بكافة محافظات الكويت. نقدم خدمات نقل الأثاث
+                من الباب إلى الباب مع الفك والتغليف والتركيب بأعلى معايير الجودة والضمان الشامل.
+              </Typography>
+            </Box>
+          </ScrollReveal>
+
+          <Grid container spacing={4} mt={2}>
+            <Grid item xs={12} md={4}>
+              <ScrollReveal direction="up" delay={0.1}>
+                <Card sx={{ p: 3, height: '100%', borderRadius: 4, bgcolor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <Typography variant="h3" fontWeight={800} color="#0f172a" fontSize="1.3rem" mb={2}>
+                    نقل عفش حولي والسالمية والفروانية
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    نوفر تغطية سريعة لجميع مناطق محافظتي حولي والفروانية بما فيها السالمية، سلوى، الجابرية، خيطان، الفروانية والأندلس.
+                    أسطولنا من سيارات النقل الهاف لوري والمقفل جاهز للوصول إليك خلال 30 دقيقة.
+                  </Typography>
+                </Card>
+              </ScrollReveal>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <ScrollReveal direction="up" delay={0.2}>
+                <Card sx={{ p: 3, height: '100%', borderRadius: 4, bgcolor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <Typography variant="h3" fontWeight={800} color="#0f172a" fontSize="1.3rem" mb={2}>
+                    نقل عفش الأحمدي والجهراء والعاصمة
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    نصل إلى أبعد المناطق في محافظة الأحمدي (المنقف، الفحيحيل، المنطقة العاشرة) والجهراء ومبارك الكبير ووسط مدينة الكويت.
+                    نضمن وصول عفشك وأغراضك بدون أي تأخير أو أضرار.
+                  </Typography>
+                </Card>
+              </ScrollReveal>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <ScrollReveal direction="up" delay={0.3}>
+                <Card sx={{ p: 3, height: '100%', borderRadius: 4, bgcolor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <Typography variant="h3" fontWeight={800} color="#0f172a" fontSize="1.3rem" mb={2}>
+                    فنيون ونجارون فك وتركيب متمرسون
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    تضم كوادرنا نجارين فنيين متخصصين في التعامل مع مختلف غرف النوم المعقدة (إيكيا، ميداس، غرف نوم إيطالية وتركية)، بالإضافة
+                    إلى فك وتركيب الشاشات والستائر والأجهزة الكهربائية بدقة متناهية.
+                  </Typography>
+                </Card>
+              </ScrollReveal>
+            </Grid>
           </Grid>
         </Container>
       </Box>

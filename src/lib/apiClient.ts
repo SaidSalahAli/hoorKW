@@ -61,7 +61,6 @@ const handleResponseError = async (error: any) => {
       window.location.pathname = '/login';
     }
   }
-
   const data = error?.response?.data;
   let message = data?.message || data?.error || error?.message || 'حدث خطأ غير متوقع';
 
@@ -77,15 +76,9 @@ const handleResponseError = async (error: any) => {
 };
 
 // ── Response interceptors ─────────────────────────────────────────────────
-publicApiClient.interceptors.response.use(
-  (response) => response,
-  handleResponseError
-);
+publicApiClient.interceptors.response.use((response) => response, handleResponseError);
 
-apiClient.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  handleResponseError
-);
+apiClient.interceptors.response.use((response: AxiosResponse) => response, handleResponseError);
 
 export default apiClient;
 

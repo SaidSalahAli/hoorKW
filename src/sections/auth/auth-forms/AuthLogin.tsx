@@ -174,8 +174,6 @@ export default function AuthLogin({ providers, csrfToken }: any) {
           </form>
         )}
       </Formik>
-
-
     </>
   );
 }

@@ -451,7 +451,9 @@ export default function ArticlesView() {
               <Typography
                 variant="body1"
                 component="div"
-                dangerouslySetInnerHTML={{ __html: formik.values.content || 'اكتب محتوى المقال في التبويب الأول لعرض المعاينة الكاملة هنا...' }}
+                dangerouslySetInnerHTML={{
+                  __html: formik.values.content || 'اكتب محتوى المقال في التبويب الأول لعرض المعاينة الكاملة هنا...'
+                }}
                 sx={{ lineHeight: 1.8 }}
               />
             </Box>

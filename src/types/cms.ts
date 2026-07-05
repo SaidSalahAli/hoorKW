@@ -160,6 +160,7 @@ export interface Settings {
   instagram: string;
   twitter: string;
   youtube: string;
+  linkedin?: string;
 }
 
 export interface SettingsFormValues {
@@ -174,6 +175,7 @@ export interface SettingsFormValues {
   instagram: string;
   twitter: string;
   youtube: string;
+  linkedin?: string;
   logo?: File | null;
   favicon?: File | null;
 }
