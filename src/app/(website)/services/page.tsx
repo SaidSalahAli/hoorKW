@@ -185,6 +185,8 @@ export default function PublicServicesPage() {
                           height="100%"
                           image={service.image}
                           alt={service.title}
+                          loading="lazy"
+                          decoding="async"
                           sx={{
                             objectFit: 'cover',
                             transition: 'transform 0.5s ease',

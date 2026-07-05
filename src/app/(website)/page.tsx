@@ -547,6 +547,8 @@ export default function PublicHomePage() {
                           height="220"
                           image={service.image}
                           alt={service.title}
+                          loading="lazy"
+                          decoding="async"
                           sx={{ transition: 'transform 0.5s', '&:hover': { transform: 'scale(1.08)' } }}
                         />
                       )}
@@ -795,6 +797,8 @@ export default function PublicHomePage() {
                         height="240"
                         image={img.image}
                         alt={img.title}
+                        loading="lazy"
+                        decoding="async"
                         sx={{ transition: 'transform 0.5s', '&:hover': { transform: 'scale(1.08)' } }}
                       />
                     </Box>
@@ -922,7 +926,7 @@ export default function PublicHomePage() {
                       '&:hover': { transform: 'translateY(-6px)', borderColor: '#eab308', boxShadow: '0 15px 30px rgba(234,179,8,0.08)' }
                     }}
                   >
-                    {art.image && <CardMedia component="img" height="200" image={art.image} alt={art.title} />}
+                    {art.image && <CardMedia component="img" height="200" image={art.image} alt={art.title} loading="lazy" decoding="async" />}
                     <CardContent sx={{ flexGrow: 1, p: 3 }}>
                       <Typography variant="h4" fontWeight={800} gutterBottom color="#0f172a" sx={{ fontSize: '1.2rem', lineHeight: 1.4 }}>
                         {art.title}

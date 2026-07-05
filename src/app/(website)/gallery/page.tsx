@@ -137,6 +137,8 @@ export default function PublicGalleryPage() {
                         component="img"
                         image={img.image}
                         alt={img.title}
+                        loading="lazy"
+                        decoding="async"
                         sx={{
                           position: 'absolute',
                           top: 0,
