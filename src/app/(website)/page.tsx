@@ -666,7 +666,7 @@ export default function PublicHomePage() {
                     boundaryCount={1}
                     renderItem={(item) => (
                       <PaginationItem
-                        {...item}
+                        {...item as any}
                         sx={{
                           fontWeight: 700,
                           borderRadius: 2,
@@ -1067,7 +1067,7 @@ export default function PublicHomePage() {
                     boundaryCount={1}
                     renderItem={(item) => (
                       <PaginationItem
-                        {...item}
+                        {...item as any}
                         sx={{
                           fontWeight: 700,
                           borderRadius: 2,

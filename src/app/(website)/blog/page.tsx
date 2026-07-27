@@ -28,6 +28,8 @@ interface PaginationMeta {
   last_page: number;
   per_page: number;
   total: number;
+  from?: number;
+  to?: number;
 }
 
 const PER_PAGE = 6;
@@ -284,7 +286,7 @@ export default function PublicBlogPage() {
                   boundaryCount={1}
                   renderItem={(item) => (
                     <PaginationItem
-                      {...item}
+                      {...item as any}
                       sx={{
                         fontWeight: 700,
                         borderRadius: 2,

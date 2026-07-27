@@ -301,7 +301,7 @@ export default function PublicServicesPage() {
                   boundaryCount={1}
                   renderItem={(item) => (
                     <PaginationItem
-                      {...item}
+                      {...item as any}
                       sx={{
                         fontWeight: 700,
                         borderRadius: 2,
