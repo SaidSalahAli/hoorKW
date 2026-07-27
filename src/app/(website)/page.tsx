@@ -15,6 +15,8 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -170,29 +172,76 @@ export default function PublicHomePage() {
   const [formError, setFormError] = useState<string | null>(null);
   const [formSubmitting, setFormSubmitting] = useState(false);
 
+  const [servicesPage, setServicesPage] = useState(1);
+  const [servicesMeta, setServicesMeta] = useState({ current_page: 1, last_page: 1, total: 0 });
+  const [servicesLoading, setServicesLoading] = useState(false);
+
+  const [articlesPage, setArticlesPage] = useState(1);
+  const [articlesMeta, setArticlesMeta] = useState({ current_page: 1, last_page: 1, total: 0 });
+  const [articlesLoading, setArticlesLoading] = useState(false);
+
   useEffect(() => {
-    async function loadHomeData() {
+    async function loadStaticData() {
       try {
-        const [servicesRes, articlesRes, galleryRes, testimonialsRes, settingsRes] = await Promise.all([
-          apiClient.get('/api/services?per_page=6&status=active'),
-          apiClient.get('/api/articles?per_page=3&status=published'),
+        const [galleryRes, testimonialsRes, settingsRes] = await Promise.all([
           apiClient.get('/api/gallery?per_page=6'),
           apiClient.get('/api/testimonials?per_page=4&status=active'),
           apiClient.get('/api/settings')
         ]);
-        setData({
-          services: servicesRes.data.data?.length ? servicesRes.data.data : DEFAULT_SERVICES,
-          articles: articlesRes.data.data?.length ? articlesRes.data.data : DEFAULT_ARTICLES,
+        setData((prev) => ({
+          ...prev,
           gallery: galleryRes.data.data?.length ? galleryRes.data.data : DEFAULT_GALLERY,
           testimonials: testimonialsRes.data.data?.length ? testimonialsRes.data.data : DEFAULT_TESTIMONIALS,
           settings: settingsRes.data.data || { phone: '96512345678', site_name: 'الحور لنقل العفش' }
-        });
+        }));
       } catch (err) {
-        console.error('Error loading public home data:', err);
+        console.error('Error loading static home data:', err);
       }
     }
-    loadHomeData();
+    loadStaticData();
   }, []);
+
+  useEffect(() => {
+    async function loadServices() {
+      setServicesLoading(true);
+      try {
+        const res = await apiClient.get(`/api/services?per_page=6&page=${servicesPage}`);
+        setData((prev) => ({
+          ...prev,
+          services: res.data.data?.length ? res.data.data : DEFAULT_SERVICES
+        }));
+        if (res.data.meta) {
+          setServicesMeta(res.data.meta);
+        }
+      } catch (err) {
+        console.error('Error loading services:', err);
+      } finally {
+        setServicesLoading(false);
+      }
+    }
+    loadServices();
+  }, [servicesPage]);
+
+  useEffect(() => {
+    async function loadArticles() {
+      setArticlesLoading(true);
+      try {
+        const res = await apiClient.get(`/api/articles?per_page=6&page=${articlesPage}`);
+        setData((prev) => ({
+          ...prev,
+          articles: res.data.data?.length ? res.data.data : DEFAULT_ARTICLES
+        }));
+        if (res.data.meta) {
+          setArticlesMeta(res.data.meta);
+        }
+      } catch (err) {
+        console.error('Error loading articles:', err);
+      } finally {
+        setArticlesLoading(false);
+      }
+    }
+    loadArticles();
+  }, [articlesPage]);
 
   const formik = useFormik({
     initialValues: { name: '', phone: '', service_id: '', message: '' },
@@ -505,7 +554,7 @@ export default function PublicHomePage() {
       </Box>
 
       {/* ─── 3. SERVICES ─────────────────────────────────────── */}
-      <Box sx={{ py: 12, bgcolor: '#f8fafc', borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
+      <Box id="services-section" sx={{ py: 12, bgcolor: '#f8fafc', borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
         <Container maxWidth="lg">
           <ScrollReveal direction="up">
             <Box textAlign="center" mb={8}>
@@ -519,81 +568,122 @@ export default function PublicHomePage() {
               </Typography>
             </Box>
           </ScrollReveal>
-          <Grid container spacing={4}>
-            {services.map((service, idx) => (
-              <Grid item xs={12} sm={6} md={4} key={service.id}>
-                <ScrollReveal direction="up" delay={idx * 0.1}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      borderRadius: 4,
-                      overflow: 'hidden',
-                      border: '1px solid #e2e8f0',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
-                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        borderColor: '#eab308',
-                        boxShadow: '0 20px 25px -5px rgba(234,179,8,0.1), 0 10px 10px -5px rgba(234,179,8,0.04)'
-                      }
-                    }}
-                  >
-                    <Box sx={{ position: 'relative', overflow: 'hidden' }}>
-                      {service.image && (
-                        <CardMedia
-                          component="img"
-                          height="220"
-                          image={service.image}
-                          alt={service.title}
-                          loading="lazy"
-                          decoding="async"
-                          sx={{ transition: 'transform 0.5s', '&:hover': { transform: 'scale(1.08)' } }}
-                        />
-                      )}
-                      <Box
+
+          {servicesLoading ? (
+            <Box display="flex" justifyContent="center" py={8}>
+              <CircularProgress size={44} sx={{ color: '#eab308' }} />
+            </Box>
+          ) : (
+            <>
+              <Grid container spacing={4}>
+                {services.map((service, idx) => (
+                  <Grid item xs={12} sm={6} md={4} key={service.id}>
+                    <ScrollReveal direction="up" delay={idx * 0.1}>
+                      <Card
                         sx={{
-                          position: 'absolute',
-                          top: 16,
-                          right: 16,
-                          bgcolor: '#eab308',
-                          color: '#0f172a',
-                          px: 2,
-                          py: 0.5,
-                          borderRadius: 10,
-                          fontSize: '0.75rem',
-                          fontWeight: 800
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          borderRadius: 4,
+                          overflow: 'hidden',
+                          border: '1px solid #e2e8f0',
+                          boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          '&:hover': {
+                            transform: 'translateY(-8px)',
+                            borderColor: '#eab308',
+                            boxShadow: '0 20px 25px -5px rgba(234,179,8,0.1), 0 10px 10px -5px rgba(234,179,8,0.04)'
+                          }
                         }}
                       >
-                        سريع وآمن
-                      </Box>
-                    </Box>
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                      <Typography variant="h4" fontWeight={800} gutterBottom color="#0f172a" sx={{ fontSize: '1.25rem' }}>
-                        {service.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, mb: 3 }}>
-                        {service.short_description}
-                      </Typography>
-                    </CardContent>
-                    <Box sx={{ p: 3, pt: 0, borderTop: '1px solid #f1f5f9' }}>
-                      <Button
-                        component={Link}
-                        href={`/services/${service.slug}`}
-                        variant="text"
-                        color="primary"
-                        endIcon={<ArrowRight size={16} />}
-                        sx={{ fontWeight: 800, p: 0, mt: 2, color: '#eab308', '&:hover': { gap: 1, color: '#ca8a04' } }}
-                      >
-                        اقرأ المزيد
-                      </Button>
-                    </Box>
-                  </Card>
-                </ScrollReveal>
+                        <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+                          {service.image && (
+                            <CardMedia
+                              component="img"
+                              height="220"
+                              image={service.image}
+                              alt={service.title}
+                              loading="lazy"
+                              decoding="async"
+                              sx={{ transition: 'transform 0.5s', '&:hover': { transform: 'scale(1.08)' } }}
+                            />
+                          )}
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              top: 16,
+                              right: 16,
+                              bgcolor: '#eab308',
+                              color: '#0f172a',
+                              px: 2,
+                              py: 0.5,
+                              borderRadius: 10,
+                              fontSize: '0.75rem',
+                              fontWeight: 800
+                            }}
+                          >
+                            سريع وآمن
+                          </Box>
+                        </Box>
+                        <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                          <Typography variant="h4" fontWeight={800} gutterBottom color="#0f172a" sx={{ fontSize: '1.25rem' }}>
+                            {service.title}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, mb: 3 }}>
+                            {service.short_description}
+                          </Typography>
+                        </CardContent>
+                        <Box sx={{ p: 3, pt: 0, borderTop: '1px solid #f1f5f9' }}>
+                          <Button
+                            component={Link}
+                            href={`/services/${service.slug}`}
+                            variant="text"
+                            color="primary"
+                            endIcon={<ArrowRight size={16} />}
+                            sx={{ fontWeight: 800, p: 0, mt: 2, color: '#eab308', '&:hover': { gap: 1, color: '#ca8a04' } }}
+                          >
+                            اقرأ المزيد
+                          </Button>
+                        </Box>
+                      </Card>
+                    </ScrollReveal>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+
+              {/* Services Pagination */}
+              {servicesMeta.last_page > 1 && (
+                <Box mt={6} display="flex" justifyContent="center">
+                  <Pagination
+                    count={servicesMeta.last_page}
+                    page={servicesMeta.current_page}
+                    onChange={(_, value) => {
+                      setServicesPage(value);
+                      const el = document.getElementById('services-section');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    siblingCount={1}
+                    boundaryCount={1}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        {...item}
+                        sx={{
+                          fontWeight: 700,
+                          borderRadius: 2,
+                          '&.Mui-selected': {
+                            bgcolor: '#eab308',
+                            color: '#0f172a',
+                            '&:hover': { bgcolor: '#ca8a04' }
+                          },
+                          '&:hover': { borderColor: '#eab308', color: '#eab308' }
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              )}
+            </>
+          )}
         </Container>
       </Box>
 
@@ -878,7 +968,7 @@ export default function PublicHomePage() {
       </Box>
 
       {/* ─── 7. ARTICLES ─────────────────────────────────────── */}
-      <Box sx={{ py: 12, bgcolor: '#f8fafc', borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
+      <Box id="articles-section" sx={{ py: 12, bgcolor: '#f8fafc', borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
         <Container maxWidth="lg">
           <ScrollReveal direction="up">
             <Box display="flex" justifyContent="space-between" alignItems="flex-end" mb={6}>
@@ -909,51 +999,92 @@ export default function PublicHomePage() {
               </Button>
             </Box>
           </ScrollReveal>
-          <Grid container spacing={4}>
-            {articles.map((art, idx) => (
-              <Grid item xs={12} md={4} key={art.id}>
-                <ScrollReveal direction="up" delay={idx * 0.12}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      borderRadius: 4,
-                      overflow: 'hidden',
-                      border: '1px solid #e2e8f0',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.02)',
-                      transition: 'all 0.3s',
-                      '&:hover': { transform: 'translateY(-6px)', borderColor: '#eab308', boxShadow: '0 15px 30px rgba(234,179,8,0.08)' }
-                    }}
-                  >
-                    {art.image && <CardMedia component="img" height="200" image={art.image} alt={art.title} loading="lazy" decoding="async" />}
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                      <Typography variant="h4" fontWeight={800} gutterBottom color="#0f172a" sx={{ fontSize: '1.2rem', lineHeight: 1.4 }}>
-                        {art.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.6 }}
+
+          {articlesLoading ? (
+            <Box display="flex" justifyContent="center" py={8}>
+              <CircularProgress size={44} sx={{ color: '#eab308' }} />
+            </Box>
+          ) : (
+            <>
+              <Grid container spacing={4}>
+                {articles.map((art, idx) => (
+                  <Grid item xs={12} md={4} key={art.id}>
+                    <ScrollReveal direction="up" delay={idx * 0.12}>
+                      <Card
+                        sx={{
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          borderRadius: 4,
+                          overflow: 'hidden',
+                          border: '1px solid #e2e8f0',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.02)',
+                          transition: 'all 0.3s',
+                          '&:hover': { transform: 'translateY(-6px)', borderColor: '#eab308', boxShadow: '0 15px 30px rgba(234,179,8,0.08)' }
+                        }}
                       >
-                        {art.excerpt}
-                      </Typography>
-                    </CardContent>
-                    <Box p={3} pt={0} sx={{ borderTop: '1px solid #f1f5f9' }}>
-                      <Button
-                        component={Link}
-                        href={`/blog/${art.slug}`}
-                        variant="text"
-                        sx={{ fontWeight: 800, p: 0, mt: 2, color: '#eab308', '&:hover': { color: '#ca8a04' } }}
-                      >
-                        اقرأ المقال كاملاً
-                      </Button>
-                    </Box>
-                  </Card>
-                </ScrollReveal>
+                        {art.image && <CardMedia component="img" height="200" image={art.image} alt={art.title} loading="lazy" decoding="async" />}
+                        <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                          <Typography variant="h4" fontWeight={800} gutterBottom color="#0f172a" sx={{ fontSize: '1.2rem', lineHeight: 1.4 }}>
+                            {art.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.6 }}
+                          >
+                            {art.excerpt}
+                          </Typography>
+                        </CardContent>
+                        <Box p={3} pt={0} sx={{ borderTop: '1px solid #f1f5f9' }}>
+                          <Button
+                            component={Link}
+                            href={`/blog/${art.slug}`}
+                            variant="text"
+                            sx={{ fontWeight: 800, p: 0, mt: 2, color: '#eab308', '&:hover': { color: '#ca8a04' } }}
+                          >
+                            اقرأ المقال كاملاً
+                          </Button>
+                        </Box>
+                      </Card>
+                    </ScrollReveal>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+
+              {/* Articles Pagination */}
+              {articlesMeta.last_page > 1 && (
+                <Box mt={6} display="flex" justifyContent="center">
+                  <Pagination
+                    count={articlesMeta.last_page}
+                    page={articlesMeta.current_page}
+                    onChange={(_, value) => {
+                      setArticlesPage(value);
+                      const el = document.getElementById('articles-section');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    siblingCount={1}
+                    boundaryCount={1}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        {...item}
+                        sx={{
+                          fontWeight: 700,
+                          borderRadius: 2,
+                          '&.Mui-selected': {
+                            bgcolor: '#eab308',
+                            color: '#0f172a',
+                            '&:hover': { bgcolor: '#ca8a04' }
+                          },
+                          '&:hover': { borderColor: '#eab308', color: '#eab308' }
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              )}
+            </>
+          )}
         </Container>
       </Box>
 

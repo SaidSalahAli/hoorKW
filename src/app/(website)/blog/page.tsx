@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -13,6 +13,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
 import Link from 'next/link';
 import ScrollReveal from 'components/ScrollReveal';
 
@@ -21,28 +23,63 @@ import { publicApiClient as apiClient } from 'lib/apiClient';
 
 // ==============================|| PUBLIC BLOG PAGE ||============================== //
 
+interface PaginationMeta {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+}
+
+const PER_PAGE = 6;
+
 export default function PublicBlogPage() {
   const [articles, setArticles] = useState<any[]>([]);
+  const [meta, setMeta] = useState<PaginationMeta>({ current_page: 1, last_page: 1, per_page: PER_PAGE, total: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(1);
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  // Debounce search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+      setPage(1); // Reset to page 1 on new search
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const loadArticles = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const params = new URLSearchParams({
+        page: String(page),
+        per_page: String(PER_PAGE)
+      });
+      if (debouncedSearch) params.set('search', debouncedSearch);
+
+      const res = await apiClient.get(`/api/articles?${params.toString()}`);
+      setArticles(res.data.data || []);
+      if (res.data.meta) {
+        setMeta(res.data.meta);
+      }
+    } catch (err: any) {
+      setError(err.message || 'خطأ في تحميل المقالات. يرجى المحاولة لاحقاً.');
+    } finally {
+      setLoading(false);
+    }
+  }, [page, debouncedSearch]);
 
   useEffect(() => {
-    async function loadArticles() {
-      try {
-        const url = searchQuery
-          ? `/api/articles?status=published&search=${encodeURIComponent(searchQuery)}`
-          : '/api/articles?status=published';
-        const res = await apiClient.get(url);
-        setArticles(res.data.data || []);
-      } catch (err: any) {
-        setError(err.message || 'خطأ في تحميل المقالات. يرجى المحاولة لاحقاً.');
-      } finally {
-        setLoading(false);
-      }
-    }
     loadArticles();
-  }, [searchQuery]);
+  }, [loadArticles]);
+
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <Box>
@@ -142,98 +179,132 @@ export default function PublicBlogPage() {
             <Typography color="text.secondary">لا توجد مقالات منشورة حالياً تطابق بحثك.</Typography>
           </Box>
         ) : (
-          <Grid container spacing={4}>
-            {articles.map((art, idx) => (
-              <Grid item xs={12} sm={6} md={4} key={art.id}>
-                <ScrollReveal direction="up" delay={idx * 0.1}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      borderRadius: 4,
-                      overflow: 'hidden',
-                      border: '1px solid #e2e8f0',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
-                      transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-                      '&:hover': {
-                        transform: 'translateY(-6px)',
-                        borderColor: '#eab308',
-                        boxShadow: '0 20px 25px -5px rgba(234,179,8,0.1)'
-                      }
-                    }}
-                  >
-                    <Box sx={{ position: 'relative', height: 200, overflow: 'hidden', bgcolor: 'action.hover' }}>
-                      {art.image ? (
-                        <CardMedia
-                          component="img"
-                          height="100%"
-                          image={art.image}
-                          alt={art.title}
-                          sx={{
-                            objectFit: 'cover',
-                            transition: 'transform 0.5s ease',
-                            '&:hover': { transform: 'scale(1.08)' }
-                          }}
-                        />
-                      ) : (
-                        <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-                          <Gallery size={44} color="#ccc" />
-                        </Box>
-                      )}
-                    </Box>
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                      <Typography variant="h4" fontWeight={800} color="#0f172a" gutterBottom sx={{ fontSize: '1.2rem', lineHeight: 1.45 }}>
-                        {art.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.7 }}
-                      >
-                        {art.excerpt}
-                      </Typography>
-                    </CardContent>
-                    <Box
+          <>
+            <Grid container spacing={4}>
+              {articles.map((art, idx) => (
+                <Grid item xs={12} sm={6} md={4} key={art.id}>
+                  <ScrollReveal direction="up" delay={idx * 0.1}>
+                    <Card
                       sx={{
-                        p: 3,
-                        pt: 0,
-                        borderTop: '1px solid #f1f5f9',
+                        height: '100%',
                         display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
+                        flexDirection: 'column',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        border: '1px solid #e2e8f0',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                        transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&:hover': {
+                          transform: 'translateY(-6px)',
+                          borderColor: '#eab308',
+                          boxShadow: '0 20px 25px -5px rgba(234,179,8,0.1)'
+                        }
                       }}
                     >
-                      <Link href={`/blog/${art.slug}`} passHref legacyBehavior>
-                        <Button
-                          variant="text"
-                          sx={{
-                            fontWeight: 800,
-                            p: 0,
-                            color: '#eab308',
-                            '&:hover': { color: '#ca8a04', bgcolor: 'transparent' },
-                            '&:focus, &:focus-visible, &:active, &.Mui-focusVisible': {
-                              outline: 'none !important',
-                              boxShadow: 'none !important',
-                              border: 'none !important',
-                              bgcolor: 'transparent'
-                            },
-                            WebkitTapHighlightColor: 'transparent',
-                            transition: 'all 0.2s'
-                          }}
+                      <Box sx={{ position: 'relative', height: 200, overflow: 'hidden', bgcolor: 'action.hover' }}>
+                        {art.image ? (
+                          <CardMedia
+                            component="img"
+                            height="100%"
+                            image={art.image}
+                            alt={art.title}
+                            sx={{
+                              objectFit: 'cover',
+                              transition: 'transform 0.5s ease',
+                              '&:hover': { transform: 'scale(1.08)' }
+                            }}
+                          />
+                        ) : (
+                          <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+                            <Gallery size={44} color="#ccc" />
+                          </Box>
+                        )}
+                      </Box>
+                      <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                        <Typography variant="h4" fontWeight={800} color="#0f172a" gutterBottom sx={{ fontSize: '1.2rem', lineHeight: 1.45 }}>
+                          {art.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ lineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.7 }}
                         >
-                          اقرأ المزيد
-                        </Button>
-                      </Link>
-                      <Typography variant="caption" color="text.secondary" fontWeight={500}>
-                        {new Date(art.published_at || art.created_at).toLocaleDateString('ar-KW')}
-                      </Typography>
-                    </Box>
-                  </Card>
-                </ScrollReveal>
-              </Grid>
-            ))}
-          </Grid>
+                          {art.excerpt}
+                        </Typography>
+                      </CardContent>
+                      <Box
+                        sx={{
+                          p: 3,
+                          pt: 0,
+                          borderTop: '1px solid #f1f5f9',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Link href={`/blog/${art.slug}`} passHref legacyBehavior>
+                          <Button
+                            variant="text"
+                            sx={{
+                              fontWeight: 800,
+                              p: 0,
+                              color: '#eab308',
+                              '&:hover': { color: '#ca8a04', bgcolor: 'transparent' },
+                              '&:focus, &:focus-visible, &:active, &.Mui-focusVisible': {
+                                outline: 'none !important',
+                                boxShadow: 'none !important',
+                                border: 'none !important',
+                                bgcolor: 'transparent'
+                              },
+                              WebkitTapHighlightColor: 'transparent',
+                              transition: 'all 0.2s'
+                            }}
+                          >
+                            اقرأ المزيد
+                          </Button>
+                        </Link>
+                        <Typography variant="caption" color="text.secondary" fontWeight={500}>
+                          {new Date(art.published_at || art.created_at).toLocaleDateString('ar-KW')}
+                        </Typography>
+                      </Box>
+                    </Card>
+                  </ScrollReveal>
+                </Grid>
+              ))}
+            </Grid>
+
+            {/* Pagination */}
+            {meta.last_page > 1 && (
+              <Box mt={8} display="flex" flexDirection="column" alignItems="center" gap={1.5}>
+                <Pagination
+                  count={meta.last_page}
+                  page={meta.current_page}
+                  onChange={handlePageChange}
+                  siblingCount={1}
+                  boundaryCount={1}
+                  renderItem={(item) => (
+                    <PaginationItem
+                      {...item}
+                      sx={{
+                        fontWeight: 700,
+                        borderRadius: 2,
+                        '&.Mui-selected': {
+                          bgcolor: '#eab308',
+                          color: '#0f172a',
+                          '&:hover': { bgcolor: '#ca8a04' }
+                        },
+                        '&:hover': { borderColor: '#eab308', color: '#eab308' }
+                      }}
+                    />
+                  )}
+                />
+                <Typography variant="caption" color="text.secondary">
+                  عرض {meta.from ?? ((meta.current_page - 1) * meta.per_page + 1)} –{' '}
+                  {meta.to ?? Math.min(meta.current_page * meta.per_page, meta.total)} من أصل {meta.total} مقالة
+                </Typography>
+              </Box>
+            )}
+          </>
         )}
       </Container>
     </Box>

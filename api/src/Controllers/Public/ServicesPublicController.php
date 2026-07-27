@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Controllers\Public;
 
-use App\Core\{BaseController, Response};
+use App\Core\{BaseController, Response, Paginator};
 use App\Repositories\ServiceRepository;
 
 /** ServicesPublicController — جلب الخدمات المتاحة للجمهور */
@@ -28,9 +28,19 @@ final class ServicesPublicController extends BaseController
             }
         }
 
-        $limit = $this->request->integer('limit', 12, 'query');
-        $services = $this->services->getActive($limit);
-        Response::success($services, 'تم جلب الخدمات بنجاح');
+        $page    = $this->page();
+        $perPage = $this->perPage();
+
+        $result = Paginator::paginate('services', [
+            'select'   => 'id, title, slug, image, short_description',
+            'where'    => "status = 'active'",
+            'params'   => [],
+            'page'     => $page,
+            'per_page' => $perPage,
+            'order'    => 'sort_order ASC, created_at DESC',
+        ]);
+
+        Response::paginated($result['items'], $result['meta'], 'تم جلب الخدمات بنجاح');
     }
 
     /** GET /public/services/{slug} أو /api/services/slug/{slug} */

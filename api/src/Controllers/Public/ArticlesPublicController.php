@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Controllers\Public;
 
-use App\Core\{BaseController, Response, Database};
+use App\Core\{BaseController, Response, Paginator};
 use App\Repositories\ArticleRepository;
 
 /** ArticlesPublicController — مقالات المدونة العامة للموقع */
@@ -28,23 +28,30 @@ final class ArticlesPublicController extends BaseController
             }
         }
 
-        // جلب جميع المقالات المنشورة مع دعم البحث
-        $search = $this->request->string('search', '', 'query');
+        // دعم ترقيم الصفحات
+        $page    = $this->page();
+        $perPage = $this->perPage();
+        $search  = $this->request->string('search', '', 'query');
 
-        $sql    = "SELECT id, title, slug, image, excerpt, views, published_at, created_at
-                   FROM articles WHERE status = 'published'";
+        $where  = ["status = 'published'"];
         $params = [];
 
         if (!empty($search)) {
-            $sql   .= " AND (title LIKE ? OR excerpt LIKE ?)";
+            $where[]  = '(title LIKE ? OR excerpt LIKE ?)';
             $params[] = "%{$search}%";
             $params[] = "%{$search}%";
         }
 
-        $sql .= " ORDER BY published_at DESC";
+        $result = Paginator::paginate('articles', [
+            'select'   => 'id, title, slug, image, excerpt, views, published_at, created_at',
+            'where'    => implode(' AND ', $where),
+            'params'   => $params,
+            'page'     => $page,
+            'per_page' => $perPage,
+            'order'    => 'published_at DESC',
+        ]);
 
-        $articles = Database::all($sql, $params);
-        Response::success($articles, 'تم جلب المقالات بنجاح');
+        Response::paginated($result['items'], $result['meta'], 'تم جلب المقالات بنجاح');
     }
 
     /** GET /public/articles/{slug} أو /api/articles/slug/{slug} */
