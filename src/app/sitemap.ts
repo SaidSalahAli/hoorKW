@@ -55,12 +55,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicPages: MetadataRoute.Sitemap = [];
 
   try {
-    const rawApi = process.env.NEXT_PUBLIC_API_URL || 'https://api.elhoormoving.com';
-    const apiBase = rawApi.replace(/\/+$/, '').replace(/\/api\/public\/?$/, '');
+    const apiBase = (process.env.NEXT_PUBLIC_API_URL || 'https://api.elhoormoving.com/api/public').replace(/\/+$/, '');
 
     const [servicesRes, articlesRes] = await Promise.allSettled([
-      fetch(`${apiBase}/api/services?status=active&per_page=100`, { next: { revalidate: 3600 } }),
-      fetch(`${apiBase}/api/articles?status=published&per_page=100`, { next: { revalidate: 3600 } })
+      fetch(`${apiBase}/services?status=active&per_page=100`, { next: { revalidate: 3600 } }),
+      fetch(`${apiBase}/articles?status=published&per_page=100`, { next: { revalidate: 3600 } })
     ]);
 
     if (servicesRes.status === 'fulfilled' && servicesRes.value.ok) {

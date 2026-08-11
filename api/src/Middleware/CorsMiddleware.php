@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace App\Middleware;
 
-use App\Core\{Request, Response};
-
 /**
  * CorsMiddleware — معالجة طلبات CORS
  */
@@ -13,24 +11,26 @@ final class CorsMiddleware
     {
         $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-        $allowed = in_array($origin, $config['origins'], true)
-                || in_array('*', $config['origins'], true);
+        $allowedOrigins = $config['origins'] ?? [];
+        $isAllowed = empty($origin) 
+            || in_array('*', $allowedOrigins, true) 
+            || in_array($origin, $allowedOrigins, true);
 
-        if ($allowed) {
+        if (!empty($origin) && $isAllowed) {
             header("Access-Control-Allow-Origin: $origin");
-        }
-
-        header('Access-Control-Allow-Methods: ' . implode(', ', $config['methods']));
-        header('Access-Control-Allow-Headers: ' . implode(', ', $config['headers']));
-        header('Access-Control-Max-Age: ' . $config['max_age']);
-
-        if ($config['credentials']) {
             header('Access-Control-Allow-Credentials: true');
+        } else {
+            header("Access-Control-Allow-Origin: *");
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers');
+        header('Access-Control-Max-Age: 86400');
+
+        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             http_response_code(200);
-            exit;
+            exit(0);
         }
     }
 }
+
