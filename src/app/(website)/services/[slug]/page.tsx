@@ -49,23 +49,47 @@ async function fetchServiceBySlugOrSearch(slugParam: string) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const canonicalUrl = `https://elhoormoving.com/services/${slug}`;
+
   try {
     const service = await fetchServiceBySlugOrSearch(slug);
     if (!service) throw new Error('Not found');
 
+    const title = service.meta_title || `${service.title} | شركة الحور لنقل العفش بالكويت`;
+    const description = service.meta_description || service.short_description;
+
     return {
-      title: service.meta_title || service.title,
-      description: service.meta_description || service.short_description,
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+        languages: {
+          'ar-KW': canonicalUrl,
+          'x-default': canonicalUrl
+        }
+      },
       openGraph: {
-        title: service.meta_title || service.title,
-        description: service.meta_description || service.short_description,
+        title,
+        description,
+        url: canonicalUrl,
+        siteName: 'الحور لنقل العفش',
+        locale: 'ar_KW',
+        type: 'website',
         images: service.image ? [{ url: service.image }] : []
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description
       }
     };
   } catch {
     return {
       title: 'الخدمة غير موجودة | الحور لنقل العفش',
-      description: 'الخدمة المطلوبة غير متوفرة حالياً.'
+      description: 'الخدمة المطلوبة غير متوفرة حالياً.',
+      alternates: {
+        canonical: canonicalUrl
+      }
     };
   }
 }
@@ -112,5 +136,53 @@ export default async function ServiceDetailsPage({ params }: Props) {
       </Container>
     );
   }
-  return <ServiceDetailsClient service={service} />;
+
+  const serviceCanonical = `https://elhoormoving.com/services/${slug}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': `${serviceCanonical}#service`,
+        name: service.title,
+        description: service.short_description || service.description,
+        provider: { '@id': 'https://elhoormoving.com/#organization' },
+        areaServed: { '@type': 'Country', name: 'الكويت' },
+        url: serviceCanonical,
+        image: service.image || 'https://elhoormoving.com/assets/images/home/hero.png'
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${serviceCanonical}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'الرئيسية',
+            item: 'https://elhoormoving.com'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'الخدمات',
+            item: 'https://elhoormoving.com/services'
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: service.title,
+            item: serviceCanonical
+          }
+        ]
+      }
+    ]
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ServiceDetailsClient service={service} />
+    </>
+  );
 }

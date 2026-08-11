@@ -49,23 +49,48 @@ async function fetchArticleBySlugOrSearch(slugParam: string) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const canonicalUrl = `https://elhoormoving.com/blog/${slug}`;
+
   try {
     const article = await fetchArticleBySlugOrSearch(slug);
     if (!article) throw new Error('Not found');
 
+    const title = article.meta_title || `${article.title} | مدونة الحور لنقل العفش`;
+    const description = article.meta_description || article.excerpt;
+
     return {
-      title: article.meta_title || article.title,
-      description: article.meta_description || article.excerpt,
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+        languages: {
+          'ar-KW': canonicalUrl,
+          'x-default': canonicalUrl
+        }
+      },
       openGraph: {
-        title: article.meta_title || article.title,
-        description: article.meta_description || article.excerpt,
+        title,
+        description,
+        url: canonicalUrl,
+        siteName: 'الحور لنقل العفش',
+        locale: 'ar_KW',
+        type: 'article',
+        publishedTime: article.published_at || article.created_at,
         images: article.image ? [{ url: article.image }] : []
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description
       }
     };
   } catch {
     return {
       title: 'المقال غير موجود | الحور لنقل العفش',
-      description: 'المقال المطلوب غير متوفر حالياً.'
+      description: 'المقال المطلوب غير متوفر حالياً.',
+      alternates: {
+        canonical: canonicalUrl
+      }
     };
   }
 }
@@ -122,5 +147,57 @@ export default async function ArticleDetailsPage({ params }: Props) {
     );
   }
 
-  return <ArticleDetailsClient article={article} related={related} />;
+  const articleCanonical = `https://elhoormoving.com/blog/${slug}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${articleCanonical}#article`,
+        headline: article.title,
+        description: article.excerpt,
+        image: article.image || 'https://elhoormoving.com/assets/images/home/hero.png',
+        datePublished: article.published_at || article.created_at,
+        dateModified: article.updated_at || article.published_at || article.created_at,
+        publisher: { '@id': 'https://elhoormoving.com/#organization' },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': articleCanonical
+        },
+        inLanguage: 'ar-KW'
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${articleCanonical}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'الرئيسية',
+            item: 'https://elhoormoving.com'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'المدونة',
+            item: 'https://elhoormoving.com/blog'
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: article.title,
+            item: articleCanonical
+          }
+        ]
+      }
+    ]
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ArticleDetailsClient article={article} related={related} />
+    </>
+  );
 }

@@ -36,7 +36,11 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL('https://elhoormoving.com'),
   alternates: {
-    canonical: '/'
+    canonical: 'https://elhoormoving.com',
+    languages: {
+      'ar-KW': 'https://elhoormoving.com',
+      'x-default': 'https://elhoormoving.com'
+    }
   },
   openGraph: {
     title: 'الحور لنقل العفش | أفضل شركة نقل عفش وأثاث بالكويت 24 ساعة',
@@ -58,39 +62,61 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'MovingCompany',
-  name: 'شركة الحور لنقل العفش والأثاث بالكويت',
-  image: 'https://elhoormoving.com/assets/images/home/hero.png',
-  '@id': 'https://elhoormoving.com/#organization',
-  url: 'https://elhoormoving.com',
-  telephone: '+96512345678',
-  priceRange: '$$',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'جميع مناطق الكويت',
-    addressLocality: 'الكويت',
-    addressRegion: 'الكويت',
-    postalCode: '13000',
-    addressCountry: 'KW'
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 29.3759,
-    longitude: 47.9774
-  },
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '00:00',
-    closes: '23:59'
-  },
-  areaServed: ['الكويت', 'حولي', 'السالمية', 'الفروانية', 'الأحمدي', 'الجهراء', 'مبارك الكبير', 'العاصمة'],
-  sameAs: [
-    'https://www.facebook.com/elhoormoving',
-    'https://www.instagram.com/elhoormoving',
-    'https://twitter.com/elhoormoving',
-    'https://www.youtube.com/@elhoormoving',
-    'https://www.linkedin.com/company/elhoormoving'
+  '@graph': [
+    {
+      '@type': 'MovingCompany',
+      '@id': 'https://elhoormoving.com/#organization',
+      name: 'شركة الحور لنقل العفش والأثاث بالكويت',
+      url: 'https://elhoormoving.com',
+      image: 'https://elhoormoving.com/assets/images/home/hero.png',
+      logo: 'https://elhoormoving.com/assets/images/home/elhoor-yellow_white_slogan.png',
+      telephone: '+965 96512345678',
+      priceRange: '$$',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'جميع مناطق دولة الكويت',
+        addressLocality: 'الكويت',
+        addressRegion: 'الكويت',
+        postalCode: '13000',
+        addressCountry: 'KW'
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 29.3759,
+        longitude: 47.9774
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59'
+      },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'الكويت' },
+        { '@type': 'AdministrativeArea', name: 'حولي' },
+        { '@type': 'AdministrativeArea', name: 'السالمية' },
+        { '@type': 'AdministrativeArea', name: 'الفروانية' },
+        { '@type': 'AdministrativeArea', name: 'الأحمدي' },
+        { '@type': 'AdministrativeArea', name: 'الجهراء' },
+        { '@type': 'AdministrativeArea', name: 'مبارك الكبير' },
+        { '@type': 'AdministrativeArea', name: 'العاصمة' }
+      ],
+      sameAs: [
+        'https://www.facebook.com/elhoormoving',
+        'https://www.instagram.com/elhoormoving',
+        'https://twitter.com/elhoormoving',
+        'https://www.youtube.com/@elhoormoving',
+        'https://www.linkedin.com/company/elhoormoving'
+      ]
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://elhoormoving.com/#website',
+      url: 'https://elhoormoving.com',
+      name: 'شركة الحور لنقل العفش',
+      publisher: { '@id': 'https://elhoormoving.com/#organization' },
+      inLanguage: 'ar-KW'
+    }
   ]
 };
 
