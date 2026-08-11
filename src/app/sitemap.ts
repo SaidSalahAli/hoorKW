@@ -55,7 +55,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicPages: MetadataRoute.Sitemap = [];
 
   try {
-    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const rawApi = process.env.NEXT_PUBLIC_API_URL || 'https://api.elhoormoving.com';
+    const apiBase = rawApi.replace(/\/+$/, '').replace(/\/api\/public\/?$/, '');
 
     const [servicesRes, articlesRes] = await Promise.allSettled([
       fetch(`${apiBase}/api/services?status=active&per_page=100`, { next: { revalidate: 3600 } }),

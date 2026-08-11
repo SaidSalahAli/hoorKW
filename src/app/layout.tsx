@@ -99,7 +99,7 @@ const GTM_ID = 'GTM-WZDMNT8R';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ar" dir="rtl">
-      <head>
+      <body>
         <link rel="preconnect" href="https://api.elhoormoving.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.elhoormoving.com" />
 
@@ -116,8 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         {/* End Google Tag Manager */}
-      </head>
-      <body>
+
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

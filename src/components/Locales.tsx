@@ -5,6 +5,7 @@ import { IntlProvider, MessageFormatElement } from 'react-intl';
 
 // project-imports
 import useConfig from 'hooks/useConfig';
+import arMessages from 'utils/locales/ar.json';
 
 // types
 import { I18n } from 'types/config';
@@ -19,8 +20,10 @@ function loadLocaleData(locale: I18n) {
     case 'zh':
       return import('utils/locales/zh.json');
     case 'en':
-    default:
       return import('utils/locales/en.json');
+    case 'ar':
+    default:
+      return import('utils/locales/ar.json');
   }
 }
 
@@ -33,7 +36,9 @@ interface Props {
 export default function Locales({ children }: Props) {
   const { i18n } = useConfig();
 
-  const [messages, setMessages] = useState<Record<string, string> | Record<string, MessageFormatElement[]> | undefined>();
+  const [messages, setMessages] = useState<Record<string, string> | Record<string, MessageFormatElement[]> | undefined>(
+    arMessages as any
+  );
 
   useEffect(() => {
     loadLocaleData(i18n).then((d: { default: Record<string, string> | Record<string, MessageFormatElement[]> | undefined }) => {
@@ -42,12 +47,9 @@ export default function Locales({ children }: Props) {
   }, [i18n]);
 
   return (
-    <>
-      {messages && (
-        <IntlProvider locale={i18n} defaultLocale="en" messages={messages}>
-          {children}
-        </IntlProvider>
-      )}
-    </>
+    <IntlProvider locale={i18n || 'ar'} defaultLocale="ar" messages={messages || (arMessages as any)}>
+      {children}
+    </IntlProvider>
   );
 }
+
