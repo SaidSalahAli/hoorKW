@@ -4,8 +4,8 @@ import RequestServiceClient from './RequestServiceClient';
 // ==============================|| REQUEST SERVICE PAGE (SERVER) ||============================== //
 
 export const metadata: Metadata = {
-  title: 'طلب تسعيرة نقل عفش أونلاين | شركة الحور بالكويت',
-  description: 'احصل على تسعيرة فورية ومجانية لنقل وتغليف عفشك بجميع مناطق الكويت. نصلك أينما كنت بأقل تكلفة وأسرع وقت.',
+  title: 'طلب تسعيرة نقل عفش مجانية | شركة الحور لنقل الأثاث',
+  description: 'احصل على عرض سعر سريع ومجاني لنقل وتغليف العفش والأثاث في أي مكان بالكويت من شركة الحور.',
   alternates: {
     canonical: 'https://elhoormoving.com/request-service',
     languages: {
@@ -14,20 +14,21 @@ export const metadata: Metadata = {
     }
   },
   openGraph: {
-    title: 'طلب تسعيرة نقل عفش أونلاين | شركة الحور بالكويت',
-    description: 'احصل على تسعيرة فورية ومجانية لنقل وتغليف عفشك بجميع مناطق الكويت. نصلك أينما كنت بأقل تكلفة وأسرع وقت.',
+    title: 'طلب تسعيرة نقل عفش مجانية | شركة الحور لنقل الأثاث',
+    description: 'احصل على عرض سعر سريع ومجاني لنقل وتغليف العفش والأثاث في أي مكان بالكويت من شركة الحور.',
     url: 'https://elhoormoving.com/request-service',
-    siteName: 'الحور لنقل العفش',
+    siteName: 'شركة الحور لنقل العفش',
     locale: 'ar_KW',
     type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'طلب تسعيرة نقل عفش أونلاين | شركة الحور بالكويت',
-    description: 'احصل على تسعيرة فورية ومجانية لنقل وتغليف عفشك بجميع مناطق الكويت. نصلك أينما كنت بأقل تكلفة وأسرع وقت.'
+    title: 'طلب تسعيرة نقل عفش مجانية | شركة الحور لنقل الأثاث',
+    description: 'احصل على عرض سعر سريع ومجاني لنقل وتغليف العفش والأثاث في أي مكان بالكويت من شركة الحور.'
   }
 };
 
 export default function RequestServicePage() {
   return <RequestServiceClient />;
 }
+
