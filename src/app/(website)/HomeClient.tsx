@@ -166,7 +166,7 @@ export default function HomeClient() {
     articles: DEFAULT_ARTICLES,
     gallery: DEFAULT_GALLERY,
     testimonials: DEFAULT_TESTIMONIALS,
-    settings: { phone: '96512345678', site_name: 'الحور لنقل العفش' }
+    settings: { phone: '66091322', whatsapp: '96566091322', site_name: 'الحور لنقل العفش' }
   });
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -192,7 +192,7 @@ export default function HomeClient() {
           ...prev,
           gallery: galleryRes.data.data?.length ? galleryRes.data.data : DEFAULT_GALLERY,
           testimonials: testimonialsRes.data.data?.length ? testimonialsRes.data.data : DEFAULT_TESTIMONIALS,
-          settings: settingsRes.data.data || { phone: '96512345678', site_name: 'الحور لنقل العفش' }
+          settings: settingsRes.data.data || { phone: '66091322', whatsapp: '96566091322', site_name: 'الحور لنقل العفش' }
         }));
       } catch (err) {
         console.error('Error loading static home data:', err);

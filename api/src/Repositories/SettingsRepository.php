@@ -16,8 +16,8 @@ final class SettingsRepository
     {
         Database::insert('settings', [
             'site_name' => 'الحور لنقل العفش',
-            'phone'     => '96512345678',
-            'whatsapp'  => '96512345678',
+            'phone'     => '66091322',
+            'whatsapp'  => '96566091322',
         ]);
         return $this->get();
     }

@@ -75,8 +75,8 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
 
   const isHome = pathname === '/';
 
-  const phone = settings?.phone || '96512345678';
-  const whatsapp = settings?.whatsapp || '96512345678';
+  const phone = settings?.phone || '66091322';
+  const whatsapp = settings?.whatsapp || '96566091322';
   const siteName = settings?.site_name || 'الحور لنقل العفش';
 
   const navLinks = [

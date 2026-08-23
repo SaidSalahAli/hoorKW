@@ -189,8 +189,8 @@ INSERT INTO `service_requests` (`name`, `phone`, `service_id`, `message`, `statu
 CREATE TABLE IF NOT EXISTS `settings` (
   `id`              INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `site_name`       VARCHAR(150) NOT NULL DEFAULT 'الحور لنقل العفش',
-  `phone`           VARCHAR(25) NOT NULL DEFAULT '96512345678',
-  `whatsapp`        VARCHAR(25) NOT NULL DEFAULT '96512345678',
+  `phone`           VARCHAR(25) NOT NULL DEFAULT '66091322',
+  `whatsapp`        VARCHAR(25) NOT NULL DEFAULT '96566091322',
   `email`           VARCHAR(180) DEFAULT NULL,
   `address`         VARCHAR(300) DEFAULT NULL,
   `logo`            VARCHAR(500) DEFAULT NULL,
@@ -211,8 +211,8 @@ INSERT INTO `settings`
   (`site_name`, `phone`, `whatsapp`, `email`, `address`, `seo_title`, `seo_description`)
 VALUES
   ('الحور لنقل العفش',
-   '96512345678',
-   '96512345678',
+   '66091322',
+   '96566091322',
    'info@hoorkw.com',
    'دولة الكويت - العاصمة',
    'الحور لنقل العفش | أفضل شركة نقل أثاث في الكويت',

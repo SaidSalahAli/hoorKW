@@ -92,8 +92,8 @@ export default function ContactClient() {
     );
   }
 
-  const phone = settings.phone || '96512345678';
-  const whatsapp = settings.whatsapp || '96512345678';
+  const phone = settings.phone || '66091322';
+  const whatsapp = settings.whatsapp || '96566091322';
 
   return (
     <Box>

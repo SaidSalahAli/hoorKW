@@ -70,7 +70,7 @@ const jsonLd = {
       url: 'https://elhoormoving.com',
       image: 'https://elhoormoving.com/assets/images/home/hero.png',
       logo: 'https://elhoormoving.com/assets/images/home/elhoor-yellow_white_slogan.png',
-      telephone: '+965 96512345678',
+      telephone: '+965 66091322',
       priceRange: '$$',
       address: {
         '@type': 'PostalAddress',

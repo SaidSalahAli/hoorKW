@@ -169,23 +169,32 @@ final class MailService
 
         // تحديد البريد المرسل وعنوان الرد
         $smtpUser = $_ENV['SMTP_USER'] ?? 'info@elhoormoving.com';
+        $smtpPass = $_ENV['SMTP_PASS'] ?? '';
 
-        // Headers
+        $messageId = sprintf('<%s.%s@elhoormoving.com>', date('YmdHis'), bin2hex(random_bytes(8)));
+
+        // Headers (RFC 5322 Compliant لضمان صندوق الوارد Inbox)
         $headers = [];
-        $headers[] = 'MIME-Version: 1.0';
-        $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'From: Hoor Moving Website <' . $smtpUser . '>';
+        $headers[] = 'Date: ' . date(DATE_RFC2822);
+        $headers[] = 'Message-ID: ' . $messageId;
+        $headers[] = 'From: =?UTF-8?B?' . base64_encode('شركة الحور لنقل الأثاث') . '?= <' . $smtpUser . '>';
         $headers[] = 'Reply-To: ' . $smtpUser;
-        $headers[] = 'X-Mailer: PHP/' . phpversion();
+        $headers[] = 'Return-Path: <' . $smtpUser . '>';
+        $headers[] = 'Auto-Submitted: auto-generated';
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'X-Mailer: Hoor Moving Notification System';
 
-        // 1. إذا تم توفير كلمة مرور SMTP في ملف البيئة، يتم الإرسال عبر SMTP مباشرة لضمان صندوق الوارد
-        if (!empty($_ENV['SMTP_PASS'])) {
+        // 1. إذا تم توفير كلمة مرور SMTP في ملف البيئة، يتم الإرسال عبر SMTP مباشرة لضمان صندوق الوارد (Inbox)
+        if (!empty($smtpPass)) {
             $smtpSuccess = self::sendViaSMTP($to, $subject, $htmlContent, $headers);
             if ($smtpSuccess) {
                 return true;
             }
             // إذا فشل الإرسال عبر SMTP لأي سبب، يتم تسجيل الخطأ والمحاولة عبر دالة mail() الافتراضية كخيار بديل
             self::logError("SMTP dispatch failed. Falling back to local mail().");
+        } else {
+            self::logError("SMTP_PASS is missing in .env. Falling back to local mail().");
         }
 
         // 2. البديل الافتراضي: الإرسال عبر دالة mail() الخاصة بـ PHP
@@ -212,7 +221,12 @@ final class MailService
         $smtpHost = $_ENV['SMTP_HOST'] ?? 'ssl://smtp.hostinger.com';
         $smtpPort = (int)($_ENV['SMTP_PORT'] ?? 465);
         $smtpUser = $_ENV['SMTP_USER'] ?? 'info@elhoormoving.com';
-        $smtpPass = $_ENV['SMTP_PASS'] ?? 'Shady@2201';
+        $smtpPass = $_ENV['SMTP_PASS'] ?? '';
+
+        if (empty($smtpPass)) {
+            self::logError("SMTP Password is empty. Please set SMTP_PASS in api/.env.");
+            return false;
+        }
 
         $socket = @fsockopen($smtpHost, $smtpPort, $errno, $errstr, 15);
         if (!$socket) {
